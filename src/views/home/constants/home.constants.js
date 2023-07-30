@@ -1,0 +1,45 @@
+export const LIST_DATA = [
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/05/17/15/00/beach-8000413_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/03/22/19/24/nature-7870374_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/07/21/14/12/wild-flowers-8141725_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/05/28/03/34/flowers-8022731_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/07/04/10/30/dragonfly-8105991_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/07/15/18/01/insect-8129419_640.jpg",
+  },
+  {
+    image: "https://cdn.pixabay.com/photo/2023/07/22/09/45/bee-8143028_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2014/09/07/22/17/forest-438432_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2018/08/12/15/29/hintersee-3601004_640.jpg",
+  },
+];
