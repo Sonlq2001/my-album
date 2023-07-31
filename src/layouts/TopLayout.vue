@@ -25,7 +25,7 @@
       <div
         class="absolute left-0 right-0 bottom-0 top-0 max-w-[1830px] mx-auto px-8"
       >
-        <Header />
+        <Header isHome />
         <search-top />
       </div>
     </div>

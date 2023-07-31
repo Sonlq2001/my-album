@@ -1,5 +1,5 @@
 <template>
-  <div class="border-t border-[#cccc]">
+  <footer class="border-t border-[#cccc]">
     <div class="max-w-[1830px] mx-auto px-8 pt-10">
       <router-link
         :to="{ name: 'Home' }"
@@ -12,7 +12,7 @@
       <span class="text-xs mr-1">Developed by Le Quang Son</span>
       <i class="ri-heart-pulse-fill text-main text-md"></i>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script setup></script>
