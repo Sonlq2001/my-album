@@ -42,4 +42,20 @@ export const LIST_DATA = [
     image:
       "https://cdn.pixabay.com/photo/2018/08/12/15/29/hintersee-3601004_640.jpg",
   },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2016/11/29/13/46/book-1869969_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2020/05/31/19/37/iranian-architecture-5243948_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2021/11/02/21/57/prayer-6764197_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2016/11/23/13/46/honey-1852934_640.jpg",
+  },
 ];

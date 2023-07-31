@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1830px] px-8 mx-auto page-top mt-7">
+  <main class="max-w-[1830px] px-8 mx-auto page-top mt-7">
     <!-- navigation -->
     <div class="flex items-center justify-center">
       <router-link
@@ -23,20 +23,11 @@
     <!-- layout masonry -->
     <div class="relative">
       <div class="mt-7 columns-4 gap-5">
-        <div
+        <item-album
           v-for="(item, index) in LIST_DATA"
           :key="index"
-          class="mb-5 relative overflow-hidden box-image"
-        >
-          <img :src="item.image" alt="" class="w-full h-full" />
-
-          <div
-            class="flex justify-between absolute left-0 bottom-[-50px] right-0 text-white bg-[rgba(0,0,0,0.3)] p-3 z-10"
-          >
-            <span class="font-san font-semibold">Biển cả và ta</span>
-            <i class="ri-star-fill cursor-pointer"></i>
-          </div>
-        </div>
+          :album="item"
+        />
       </div>
 
       <div
@@ -53,12 +44,13 @@
     <!-- end layout masonry -->
 
     <box-message></box-message>
-  </div>
+  </main>
 </template>
 
 <script setup>
 import { NAV_HEADER } from "@/constants/NavHeader.constants.js";
 import { LIST_DATA } from "../constants/home.constants";
+import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 
 import BoxMessage from "../components/BoxMessage/BoxMessage.vue";
 </script>
@@ -72,9 +64,5 @@ import BoxMessage from "../components/BoxMessage/BoxMessage.vue";
 }
 .load-more {
   background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), #fff);
-}
-.box-image:hover > div {
-  bottom: 0;
-  transition: ease-in-out 0.2s;
 }
 </style>

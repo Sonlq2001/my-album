@@ -1,5 +1,5 @@
 import CategoryScreen from "@/views/category/screens/CategoryScreen.vue";
-import BlankLayout from "@/layouts/BlankLayout.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 import { CategoryPaths } from "../constants/category.path";
 
@@ -8,7 +8,7 @@ const CATEGORY_SCREEN = {
   name: "Category",
   component: CategoryScreen,
   meta: {
-    layout: BlankLayout,
+    layout: DefaultLayout,
   },
 };
 
