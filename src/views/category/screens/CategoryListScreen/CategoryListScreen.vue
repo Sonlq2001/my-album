@@ -23,13 +23,13 @@
         v-for="(item, index) in LIST_DATA"
         :key="index"
         :album="item"
-      ></item-album>
+      />
     </div>
   </main>
 </template>
 
 <script setup>
-import { LIST_DATA } from "../../home/constants/home.constants";
+import { LIST_DATA } from "@/views/home/home.js";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 </script>
 

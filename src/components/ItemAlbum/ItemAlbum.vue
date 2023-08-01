@@ -1,5 +1,8 @@
 <template>
-  <div class="mb-5 relative overflow-hidden box-image">
+  <router-link
+    :to="{ name: 'Album', params: { album_id: '1' } }"
+    class="mb-5 relative overflow-hidden box-image block"
+  >
     <img :src="album.image" alt="" class="w-full h-full" />
 
     <div
@@ -8,12 +11,10 @@
       <span class="font-san font-semibold">Biển cả và ta</span>
       <i class="ri-star-fill cursor-pointer"></i>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-
 const { album } = defineProps({
   album: {
     type: Object,

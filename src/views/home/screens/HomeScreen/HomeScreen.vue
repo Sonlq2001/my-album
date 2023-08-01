@@ -43,16 +43,16 @@
     <div class="mt-[100px]" />
     <!-- end layout masonry -->
 
-    <box-message></box-message>
+    <box-message />
   </main>
 </template>
 
 <script setup>
 import { NAV_HEADER } from "@/constants/NavHeader.constants.js";
-import { LIST_DATA } from "../constants/home.constants";
+import { LIST_DATA } from "../../constants/home.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 
-import BoxMessage from "../components/BoxMessage/BoxMessage.vue";
+import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
 </script>
 
 <style lang="css" scoped>

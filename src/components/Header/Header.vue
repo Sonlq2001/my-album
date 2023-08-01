@@ -1,6 +1,6 @@
 <template>
   <header
-    :class="['flex items-center py-3 h-[64px]', isHome && 'justify-between']"
+    :class="['flex items-center py-3 h-[64px] ', isHome && 'justify-between']"
   >
     <router-link
       :to="{ name: 'Home' }"
@@ -8,8 +8,9 @@
         'text-xl font-semibold leading-6',
         isHome ? 'text-white' : 'text-black',
       ]"
-      >MyAlbum</router-link
     >
+      MyAlbum
+    </router-link>
 
     <!-- input search -->
     <input-search v-if="!isHome" />
@@ -41,8 +42,6 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-
 import IconUpload from "@/assets/images/upload.svg";
 import InputSearch from "./../InputSearch/InputSearch.vue";
 
