@@ -1,4 +1,4 @@
-import HomeScreen from "@/views/home/screens/HomeScreen.vue";
+import HomeScreen from "@/views/home/screens/HomeScreen/HomeScreen.vue";
 import TopLayout from "@/layouts/TopLayout.vue";
 
 import { HomePaths } from "../constants/home.path";
