@@ -17,7 +17,8 @@
     <!-- end input search -->
 
     <div class="flex items-center">
-      <button
+      <router-link
+        :to="{ name: 'AUTH-LOGIN' }"
         :class="[
           'px-3 py-2 rounded-3xl flex items-center mr-4',
           isHome
@@ -26,7 +27,7 @@
         ]"
       >
         Login
-      </button>
+      </router-link>
       <router-link
         :to="{ name: 'CREATE-ALBUM' }"
         class="text-white bg-main px-3 py-2 rounded-3xl flex items-center hover:bg-sub"
