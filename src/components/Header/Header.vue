@@ -27,7 +27,8 @@
       >
         Login
       </button>
-      <button
+      <router-link
+        :to="{ name: 'CREATE-ALBUM' }"
         class="text-white bg-main px-3 py-2 rounded-3xl flex items-center hover:bg-sub"
       >
         <img
@@ -36,7 +37,7 @@
           class="w-[20px] text-white invert-[1] mr-1"
         />
         Upload
-      </button>
+      </router-link>
     </div>
   </header>
 </template>

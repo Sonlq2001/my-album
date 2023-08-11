@@ -1,6 +1,6 @@
 <template>
   <div id="default-layout">
-    <div class="border-b border-[#ccc] bg-white">
+    <div class="border-b border-[#eee] bg-white">
       <div class="max-w-[1830px] mx-auto px-8">
         <Header />
       </div>
