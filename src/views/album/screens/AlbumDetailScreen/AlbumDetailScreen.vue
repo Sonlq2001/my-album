@@ -21,7 +21,7 @@
     <!-- end tools album -->
 
     <!-- info album -->
-    <div class="max-w-5xl mx-auto flex gap-8">
+    <div class="max-w-5xl mx-auto flex gap-8 mt-7">
       <div class="flex-1">
         <img
           src="https://cdn.pixabay.com/photo/2013/12/17/20/10/bubbles-230014_640.jpg"

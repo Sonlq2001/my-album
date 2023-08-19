@@ -19,21 +19,21 @@
         <i class="ri-pulse-fill leading-[0px] text-xl wave" />
       </div>
 
-      <form action="" class="mt-8">
+      <form-vee
+        @submit="handleSubmit"
+        action=""
+        class="mt-8"
+        :validation-schema="schemaLogin"
+      >
         <div class="mb-5">
-          <label for="" class="block text-text_gray">Email</label>
-          <input
-            type="text"
-            placeholder="Email"
-            class="outline-none w-full mt-2 border rounded-md p-3 border-[#ddd]"
-          />
+          <input-field name="email" placeholder="email" label="Email" />
         </div>
         <div class="mb-5">
-          <label for="" class="block text-text_gray">Password</label>
-          <input
-            type="password"
+          <input-field
+            name="password"
             placeholder="Password"
-            class="outline-none w-full mt-2 border rounded-md p-3 border-[#ddd]"
+            label="Password"
+            type="password"
           />
         </div>
         <div class="text-right mt-10">
@@ -46,13 +46,21 @@
             Đăng ký ?
           </router-link>
         </div>
-      </form>
+      </form-vee>
     </div>
   </div>
 </template>
 
 <script setup>
+import { Form as FormVee } from "vee-validate";
+
 import { LIST_DATA } from "../../constants/auth.constants";
+import InputField from "@/components/Form/InputField/InputField.vue";
+import { schemaLogin } from "../../helpers/auth.helper";
+
+const handleSubmit = () => {
+  // TODO: call api login
+};
 </script>
 
 <style lang="css" scoped>

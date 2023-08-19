@@ -82,3 +82,6 @@ export const LIST_DATA = [
       "https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_640.jpg",
   },
 ];
+
+export const MIN_PASSWORD = 8;
+export const MAX_PASSWORD = 20;
