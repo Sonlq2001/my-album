@@ -47,7 +47,7 @@
 import IconUpload from "@/assets/images/upload.svg";
 import InputSearch from "./../InputSearch/InputSearch.vue";
 
-const { isHome } = defineProps({
+defineProps({
   isHome: {
     type: Boolean,
     default: false,
