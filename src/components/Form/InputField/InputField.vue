@@ -9,9 +9,11 @@
         :name="name"
         :placeholder="placeholder"
         :class="[
-          'outline-none w-full border rounded-md p-3',
+          'outline-none w-full p-3',
           errorMessage && meta.touched ? 'border-red-500' : 'border-[#ddd]',
           isTypePassword ? 'pr-[46px]' : '',
+          variant === DEFAULT_VARIANT_INPUT ? 'border rounded-md' : 'border-b',
+          overWriteClass,
         ]"
         :id="name"
       />
@@ -34,6 +36,8 @@
 import { computed, ref } from "vue";
 import { Field, useField } from "vee-validate";
 
+const DEFAULT_VARIANT_INPUT = "outlined";
+
 const { name, type } = defineProps({
   name: {
     type: String,
@@ -52,6 +56,16 @@ const { name, type } = defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  overWriteClass: {
+    type: String,
+  },
+  variant: {
+    type: String,
+    default: DEFAULT_VARIANT_INPUT,
+  },
+  id: {
+    type: String,
   },
 });
 
