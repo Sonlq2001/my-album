@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { NAV_HEADER } from "@/constants/NavHeader.constants.js";
+import { NAV_HEADER } from "@/constants/nav-header.constants.js";
 import { LIST_DATA } from "../../constants/home.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 
