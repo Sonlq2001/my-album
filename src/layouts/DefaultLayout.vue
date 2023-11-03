@@ -10,7 +10,7 @@
 
 <script setup>
 import Header from "@/components/Header/Header.vue";
-import Footer from "@/components/footer/footer.vue";
+import Footer from "@/components/Footer//Footer.vue";
 </script>
 
 <style lang="scss" scoped></style>

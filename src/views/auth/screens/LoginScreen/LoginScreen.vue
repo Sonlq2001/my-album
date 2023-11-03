@@ -53,13 +53,24 @@
 
 <script setup>
 import { Form as FormVee } from "vee-validate";
+import { useRouter } from "vue-router";
 
 import { LIST_DATA } from "../../constants/auth.constants";
 import InputField from "@/components/Form/InputField/InputField.vue";
 import { schemaLogin } from "../../helpers/auth.helper";
+import { useAuthStore } from "@/stores/auth/auth.store";
+import { NamespaceRouter } from "@/constants/router.constants";
 
-const handleSubmit = () => {
-  // TODO: call api login
+const { login } = useAuthStore();
+const router = useRouter();
+
+const handleSubmit = async (values) => {
+  try {
+    await login(values);
+    router.push({ name: NamespaceRouter.HOME });
+  } catch (error) {
+    // TODO: handle error
+  }
 };
 </script>
 
