@@ -3,6 +3,7 @@ import CreateAlbum from "@/views/album/screens/CreateAlbum/CreateAlbum.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 import { AlbumPaths } from "../constants/album.path";
+import { NamespaceRouter } from "@/constants/router.constants";
 
 const ALBUM_SCREEN = {
   path: AlbumPaths.DETAIL,
@@ -15,10 +16,11 @@ const ALBUM_SCREEN = {
 
 const CREATE_ALBUM_SCREEN = {
   path: AlbumPaths.CREATE_ALBUM,
-  name: "CREATE-ALBUM",
+  name: NamespaceRouter.CREATE_ALBUM,
   component: CreateAlbum,
   meta: {
     layout: DefaultLayout,
+    isPrivate: true,
   },
 };
 

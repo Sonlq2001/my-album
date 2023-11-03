@@ -26,19 +26,22 @@
       <!-- end input search -->
 
       <div class="flex items-center">
+        <menu-header v-if="isLogin" />
         <router-link
-          :to="{ name: 'AUTH-LOGIN' }"
+          :to="{ name: NamespaceRouter.LOGIN }"
           :class="[
             'px-3 py-2 rounded-3xl flex items-center mr-4',
             isHome && !isHeaderActive
               ? 'text-white hover:bg-white_0_1'
               : 'text-black hover:bg-black_0_1',
           ]"
+          v-else
         >
           Login
         </router-link>
+
         <router-link
-          :to="{ name: 'CREATE-ALBUM' }"
+          :to="{ name: NamespaceRouter.CREATE_ALBUM }"
           class="text-white bg-main px-3 py-2 rounded-3xl flex items-center hover:bg-sub"
         >
           <img
@@ -58,11 +61,14 @@ import { onMounted, onUnmounted, ref } from "vue";
 import debounce from "lodash.debounce";
 
 import IconUpload from "@/assets/images/upload.svg";
-import InputSearch from "./../InputSearch/InputSearch.vue";
+import InputSearch from "@/components/InputSearch/InputSearch.vue";
+import MenuHeader from "./MenuHeader/MenuHeader.vue";
 import {
   TIME_DELAY_HEADER_SCROLL,
   POSITION_ACTIVE_HEADER,
 } from "@/constants/header.constants.js";
+import { NamespaceRouter } from "@/constants/router.constants";
+import useGetUserInfo from "@/composable/useGetUserInfo";
 
 defineProps({
   isHome: {
@@ -72,6 +78,7 @@ defineProps({
 });
 
 const isHeaderActive = ref(false);
+const { isLogin } = useGetUserInfo();
 
 const handleScrollHeader = debounce(() => {
   isHeaderActive.value = window.scrollY > POSITION_ACTIVE_HEADER;

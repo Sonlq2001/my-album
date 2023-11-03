@@ -9,6 +9,7 @@ const MY_PAGE_SCREEN = {
   component: MyPageScreen,
   meta: {
     layout: DefaultLayout,
+    isPrivate: true,
   },
 };
 

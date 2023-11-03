@@ -53,6 +53,11 @@ import { LIST_DATA } from "../../constants/home.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 
 import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
+import instanceApi from "@/api/api";
+
+instanceApi.get("http://localhost:3040/v1/albums").catch((error) => {
+  console.log(error);
+});
 </script>
 
 <style lang="css" scoped>
