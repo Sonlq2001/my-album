@@ -38,7 +38,7 @@
 <script setup>
 import Header from "@/components/Header/Header.vue";
 import SearchTop from "@/components/SearchTop/SearchTop.vue";
-import Footer from "@/components/footer/footer.vue";
+import Footer from "@/components/Footer/Footer.vue";
 </script>
 
 <style lang="css" scoped>
