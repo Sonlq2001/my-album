@@ -1,4 +1,4 @@
-export const LIST_DATA = [
+export const LIST_IMAGE = [
   {
     image:
       "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
@@ -81,7 +81,20 @@ export const LIST_DATA = [
     image:
       "https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_640.jpg",
   },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2023/07/25/19/47/milky-way-8149815_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2021/06/04/15/51/coast-6310250_640.jpg",
+  },
+  {
+    image:
+      "https://cdn.pixabay.com/photo/2016/11/29/05/01/beach-1867436_640.jpg",
+  },
 ];
 
 export const MIN_PASSWORD = 8;
 export const MAX_PASSWORD = 20;
+export const MAX_NAME = 50;
