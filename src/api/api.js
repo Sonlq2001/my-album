@@ -46,7 +46,7 @@ const errorInterceptor = async (error) => {
 };
 
 const instanceApi = axios.create({
-  baseURL: "http://localhost:3040/v1",
+  baseURL: import.meta.env.VITE_API,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
