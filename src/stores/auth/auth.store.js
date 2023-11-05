@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
     return {
       userInfo: null,
       authData: null,
+      isRegisterSuccess: false,
     };
   },
   actions: {
@@ -31,8 +32,13 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async logout() {
-      const result = await authApi.logoutApi();
+      await authApi.logoutApi();
       this.authData = null;
+    },
+
+    async register(data) {
+      await authApi.registerApi(data);
+      this.isRegisterSuccess = true;
     },
   },
   persist: {

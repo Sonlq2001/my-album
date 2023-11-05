@@ -38,9 +38,7 @@
         />
       </div>
       <div class="text-right mt-10">
-        <button class="px-4 py-2 bg-main text-white hover:bg-sub rounded">
-          Đăng ký
-        </button>
+        <app-button :disabled="isPendingRegister"> Đăng nhập </app-button>
       </div>
       <div class="text-right mt-5">
         <router-link
@@ -55,20 +53,35 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { Form as FormVee } from "vee-validate";
+import { useRouter } from "vue-router";
 
 import CaptionAuth from "../../components/CaptionAuth/CaptionAuth.vue";
 import InputField from "@/components/Form/InputField/InputField.vue";
+import AppButton from "@/components/AppButton/AppButton.vue";
+
 import { NamespaceRouter } from "@/constants/router.constants";
+import { useAuthStore } from "@/stores/auth/auth.store";
 import {
   schemaRegister,
   initialRegisterValue,
 } from "../../helpers/auth.helper";
 
-const handleSubmit = (values) => {
-  console.log(values);
+const { register } = useAuthStore();
+const router = useRouter();
 
-  // TODO: register
+const isPendingRegister = ref(false);
+
+const handleSubmit = (values) => {
+  isPendingRegister.value = true;
+  register({ ...values, passwordConfirm: undefined })
+    .then(() => {
+      router.push({ name: NamespaceRouter.LOGIN });
+    })
+    .finally(() => {
+      isPendingRegister.value = false;
+    });
 };
 </script>
 
