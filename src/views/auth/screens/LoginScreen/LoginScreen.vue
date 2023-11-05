@@ -33,8 +33,10 @@
           type="password"
         />
       </div>
-      <div class="text-right mt-10">
-        <app-button :disabled="isPendingLogin"> Đăng nhập </app-button>
+      <div class="flex justify-end mt-10">
+        <app-button :disabled="isPendingLogin" intent="primary">
+          Đăng nhập
+        </app-button>
       </div>
       <div class="text-right mt-5">
         <router-link
