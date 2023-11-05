@@ -14,8 +14,13 @@ const logoutApi = () => {
   return instanceApi.post(AuthEndpoints.LOGOUT);
 };
 
+const registerApi = (data) => {
+  return instanceApi.post(AuthEndpoints.REGISTER, data);
+};
+
 export const authApi = {
   loginApi,
   refreshTokenApi,
   logoutApi,
+  registerApi,
 };

@@ -3,7 +3,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 import useGetUserInfo from "@/composable/useGetUserInfo";
 import { useAuthStore } from "@/stores/auth/auth.store";
-import { toCamel } from "@/helpers/convert-object";
+import { toCamel, toSnakeCase } from "@/helpers/convert-object";
 import {
   HTTP_STATUS,
   HEADER,
@@ -13,6 +13,8 @@ import { AuthPaths } from "@/views/auth/auth";
 
 const requestInterceptor = (req) => {
   const { accessToken, userId } = useGetUserInfo();
+  req.params = toSnakeCase(req.params, true);
+  req.data = toSnakeCase(req.data, true);
 
   if (accessToken && userId) {
     req.headers[HEADER.AUTHORIZATION] = `Bearer ${accessToken}`;

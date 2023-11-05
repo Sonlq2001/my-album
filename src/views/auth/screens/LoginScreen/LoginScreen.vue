@@ -5,16 +5,23 @@
     <h1 class="font-extrabold text-2xl">Đăng nhập MyAlbum</h1>
     <caption-auth />
 
+    <span
+      v-if="isRegisterSuccess"
+      class="inline-block mt-4 bg-success rounded-md text-white p-2 text-sm"
+    >
+      Đăng ký tài khoản thành công !
+    </span>
+
     <form-vee
       @submit="handleSubmit"
-      class="mt-8"
+      :class="isRegisterSuccess ? 'mt-5' : 'mt-8'"
       :validation-schema="schemaLogin"
       :initial-values="initialLoginValue"
     >
       <div class="mb-5">
         <input-field
           name="email"
-          placeholder="vd:my_album@gmail.com"
+          placeholder="my_album@gmail.com"
           label="Email"
         />
       </div>
@@ -27,9 +34,7 @@
         />
       </div>
       <div class="text-right mt-10">
-        <button class="px-4 py-2 bg-main text-white hover:bg-sub rounded">
-          Đăng nhập
-        </button>
+        <app-button :disabled="isPendingLogin"> Đăng nhập </app-button>
       </div>
       <div class="text-right mt-5">
         <router-link
@@ -44,25 +49,31 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { Form as FormVee } from "vee-validate";
 import { useRouter } from "vue-router";
 
 import InputField from "@/components/Form/InputField/InputField.vue";
+import AppButton from "@/components/AppButton/AppButton.vue";
 import { schemaLogin, initialLoginValue } from "../../helpers/auth.helper";
 import { useAuthStore } from "@/stores/auth/auth.store";
 import { NamespaceRouter } from "@/constants/router.constants";
 import CaptionAuth from "../../components/CaptionAuth/CaptionAuth.vue";
 
-const { login } = useAuthStore();
+const { login, isRegisterSuccess } = useAuthStore();
 const router = useRouter();
 
-const handleSubmit = async (values) => {
-  try {
-    await login(values);
-    router.push({ name: NamespaceRouter.HOME });
-  } catch (error) {
-    // TODO: handle error
-  }
+const isPendingLogin = ref(false);
+
+const handleSubmit = (values) => {
+  isPendingLogin.value = true;
+  login(values)
+    .then(() => {
+      router.push({ name: NamespaceRouter.HOME });
+    })
+    .finally(() => {
+      isPendingLogin.value = false;
+    });
 };
 </script>
 
