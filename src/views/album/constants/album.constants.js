@@ -18,3 +18,14 @@ export const LIST_CATEGORY_ALBUMS = [
     label: "Thiên nhiên",
   },
 ];
+
+export const STATUS_ALBUM = [
+  {
+    label: "Công khai",
+    value: 0,
+  },
+  {
+    label: "Riêng tư",
+    value: 1,
+  },
+];

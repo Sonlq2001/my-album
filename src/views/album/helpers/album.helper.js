@@ -11,7 +11,7 @@ export const schemaCreateAlbum = object().shape({
   title: string()
     .required("Bạn chưa nhập tiêu đề file ảnh !")
     .max(MAX_TITLE, `Tiêu đề tối đa ${MAX_TITLE} ký tự !`),
-  event: string().nullable(),
+  event_album: string().nullable(),
   albums: array()
     .of(
       mixed()
@@ -32,10 +32,11 @@ export const schemaCreateAlbum = object().shape({
 
 export const initValuesAlbum = {
   title: "",
-  event: "",
+  event_album: "",
   albums: [],
   category: "",
   story: "",
   date: "",
   time: "",
+  status: 0,
 };

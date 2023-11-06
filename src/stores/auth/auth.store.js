@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { authApi } from "@/views/auth/api/auth.api";
+import { authApi } from "@/views/auth/auth";
 
 export const useAuthStore = defineStore("auth", {
   id: "auth",

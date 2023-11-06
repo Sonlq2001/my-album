@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{ name: 'Album', params: { album_id: '1' } }"
+    :to="{ name: NamespaceRouter.ALBUM_DETAIL, params: { album_id: '1' } }"
     class="mb-5 relative overflow-hidden box-image block"
   >
     <img :src="album.image" alt="" class="w-full h-full" />
@@ -15,6 +15,8 @@
 </template>
 
 <script setup>
+import { NamespaceRouter } from "@/constants/router.constants";
+
 defineProps({
   album: {
     type: Object,
