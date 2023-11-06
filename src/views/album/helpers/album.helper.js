@@ -5,6 +5,7 @@ import {
   FILES_ACCEPT,
   MIN_IMAGE,
   MAX_IMAGE,
+  STATUS_ALBUM,
 } from "../constants/album.constants";
 
 export const schemaCreateAlbum = object().shape({
@@ -38,5 +39,5 @@ export const initValuesAlbum = {
   story: "",
   date: "",
   time: "",
-  status: 0,
+  status: STATUS_ALBUM.PUBLIC,
 };

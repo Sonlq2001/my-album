@@ -4,6 +4,11 @@ export const MAX_IMAGE = 10;
 
 export const FILES_ACCEPT = ["image/jpg", "image/jpeg", "image/png"];
 
+export const STATUS_ALBUM = {
+  PUBLIC: 0,
+  PRIVATE: 1,
+};
+
 export const LIST_CATEGORY_ALBUMS = [
   {
     id: 1,
@@ -19,13 +24,13 @@ export const LIST_CATEGORY_ALBUMS = [
   },
 ];
 
-export const STATUS_ALBUM = [
+export const STATUS_OPTIONS_ALBUM = [
   {
     label: "Công khai",
-    value: 0,
+    value: STATUS_ALBUM.PUBLIC,
   },
   {
     label: "Riêng tư",
-    value: 1,
+    value: STATUS_ALBUM.PRIVATE,
   },
 ];

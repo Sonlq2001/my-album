@@ -47,7 +47,7 @@
         <div class="mt-8 mb-7">
           <radio-field
             label="Trạng thái"
-            :options="STATUS_ALBUM"
+            :options="STATUS_OPTIONS_ALBUM"
             name="status"
           />
         </div>
@@ -80,7 +80,7 @@ import PreviewImage from "../../components/PreviewImage/PreviewImage.vue";
 import ListCategories from "../../components/ListCategories/ListCategories.vue";
 import DateAlbum from "../../components/DateAlbum/DateAlbum.vue";
 import { schemaCreateAlbum, initValuesAlbum } from "../../helpers/album.helper";
-import { STATUS_ALBUM } from "../../constants/album.constants";
+import { STATUS_OPTIONS_ALBUM } from "../../constants/album.constants";
 
 const { uploadFiles, createAlbum } = useAlbumStore();
 const { userId } = useGetUserInfo();
