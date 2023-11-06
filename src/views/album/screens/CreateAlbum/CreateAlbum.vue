@@ -12,7 +12,7 @@
       <div class="flex-1">
         <upload-image :setFieldValue="setFieldValue" />
 
-        <div class="mt-8 mb-5">
+        <div class="mt-8">
           <input-field
             name="title"
             placeholder="Tiêu đề"
@@ -26,9 +26,9 @@
 
         <date-album />
 
-        <div class="mt-8 mb-5">
+        <div class="mt-8">
           <input-field
-            name="event"
+            name="event_album"
             placeholder="Sự kiện liên quan"
             label="Sự kiện"
             variant="standard"
@@ -36,7 +36,7 @@
           />
         </div>
 
-        <div class="mt-8 mb-7">
+        <div class="mt-8">
           <textarea-field
             name="story"
             label="Câu chuyện"
@@ -44,13 +44,18 @@
           />
         </div>
 
-        <div class="text-right">
-          <button
-            class="text-white bg-main px-6 py-2 rounded-3xl hover:bg-sub"
-            type="submit"
-          >
-            Tạo
-          </button>
+        <div class="mt-8 mb-7">
+          <radio-field
+            label="Trạng thái"
+            :options="STATUS_OPTIONS_ALBUM"
+            name="status"
+          />
+        </div>
+
+        <div class="flex justify-end">
+          <app-button :disabled="isPendingCreateAlbum" intent="primary">
+            Tạo mới
+          </app-button>
         </div>
       </div>
     </div>
@@ -58,20 +63,59 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { Form as FormVee } from "vee-validate";
+import { useRouter } from "vue-router";
 
 import InputField from "@/components/Form/InputField/InputField.vue";
 import TextareaField from "@/components/Form/TextareaField/TextareaField.vue";
+import RadioField from "@/components/Form/RadioField/RadioField.vue";
+import { useAlbumStore } from "@/stores/album/album.store";
+import useGetUserInfo from "@/composable/useGetUserInfo";
+import { NamespaceRouter } from "@/constants/router.constants";
+import AppButton from "@/components/AppButton/AppButton.vue";
+
 import UploadImage from "../../components/UploadImage/UploadImage.vue";
 import PreviewImage from "../../components/PreviewImage/PreviewImage.vue";
 import ListCategories from "../../components/ListCategories/ListCategories.vue";
 import DateAlbum from "../../components/DateAlbum/DateAlbum.vue";
-
 import { schemaCreateAlbum, initValuesAlbum } from "../../helpers/album.helper";
+import { STATUS_OPTIONS_ALBUM } from "../../constants/album.constants";
 
-const handleSubmitAlbum = (values) => {
-  // TODO: call api
-  console.log(values);
+const { uploadFiles, createAlbum } = useAlbumStore();
+const { userId } = useGetUserInfo();
+const router = useRouter();
+const isPendingCreateAlbum = ref(false);
+
+const handleSubmitAlbum = async (values) => {
+  isPendingCreateAlbum.value = true;
+  const { albums, date, time, ...rest } = values;
+
+  const formData = new FormData();
+  for (const album of albums) {
+    formData.append("albums", album);
+  }
+
+  try {
+    const listImage = await uploadFiles(formData);
+    const reqData = {
+      ...rest,
+      albums: listImage,
+      date: `${date} ${time}`,
+      user: userId,
+      category: "65487d35a6bb19acb93a3caf", // TODO: category
+    };
+
+    const newAlbum = await createAlbum(reqData);
+    router.push({
+      name: NamespaceRouter.ALBUM_DETAIL,
+      params: { album_id: newAlbum.id },
+    });
+  } catch (error) {
+    // TODO: handle error
+  } finally {
+    isPendingCreateAlbum.value = false;
+  }
 };
 </script>
 

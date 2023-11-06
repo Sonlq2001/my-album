@@ -7,7 +7,7 @@ import { NamespaceRouter } from "@/constants/router.constants";
 
 const ALBUM_SCREEN = {
   path: AlbumPaths.DETAIL,
-  name: "Album",
+  name: NamespaceRouter.ALBUM_DETAIL,
   component: AlbumDetailScreen,
   meta: {
     layout: DefaultLayout,
