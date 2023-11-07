@@ -20,13 +20,17 @@
         :is="menu.nameRouter ? 'router-link' : 'button'"
         class="block w-full"
         @click="() => handleLogout(menu.nameRouter)"
+        :disabled="menu.nameRouter ? null : isPendingLogout"
       >
         <div
           v-if="index === MENUS_HEADER.length - 1"
           class="border-b mt-[2px] mb-[6px] border-[#ffffff1a]"
         />
         <span
-          class="text-[#eee] text-sm py-2 px-3 block hover:bg-[#30323c] rounded-lg text-left"
+          :class="[
+            'text-[#eee] text-sm py-2 px-3 block hover:bg-[#30323c] rounded-lg text-left',
+            isPendingLogout && !menu.nameRouter && 'bg-[#282930]',
+          ]"
         >
           {{ menu.label }}
         </span>
@@ -41,10 +45,14 @@ import { onClickOutside } from "@vueuse/core";
 import { useRouter } from "vue-router";
 
 import { MENUS_HEADER } from "@/constants/header.constants";
+import { useAuthStore } from "@/stores/auth/auth.store";
+import { DELAY_REDIRECT_LOGIN } from "@/constants/http.constants";
 
 const router = useRouter();
 const menuRef = ref(null);
+const isPendingLogout = ref(false);
 const isOpenMenuHeader = ref(false);
+const authStore = useAuthStore();
 
 onClickOutside(menuRef, () => {
   isOpenMenuHeader.value = false;
@@ -64,7 +72,22 @@ watch(
 const handleLogout = (nameRouter) => {
   if (nameRouter) return;
 
-  // TODO: logout
+  isPendingLogout.value = true;
+  authStore
+    .logout()
+    .then(() => {
+      setTimeout(() => {
+        window.location.reload();
+      }, DELAY_REDIRECT_LOGIN);
+    })
+    .catch(() => {
+      // TODO: handle error
+    })
+    .finally(() => {
+      setTimeout(() => {
+        isPendingLogout.value = false;
+      }, DELAY_REDIRECT_LOGIN);
+    });
 };
 </script>
 
