@@ -14,6 +14,7 @@ export default {
         success: "#388e3c",
         warning: "#f57c00",
         error: "#d32f2f",
+        dark_menu: "#191b26",
       },
     },
   },

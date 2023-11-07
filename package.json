@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^10.5.0",
     "axios": "^1.6.0",
     "axios-auth-refresh": "^3.3.6",
     "class-variance-authority": "^0.7.0",

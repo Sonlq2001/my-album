@@ -4,4 +4,5 @@ export const NamespaceRouter = {
   REGISTER: "Register",
   CREATE_ALBUM: "Create-album",
   ALBUM_DETAIL: "Album-detail",
+  MY_PAGE: "My-page",
 };
