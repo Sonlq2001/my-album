@@ -39,7 +39,7 @@
       </div>
       <div class="flex justify-end mt-10">
         <app-button :disabled="isPendingRegister" intent="primary">
-          Đăng nhập
+          Đăng ký
         </app-button>
       </div>
       <div class="text-right mt-5">

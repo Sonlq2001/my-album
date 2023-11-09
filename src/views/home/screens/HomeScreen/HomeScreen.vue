@@ -56,7 +56,7 @@ import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
 import instanceApi from "@/api/api";
 
 instanceApi
-  .get("https://api-my-album.onrender.com/v1/albums")
+  .get("https://api-my-album.onrender.com/v1/api/album/list/public")
   .catch((error) => {
     console.log(error);
   });
