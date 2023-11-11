@@ -18,19 +18,49 @@
     </div>
 
     <div class="mt-[50px] font-semibold text-lg">Những tấm hình nổi bật</div>
-    <div class="mt-4 columns-4 gap-5">
+
+    <!-- loading -->
+    <loading-item-album v-if="isLoadingAlbums" />
+
+    <!-- map data -->
+    <div
+      class="mt-4 columns-4 gap-5"
+      v-else-if="
+        albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
+      "
+    >
       <item-album
-        v-for="(item, index) in LIST_DATA"
+        v-for="(item, index) in albumStore.listAlbumsData"
         :key="index"
         :album="item"
       />
+    </div>
+
+    <!-- no data -->
+    <div v-else>
+      <!-- TODO: no data -->
+      nodata
     </div>
   </main>
 </template>
 
 <script setup>
-import { LIST_DATA } from "@/views/home/home.js";
+import { onMounted, ref } from "vue";
+
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
+import { useAlbumStore } from "@/stores/album/album.store";
+import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
+
+const albumStore = useAlbumStore();
+const isLoadingAlbums = ref(false);
+
+onMounted(async () => {
+  isLoadingAlbums.value = true;
+  const category = window.location.pathname.split("/");
+
+  await albumStore.getListAlbumsPublic({ category: category.pop() });
+  isLoadingAlbums.value = false;
+});
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>

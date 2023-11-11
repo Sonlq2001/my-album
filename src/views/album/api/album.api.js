@@ -11,7 +11,12 @@ const createAlbumApi = async (data) => {
   return instanceApi.post(AlbumEndpoints.CREATE_ALBUM, data);
 };
 
+const getListAlbumsPublicApi = async (params) => {
+  return instanceApi.get(AlbumEndpoints.GET_ALBUMS_PUBLIC, { params });
+};
+
 export const albumApi = {
   uploadFilesAlbumApi,
   createAlbumApi,
+  getListAlbumsPublicApi,
 };
