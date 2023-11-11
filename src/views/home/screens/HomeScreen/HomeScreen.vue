@@ -20,13 +20,21 @@
       </button>
     </div>
 
-    <!-- layout masonry -->
-    <div class="relative">
+    <!-- loading -->
+    <loading-item-album v-if="isLoadingAlbums" />
+
+    <!-- map data -->
+    <div
+      class="relative"
+      v-else-if="
+        albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
+      "
+    >
       <div class="mt-7 columns-4 gap-5">
         <item-album
-          v-for="(item, index) in LIST_DATA"
-          :key="index"
-          :album="item"
+          v-for="album in albumStore.listAlbumsData"
+          :key="album.id"
+          :album="album"
         />
       </div>
 
@@ -40,26 +48,33 @@
         </button>
       </div>
     </div>
+
+    <!-- no data -->
+    <div v-else>nodata</div>
+
     <div class="mt-[100px]" />
-    <!-- end layout masonry -->
 
     <box-message />
   </main>
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import { NAV_HEADER } from "@/constants/nav-header.constants.js";
-import { LIST_DATA } from "../../constants/home.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
+import { useAlbumStore } from "@/stores/album/album.store";
+import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 
 import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
-import instanceApi from "@/api/api";
 
-instanceApi
-  .get("https://api-my-album.onrender.com/v1/api/album/list/public")
-  .catch((error) => {
-    console.log(error);
-  });
+const albumStore = useAlbumStore();
+const isLoadingAlbums = ref(false);
+
+onMounted(async () => {
+  isLoadingAlbums.value = true;
+  await albumStore.getListAlbumsPublic();
+  isLoadingAlbums.value = false;
+});
 </script>
 
 <style lang="css" scoped>
