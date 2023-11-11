@@ -32,9 +32,9 @@
     >
       <div class="mt-7 columns-4 gap-5">
         <item-album
-          v-for="(item, index) in albumStore.listAlbumsData"
-          :key="index"
-          :album="item"
+          v-for="album in albumStore.listAlbumsData"
+          :key="album.id"
+          :album="album"
         />
       </div>
 

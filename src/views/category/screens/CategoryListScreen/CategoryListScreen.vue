@@ -30,9 +30,9 @@
       "
     >
       <item-album
-        v-for="(item, index) in albumStore.listAlbumsData"
-        :key="index"
-        :album="item"
+        v-for="album in albumStore.listAlbumsData"
+        :key="album.id"
+        :album="album"
       />
     </div>
 
