@@ -5,4 +5,5 @@ export const NamespaceRouter = {
   CREATE_ALBUM: "Create-album",
   ALBUM_DETAIL: "Album-detail",
   MY_PAGE: "My-page",
+  LIST_CATEGORY: "List-category",
 };

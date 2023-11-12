@@ -10,10 +10,10 @@
       <div
         :class="[
           ' text-sm p-2 rounded-3xl cursor-pointer hover:bg-[#ddd]',
-          value === cate.id ? 'bg-main text-white hover:bg-sub' : 'bg-gray',
+          value === cate.value ? 'bg-main text-white hover:bg-sub' : 'bg-gray',
         ]"
-        v-for="cate in LIST_CATEGORY_ALBUMS"
-        :key="cate.id"
+        v-for="cate in listOptionCategories"
+        :key="cate.value"
         @click="handleChooseCategory(cate)"
       >
         {{ cate.label }}
@@ -26,8 +26,21 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useField } from "vee-validate";
-import { LIST_CATEGORY_ALBUMS } from "../../constants/album.constants";
+
+import { useCategoryStore } from "@/stores/category/category.store";
+
+const categoryStore = useCategoryStore();
+
+const listOptionCategories = computed(() => {
+  return (
+    categoryStore.listCategories?.map((option) => ({
+      value: option.id,
+      label: option.title,
+    })) || []
+  );
+});
 
 const { setFieldValue } = defineProps({
   setFieldValue: {
@@ -38,7 +51,7 @@ const { setFieldValue } = defineProps({
 const { errorMessage, meta, value } = useField("category");
 
 const handleChooseCategory = (cate) => {
-  setFieldValue("category", cate.id);
+  setFieldValue("category", cate.value);
 };
 </script>
 
