@@ -7,6 +7,14 @@ export const HEADER = {
   API_KEY: "x-api-key",
   CLIENT_ID: "x-client-id",
   AUTHORIZATION: "authorization",
+  CONTENT_TYPE: "Content-type",
 };
+
+export const CONTENT_TYPE_HEADER = {
+  JSON: "application/json",
+  FORM_DATA: "multipart/form-data",
+};
+
+export const MSG_EXPIRED_REFRESH_TOKEN = "expired_refresh_token";
 
 export const DELAY_REDIRECT_LOGIN = 200;
