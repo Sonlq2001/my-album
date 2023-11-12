@@ -3,7 +3,7 @@ import { AlbumEndpoints } from "../constants/album.endpoints";
 
 const uploadFilesAlbumApi = (data) => {
   return instanceApi.post(AlbumEndpoints.UPLOAD_FILES, data, {
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: { useFormData: true },
   });
 };
 

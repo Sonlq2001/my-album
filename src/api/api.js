@@ -8,6 +8,8 @@ import {
   HTTP_STATUS,
   HEADER,
   DELAY_REDIRECT_LOGIN,
+  CONTENT_TYPE_HEADER,
+  MSG_EXPIRED_REFRESH_TOKEN,
 } from "@/constants/http.constants";
 import { AuthPaths } from "@/views/auth/auth";
 
@@ -19,6 +21,9 @@ const requestInterceptor = (req) => {
   if (accessToken && userId) {
     req.headers[HEADER.AUTHORIZATION] = `Bearer ${accessToken}`;
     req.headers[HEADER.CLIENT_ID] = userId;
+    req.headers[HEADER.CONTENT_TYPE] = Boolean(req.headers?.useFormData)
+      ? CONTENT_TYPE_HEADER.FORM_DATA
+      : CONTENT_TYPE_HEADER.JSON;
   }
   return req;
 };
@@ -34,7 +39,7 @@ const errorInterceptor = async (error) => {
     const message = error.response.data.message;
     if (
       status === HTTP_STATUS.UNAUTHORIZED &&
-      message === "expired_refresh_token"
+      message === MSG_EXPIRED_REFRESH_TOKEN // expired refresh token -> logout
     ) {
       localStorage.clear();
       setTimeout(() => {
@@ -48,8 +53,8 @@ const errorInterceptor = async (error) => {
 };
 
 const instanceApi = axios.create({
-  baseURL: import.meta.env.VITE_API,
-  headers: { "Content-Type": "application/json" },
+  baseURL: "http://localhost:3040/v1/api" || import.meta.env.VITE_API,
+  headers: { [HEADER.CONTENT_TYPE]: CONTENT_TYPE_HEADER.JSON },
   withCredentials: true,
 });
 
