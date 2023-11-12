@@ -3,7 +3,7 @@
     <!-- navigation -->
     <div class="flex items-center justify-center">
       <router-link
-        v-for="cate in categoryStore.listCategories"
+        v-for="cate in listCategories"
         class="px-3 py-2 flex items-center rounded-3xl mr-5 bg-gray hover:bg-black/5 text-main"
         :key="cate.id"
         :to="CategoryPaths.CATEGORY_LIST.replace(':category_title', cate.slug)"
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
@@ -80,6 +80,8 @@ onMounted(async () => {
 });
 
 useGetCategory();
+
+const listCategories = computed(() => categoryStore.listCategories || []);
 </script>
 
 <style lang="css" scoped>
