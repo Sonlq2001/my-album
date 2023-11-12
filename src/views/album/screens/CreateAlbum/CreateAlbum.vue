@@ -74,6 +74,7 @@ import { useAlbumStore } from "@/stores/album/album.store";
 import useGetUserInfo from "@/composable/useGetUserInfo";
 import { NamespaceRouter } from "@/constants/router.constants";
 import AppButton from "@/components/AppButton/AppButton.vue";
+import useGetCategory from "@/composable/useGetCategory";
 
 import UploadImage from "../../components/UploadImage/UploadImage.vue";
 import PreviewImage from "../../components/PreviewImage/PreviewImage.vue";
@@ -86,6 +87,8 @@ const { uploadFiles, createAlbum } = useAlbumStore();
 const { userId } = useGetUserInfo();
 const router = useRouter();
 const isPendingCreateAlbum = ref(false);
+
+useGetCategory();
 
 const handleSubmitAlbum = async (values) => {
   isPendingCreateAlbum.value = true;
