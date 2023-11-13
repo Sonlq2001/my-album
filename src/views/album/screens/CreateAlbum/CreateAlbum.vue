@@ -106,13 +106,13 @@ const handleSubmitAlbum = async (values) => {
       albums: listImage,
       date: `${date} ${time}`,
       user: userId,
-      category: "65487d35a6bb19acb93a3caf", // TODO: category
     };
 
     const newAlbum = await createAlbum(reqData);
     router.push({
       name: NamespaceRouter.ALBUM_DETAIL,
-      params: { album_id: newAlbum.id },
+      params: { slug: newAlbum.slug },
+      state: { status: rest.status },
     });
   } catch (error) {
     // TODO: handle error
