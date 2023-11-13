@@ -15,6 +15,6 @@ export const CONTENT_TYPE_HEADER = {
   FORM_DATA: "multipart/form-data",
 };
 
-export const MSG_EXPIRED_REFRESH_TOKEN = "expired_refresh_token";
+export const MESSAGE_RESPONSE = "yes";
 
 export const DELAY_REDIRECT_LOGIN = 200;
