@@ -7,6 +7,7 @@ export const useAlbumStore = defineStore("album", {
   state: () => {
     return {
       listAlbums: null,
+      albumDetail: null,
     };
   },
   actions: {
@@ -21,6 +22,17 @@ export const useAlbumStore = defineStore("album", {
     async getListAlbumsPublic(params) {
       const res = await albumApi.getListAlbumsPublicApi(params);
       this.listAlbums = res.data.metadata;
+    },
+    async getAlbumDetailPublic(slug) {
+      const res = await albumApi.getAlbumDetailPublicApi(slug);
+      this.albumDetail = res.data.metadata;
+    },
+    async getAlbumDetailPrivate(slug) {
+      const res = await albumApi.getAlbumDetailPrivateApi(slug);
+      this.albumDetail = res.data.metadata;
+    },
+    resetAlbumDetail() {
+      this.albumDetail = null;
     },
   },
   getters: {

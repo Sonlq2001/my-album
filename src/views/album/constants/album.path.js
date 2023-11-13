@@ -1,4 +1,4 @@
 export const AlbumPaths = {
-  DETAIL: "/user/:album_id",
+  DETAIL: "/album/:slug",
   CREATE_ALBUM: "/album/create",
 };

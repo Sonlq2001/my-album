@@ -20,8 +20,10 @@
     </div>
     <!-- end tools album -->
 
+    <!-- loading -->
+    <div v-if="isLoadingAlbum">Loading...</div>
     <!-- info album -->
-    <div class="max-w-5xl mx-auto flex gap-8 mt-7">
+    <div class="max-w-5xl mx-auto flex gap-8 mt-7" v-else-if="albumDetail">
       <div class="flex-1">
         <img
           src="https://cdn.pixabay.com/photo/2013/12/17/20/10/bubbles-230014_640.jpg"
@@ -38,7 +40,7 @@
           <span>Tiêu đề</span>
           <p class="text-text_gray">
             <i class="ri-hashtag mr-3"></i>
-            Những bong bóng biển
+            {{ albumDetail?.title }}
           </p>
         </div>
         <div class="mb-3">
@@ -52,14 +54,14 @@
           <span>Chủ đề</span>
           <p class="text-text_gray">
             <i class="ri-lightbulb-flash-fill mr-3"></i>
-            Thiên nhiên
+            {{ albumDetail?.category?.title }}
           </p>
         </div>
         <div class="mb-3">
           <span>Sự kiện</span>
           <p class="text-text_gray">
             <i class="ri-fire-fill mr-3"></i>
-            Đi du lịch quảng nam
+            {{ albumDetail?.eventAlbum }}
           </p>
         </div>
         <div>
@@ -67,10 +69,7 @@
           <p class="text-text_gray">
             <i class="ri-booklet-fill mr-3"></i>
             <span>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
-              placeat sit voluptatibus temporibus ipsam provident sapiente
-              recusandae possimus dolor similique omnis vitae in eos, fugit modi
-              suscipit maxime molestias. Culpa.
+              {{ albumDetail?.story }}
             </span>
           </p>
         </div>
@@ -78,13 +77,51 @@
     </div>
     <!-- end info album -->
 
+    <!-- TODO: no data -->
+    <div v-else>no data album detail</div>
+
     <!-- related image -->
     <related-images />
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref, onUnmounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import get from "lodash.get";
+
+import { useAlbumStore } from "@/stores/album/album.store";
+import { STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
+
+const route = useRoute();
+const router = useRouter();
+
+const historyStatusAlbum = get(router.options, "history.state.status");
+
+const albumStore = useAlbumStore();
+const { albumDetail } = storeToRefs(albumStore);
+
+const isLoadingAlbum = ref(true);
+
+const slug = route.params.slug;
+
+onMounted(async () => {
+  if (!slug) return;
+
+  if (STATUS_ALBUM.PRIVATE === historyStatusAlbum) {
+    await albumStore.getAlbumDetailPrivate(slug);
+  } else {
+    await albumStore.getAlbumDetailPublic(slug);
+  }
+
+  isLoadingAlbum.value = false;
+});
+
+onUnmounted(() => {
+  albumStore.resetAlbumDetail();
+});
 </script>
 
 <style lang="scss" scoped></style>
