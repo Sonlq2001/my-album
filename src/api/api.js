@@ -9,7 +9,7 @@ import {
   HEADER,
   DELAY_REDIRECT_LOGIN,
   CONTENT_TYPE_HEADER,
-  MSG_EXPIRED_REFRESH_TOKEN,
+  MESSAGE_RESPONSE,
 } from "@/constants/http.constants";
 import { AuthPaths } from "@/views/auth/auth";
 
@@ -39,7 +39,7 @@ const errorInterceptor = async (error) => {
     const message = error.response.data.message;
     if (
       status === HTTP_STATUS.UNAUTHORIZED &&
-      message === MSG_EXPIRED_REFRESH_TOKEN // expired refresh token -> logout
+      message === MESSAGE_RESPONSE // problem occurs when refresh token -> logout
     ) {
       localStorage.clear();
       setTimeout(() => {
