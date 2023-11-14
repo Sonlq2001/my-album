@@ -3,13 +3,15 @@
     <!-- tools album -->
     <div class="flex items-center mt-7 justify-between">
       <div class="flex">
-        <img
-          src="https://cdn.pixabay.com/photo/2016/11/21/15/13/work-harder-1845901_640.jpg"
-          alt="avatar-user"
-          class="w-12 h-12 rounded-full"
-        />
+        <div
+          class="w-12 h-12 rounded-full bg-main flex items-center justify-center"
+        >
+          <span class="text-white text-xl font-semibold uppercase"
+            >{{ firstCharacterName }}
+          </span>
+        </div>
         <div class="flex flex-col ml-3">
-          <span class="font-semibold">Le Quang Son</span>
+          <span class="font-semibold">{{ albumDetail?.user.name }}</span>
           <span class="text-sm text-[#aaa]">123 album</span>
         </div>
       </div>
@@ -47,7 +49,7 @@
           <span>Thời gian</span>
           <p class="text-text_gray">
             <i class="ri-calendar-event-fill mr-3"></i>
-            01-08-2023
+            {{ formatDate(albumDetail?.date) }}
           </p>
         </div>
         <div class="mb-3">
@@ -86,12 +88,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted } from "vue";
+import { onMounted, ref, onUnmounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import get from "lodash.get";
 
 import { useAlbumStore } from "@/stores/album/album.store";
+import { formatDate } from "@/helpers/app.helper";
 import { STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 
@@ -106,6 +109,10 @@ const { albumDetail } = storeToRefs(albumStore);
 const isLoadingAlbum = ref(true);
 
 const slug = route.params.slug;
+
+const firstCharacterName = computed(() => {
+  return albumDetail.value?.user.name.split(" ").pop()[0];
+});
 
 onMounted(async () => {
   if (!slug) return;
