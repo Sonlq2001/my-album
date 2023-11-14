@@ -6,8 +6,8 @@
         <div
           class="w-12 h-12 rounded-full bg-main flex items-center justify-center"
         >
-          <span class="text-white text-xl font-semibold uppercase"
-            >{{ firstCharacterName }}
+          <span class="text-white text-xl font-semibold uppercase">
+            {{ firstCharacterName }}
           </span>
         </div>
         <div class="flex flex-col ml-3">
