@@ -24,18 +24,11 @@
     <div v-if="isLoadingAlbum">Loading...</div>
     <!-- info album -->
     <div class="max-w-5xl mx-auto flex gap-8 mt-7" v-else-if="albumDetail">
-      <div class="flex-1">
-        <img
-          src="https://cdn.pixabay.com/photo/2013/12/17/20/10/bubbles-230014_640.jpg"
-          alt="my-album"
-          class="w-full cursor-pointer"
-        />
-        <p class="text-center text-xs text-[#aaa] mt-2">
-          Thể loại: JPG 1024x960
-        </p>
+      <div class="w-[60%]">
+        <album-carousel :list-images="albumDetail?.albums || []" />
       </div>
 
-      <div class="flex-1">
+      <div class="w-[40%]">
         <div class="mb-3">
           <span>Tiêu đề</span>
           <p class="text-text_gray">
@@ -92,6 +85,7 @@ import { storeToRefs } from "pinia";
 import get from "lodash.get";
 
 import { useAlbumStore } from "@/stores/album/album.store";
+import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
 import { STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 

@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import "vue3-carousel/dist/carousel.css";
 
 import "./assets/styles/tailwind.css";
 import "./assets/styles/global.css";
