@@ -14,12 +14,14 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(data) {
       const res = await authApi.loginApi(data);
-      const { accessToken, id } = res.data.metadata;
+      const { accessToken, id, name, email } = res.data.metadata;
 
       this.userInfo = res.data.metadata;
       this.authData = {
         accessToken,
         id,
+        name,
+        email,
       };
     },
 
