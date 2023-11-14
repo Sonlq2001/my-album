@@ -1,0 +1,61 @@
+<template>
+  <carousel
+    :autoplay="4000"
+    :items-to-show="1"
+    :pause-autoplay-on-hover="true"
+    :wrap-around="isLoopCarousel"
+    :mouse-drag="isLoopCarousel"
+    ref="myCarousel"
+  >
+    <slide v-for="slideImage in listImages" :key="slideImage.id">
+      <img
+        :src="slideImage.imageUrl"
+        alt="my-album"
+        class="w-full cursor-pointer h-[400px] rounded border border-[#eee]"
+      />
+    </slide>
+  </carousel>
+
+  <div
+    class="flex items-center justify-center gap-4 mt-3"
+    v-if="isLoopCarousel"
+  >
+    <i
+      @click="handlePreviousCarousel"
+      class="ri-arrow-left-circle-line text-2xl cursor-pointer hover:text-main text-text_gray"
+    />
+    <i
+      @click="handleNextCarousel"
+      class="ri-arrow-right-circle-line text-2xl cursor-pointer hover:text-main text-text_gray"
+    />
+  </div>
+</template>
+
+<script setup>
+import { computed, ref } from "vue";
+import { Carousel, Slide } from "vue3-carousel";
+
+const props = defineProps({
+  listImages: {
+    type: [Object],
+    default: [],
+  },
+});
+
+const isLoopCarousel = computed(() => props.listImages.length > 2);
+const myCarousel = ref(null);
+
+const handlePreviousCarousel = () => {
+  if (myCarousel) {
+    myCarousel._value.prev();
+  }
+};
+
+const handleNextCarousel = () => {
+  if (myCarousel) {
+    myCarousel._value.next();
+  }
+};
+</script>
+
+<style lang="css" scoped></style>
