@@ -26,7 +26,7 @@
       <!-- end input search -->
 
       <div class="flex items-center">
-        <menu-header v-if="isLogin" />
+        <menu-header v-if="isLogged" />
         <router-link
           :to="{ name: NamespaceRouter.LOGIN }"
           :class="[
@@ -78,7 +78,7 @@ defineProps({
 });
 
 const isHeaderActive = ref(false);
-const { isLogin } = useGetUserInfo();
+const { isLogged } = useGetUserInfo();
 
 const handleScrollHeader = debounce(() => {
   isHeaderActive.value = window.scrollY > POSITION_ACTIVE_HEADER;

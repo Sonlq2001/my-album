@@ -1,18 +1,16 @@
 <template>
   <div class="flex mr-4 relative" ref="menuRef">
     <button @click="handleClickMenu">
-      <img
-        src="https://cdn.pixabay.com/photo/2023/10/27/23/10/mountain-8346389_640.jpg"
-        alt=""
-        class="w-[40px] h-[40px] rounded-full"
-      />
+      <user-avatar :user-name="authStore.authData.name" />
     </button>
 
     <div
       class="absolute top-[120%] right-0 w-[220px] bg-dark_menu rounded-lg p-3 transition-all flex flex-col gap-1"
       v-if="isOpenMenuHeader"
     >
-      <h3 class="text-white font-semibold py-2 px-3">Lê Quang Son</h3>
+      <h3 class="text-white font-semibold py-2 px-3">
+        {{ authStore.authData.name }}
+      </h3>
       <component
         v-for="(menu, index) in MENUS_HEADER"
         :to="menu.nameRouter ? { name: menu.nameRouter } : null"
@@ -47,6 +45,7 @@ import { useRouter } from "vue-router";
 import { MENUS_HEADER } from "@/constants/header.constants";
 import { useAuthStore } from "@/stores/auth/auth.store";
 import { DELAY_REDIRECT_LOGIN } from "@/constants/http.constants";
+import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
 
 const router = useRouter();
 const menuRef = ref(null);
