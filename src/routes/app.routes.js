@@ -23,12 +23,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const { isLogin } = useGetUserInfo();
-  if (!isLogin && to.meta?.isPrivate) {
+  const { isLogged } = useGetUserInfo();
+  if (!isLogged && to.meta?.isPrivate) {
     return next({ name: NamespaceRouter.LOGIN });
   }
 
-  if (isLogin && to.meta?.isAuth) {
+  if (isLogged && to.meta?.isAuth) {
     return next({ name: NamespaceRouter.history });
   }
 

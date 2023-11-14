@@ -4,7 +4,7 @@ const useGetUserInfo = () => {
   const { authData } = useAuthStore();
 
   return {
-    isLogin: Boolean(authData?.accessToken),
+    isLogged: Boolean(authData?.accessToken),
     accessToken: authData?.accessToken,
     userId: authData?.id,
   };

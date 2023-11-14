@@ -3,13 +3,8 @@
     <!-- tools album -->
     <div class="flex items-center mt-7 justify-between">
       <div class="flex">
-        <div
-          class="w-12 h-12 rounded-full bg-main flex items-center justify-center"
-        >
-          <span class="text-white text-xl font-semibold uppercase">
-            {{ firstCharacterName }}
-          </span>
-        </div>
+        <user-avatar size="large" :user-name="albumDetail?.user?.name" />
+
         <div class="flex flex-col ml-3">
           <span class="font-semibold">{{ albumDetail?.user.name }}</span>
           <span class="text-sm text-[#aaa]">123 album</span>
@@ -81,13 +76,14 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted, computed } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import get from "lodash.get";
 
 import { useAlbumStore } from "@/stores/album/album.store";
 import { formatDate } from "@/helpers/app.helper";
+import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
 
 import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
 import { STATUS_ALBUM } from "../../constants/album.constants";
@@ -104,10 +100,6 @@ const { albumDetail } = storeToRefs(albumStore);
 const isLoadingAlbum = ref(true);
 
 const slug = route.params.slug;
-
-const firstCharacterName = computed(() => {
-  return albumDetail.value?.user.name.split(" ").pop()[0];
-});
 
 onMounted(async () => {
   if (!slug) return;
