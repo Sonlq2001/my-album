@@ -50,15 +50,23 @@ import { onMounted, ref } from "vue";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 
 const albumStore = useAlbumStore();
 const isLoadingAlbums = ref(false);
+const initParams = ref({
+  page: DEFAULT_PAGE,
+  perPage: DEFAULT_PER_PAGE,
+});
 
 onMounted(async () => {
   isLoadingAlbums.value = true;
   const category = window.location.pathname.split("/");
 
-  await albumStore.getListAlbumsPublic({ category: category.pop() });
+  await albumStore.getListAlbumsPublic({
+    category: category.pop(),
+    ...initParams.value,
+  });
   isLoadingAlbums.value = false;
 });
 </script>
