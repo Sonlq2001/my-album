@@ -66,16 +66,20 @@ import { useCategoryStore } from "@/stores/category/category.store";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 import useGetCategory from "@/composable/useGetCategory";
 import { CategoryPaths } from "@/views/category/category";
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 
 import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
 
 const albumStore = useAlbumStore();
-const isLoadingAlbums = ref(false);
 const categoryStore = useCategoryStore();
+const isLoadingAlbums = ref(false);
 
 onMounted(async () => {
   isLoadingAlbums.value = true;
-  await albumStore.getListAlbumsPublic();
+  await albumStore.getListAlbumsPublic({
+    page: DEFAULT_PAGE,
+    perPage: DEFAULT_PER_PAGE,
+  });
   isLoadingAlbums.value = false;
 });
 

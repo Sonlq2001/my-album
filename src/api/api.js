@@ -59,9 +59,9 @@ const instanceApi = axios.create({
 });
 
 const refreshAuthLogic = async () => {
-  const { isLogin } = useGetUserInfo();
+  const { isLogged } = useGetUserInfo();
   const authStore = useAuthStore();
-  if (isLogin) {
+  if (isLogged) {
     await authStore.refreshToken();
   }
 
