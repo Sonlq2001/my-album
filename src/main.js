@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import { ObserveVisibility } from "vue-observe-visibility";
 import "vue3-carousel/dist/carousel.css";
 
 import "./assets/styles/tailwind.css";
@@ -15,5 +16,14 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 pinia.use(piniaPluginPersistedstate);
+
+app.directive("observe-visibility", {
+  beforeMount: (el, binding, vnode) => {
+    vnode.context = binding.instance;
+    ObserveVisibility.bind(el, binding, vnode);
+  },
+  update: ObserveVisibility.update,
+  unmounted: ObserveVisibility.unbind,
+});
 
 app.mount("#app");

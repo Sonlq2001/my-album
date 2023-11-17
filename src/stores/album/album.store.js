@@ -8,6 +8,7 @@ export const useAlbumStore = defineStore("album", {
     return {
       listAlbums: null,
       albumDetail: null,
+      cancelLoadMore: false,
     };
   },
   actions: {
@@ -21,7 +22,12 @@ export const useAlbumStore = defineStore("album", {
     },
     async getListAlbumsPublic(params) {
       const res = await albumApi.getListAlbumsPublicApi(params);
-      this.listAlbums = res.data.metadata;
+      if (this.listAlbums && this.listAlbums.length) {
+        this.listAlbums = this.listAlbums.concat(res.data.metadata);
+        this.cancelLoadMore = this.listAlbums.length >= res.data.meta?.total;
+      } else {
+        this.listAlbums = res.data.metadata;
+      }
     },
     async getAlbumDetailPublic(slug) {
       const res = await albumApi.getAlbumDetailPublicApi(slug);
@@ -33,6 +39,10 @@ export const useAlbumStore = defineStore("album", {
     },
     resetAlbumDetail() {
       this.albumDetail = null;
+    },
+    resetListAlbums() {
+      this.listAlbums = null;
+      this.cancelLoadMore = false;
     },
   },
   getters: {

@@ -24,18 +24,19 @@
 
     <!-- map data -->
     <div
-      class="mt-4 columns-4 gap-5"
       v-else-if="
         albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
       "
     >
-      <item-album
-        v-for="album in albumStore.listAlbumsData"
-        :key="album.id"
-        :album="album"
-      />
+      <div class="mt-4 columns-4 gap-5">
+        <item-album
+          v-for="album in albumStore.listAlbumsData"
+          :key="album.id"
+          :album="album"
+        />
+      </div>
+      <div id="observe-visibility" v-observe-visibility="visibilityChanged" />
     </div>
-
     <!-- no data -->
     <div v-else>
       <!-- TODO: no data -->
@@ -45,7 +46,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive, onUnmounted, computed } from "vue";
 
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
@@ -54,20 +55,32 @@ import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 
 const albumStore = useAlbumStore();
 const isLoadingAlbums = ref(false);
-const initParams = ref({
+const initParams = reactive({
+  category: window.location.pathname.split("/").pop(),
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
 });
 
 onMounted(async () => {
   isLoadingAlbums.value = true;
-  const category = window.location.pathname.split("/");
 
   await albumStore.getListAlbumsPublic({
-    category: category.pop(),
-    ...initParams.value,
+    ...initParams,
   });
   isLoadingAlbums.value = false;
+});
+
+const visibilityChanged = async (isVisible) => {
+  if (!isVisible || albumStore.cancelLoadMore) return;
+
+  await albumStore.getListAlbumsPublic({
+    ...initParams,
+    page: ++initParams.page,
+  });
+};
+
+onUnmounted(() => {
+  albumStore.resetListAlbums();
 });
 </script>
 
