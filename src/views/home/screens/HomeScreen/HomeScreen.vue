@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, onUnmounted } from "vue";
 
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
@@ -86,6 +86,10 @@ onMounted(async () => {
 useGetCategory();
 
 const listCategories = computed(() => categoryStore.listCategories || []);
+
+onUnmounted(() => {
+  albumStore.resetListAlbums();
+});
 </script>
 
 <style lang="css" scoped>
