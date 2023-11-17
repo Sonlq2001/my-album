@@ -36,6 +36,11 @@
         />
       </div>
       <div id="observe-visibility" v-observe-visibility="visibilityChanged" />
+      <div class="flex justify-center mt-5" v-if="isLoadingScroll">
+        <div
+          class="inline-block h-7 w-7 animate-spin rounded-full border-[3px] border-solid border-main border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        />
+      </div>
     </div>
     <!-- no data -->
     <div v-else>
@@ -55,6 +60,7 @@ import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 
 const albumStore = useAlbumStore();
 const isLoadingAlbums = ref(false);
+const isLoadingScroll = ref(false);
 const initParams = reactive({
   category: window.location.pathname.split("/").pop(),
   page: DEFAULT_PAGE,
@@ -73,10 +79,13 @@ onMounted(async () => {
 const visibilityChanged = async (isVisible) => {
   if (!isVisible || albumStore.cancelLoadMore) return;
 
+  isLoadingScroll.value = true;
   await albumStore.getListAlbumsPublic({
     ...initParams,
     page: ++initParams.page,
   });
+
+  isLoadingScroll.value = false;
 };
 
 onUnmounted(() => {

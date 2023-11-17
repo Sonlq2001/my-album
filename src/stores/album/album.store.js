@@ -24,10 +24,10 @@ export const useAlbumStore = defineStore("album", {
       const res = await albumApi.getListAlbumsPublicApi(params);
       if (this.listAlbums && this.listAlbums.length) {
         this.listAlbums = this.listAlbums.concat(res.data.metadata);
-        this.cancelLoadMore = this.listAlbums.length >= res.data.meta?.total;
       } else {
         this.listAlbums = res.data.metadata;
       }
+      this.cancelLoadMore = this.listAlbums?.length >= res.data.meta?.total;
     },
     async getAlbumDetailPublic(slug) {
       const res = await albumApi.getAlbumDetailPublicApi(slug);
