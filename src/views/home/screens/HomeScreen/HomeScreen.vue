@@ -6,7 +6,7 @@
         v-for="cate in listCategories"
         class="px-3 py-2 flex items-center rounded-3xl mr-5 bg-gray hover:bg-black/5 text-main"
         :key="cate.id"
-        :to="CategoryPaths.CATEGORY_LIST.replace(':category_title', cate.slug)"
+        :to="`${CategoryPaths.CATEGORY_LIST}?cate=${cate.slug}`"
       >
         <span class="text-sm font-semibold font-sans">{{ cate.title }}</span>
       </router-link>
@@ -40,11 +40,12 @@
       <div
         class="absolute bottom-0 left-0 right-0 text-center load-more h-[190px] z-20 flex justify-center items-end"
       >
-        <button
+        <router-link
+          :to="CategoryPaths.CATEGORY_LIST"
           class="border border-[#bbb] rounded-2xl px-3 py-1 text-md bg-white inline-block mb-7 hover:bg-gray"
         >
           Xem thêm
-        </button>
+        </router-link>
       </div>
     </div>
 
