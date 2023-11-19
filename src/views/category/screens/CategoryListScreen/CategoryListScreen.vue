@@ -62,7 +62,7 @@ const albumStore = useAlbumStore();
 const isLoadingAlbums = ref(false);
 const isLoadingScroll = ref(false);
 const initParams = reactive({
-  category: window.location.pathname.split("/").pop(),
+  cate: new URLSearchParams(window.location.search).get("cate"),
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
 });

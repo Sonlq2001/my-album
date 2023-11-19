@@ -1,3 +1,3 @@
 export const CategoryPaths = {
-  CATEGORY_LIST: "/category/:category_title",
+  CATEGORY_LIST: "/category",
 };
