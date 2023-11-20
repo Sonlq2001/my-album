@@ -19,13 +19,20 @@
         type="text"
         placeholder="Tìm kiếm tất cả hình ảnh của bạn"
         class="w-full p-4 pl-[90px] text-black border-none outline-none rounded-[30px]"
+        @keypress="handleEnterSearch"
+        v-model="searchStore.keyword"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+import useEnterSearch from "@/composable/useEnterSearch";
+import { useSearchStore } from "@/stores/search/search.store";
 import IconSearch from "@/assets/images/search.svg";
+
+const searchStore = useSearchStore();
+const handleEnterSearch = useEnterSearch();
 </script>
 
 <style lang="css" scoped>

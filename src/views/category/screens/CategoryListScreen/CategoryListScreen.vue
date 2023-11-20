@@ -51,20 +51,27 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, onUnmounted, computed } from "vue";
+import { onMounted, ref, reactive, onUnmounted, watch } from "vue";
+import { useRoute } from "vue-router";
 
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
+import { useSearchStore } from "@/stores/search/search.store";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
+import { getQueryStringUrl } from "@/helpers/app.helper";
 
 const albumStore = useAlbumStore();
+const searchStore = useSearchStore();
+const route = useRoute();
+
 const isLoadingAlbums = ref(false);
 const isLoadingScroll = ref(false);
 const initParams = reactive({
-  cate: new URLSearchParams(window.location.search).get("cate"),
+  cate: getQueryStringUrl("cate"),
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
+  keyword: getQueryStringUrl("keyword"),
 });
 
 onMounted(async () => {
@@ -88,7 +95,21 @@ const visibilityChanged = async (isVisible) => {
   isLoadingScroll.value = false;
 };
 
+watch(
+  () => {
+    return route.query.keyword;
+  },
+  async () => {
+    searchStore.setKeyword(route.query.keyword);
+    await albumStore.getListAlbumsPublic({
+      ...initParams,
+      keyword: route.query.keyword,
+    });
+  }
+);
+
 onUnmounted(() => {
+  searchStore.setKeyword("");
   albumStore.resetListAlbums();
 });
 </script>
