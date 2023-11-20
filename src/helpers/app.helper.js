@@ -6,3 +6,22 @@ export const formatDate = (date) => {
     day: "numeric",
   });
 };
+
+export const getQueryStringUrl = (key) => {
+  return new URLSearchParams(window.location.search).get(key) || "";
+};
+
+export const pushQueryString = (params = {}) => {
+  let filterParams = Object.fromEntries(
+    Object.entries(params).filter(([_, v]) => v)
+  );
+
+  const str = Object.keys(filterParams)
+    .map((key) => {
+      return `${key}=${encodeURIComponent(filterParams[key])}`;
+    })
+    .join("&");
+  const queryString = str ? `?${str}` : "";
+
+  window.history.replaceState(history.state, "", queryString);
+};

@@ -12,11 +12,14 @@ import {
   MESSAGE_RESPONSE,
 } from "@/constants/http.constants";
 import { AuthPaths } from "@/views/auth/auth";
+import { pushQueryString } from "@/helpers/app.helper";
 
 const requestInterceptor = (req) => {
   const { accessToken, userId } = useGetUserInfo();
   req.params = toSnakeCase(req.params, true);
   req.data = toSnakeCase(req.data, true);
+
+  pushQueryString(req.params);
 
   if (accessToken && userId) {
     req.headers[HEADER.AUTHORIZATION] = `Bearer ${accessToken}`;

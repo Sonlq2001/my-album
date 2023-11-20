@@ -7,10 +7,18 @@
       type="text"
       placeholder="Tìm kiếm my album"
       class="w-full outline-none bg-gray h-full rounded-3xl pl-[50px] pr-5"
+      @keypress="handleEnterSearch"
+      v-model="searchStore.keyword"
     />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import useEnterSearch from "@/composable/useEnterSearch";
+import { useSearchStore } from "@/stores/search/search.store";
+
+const searchStore = useSearchStore();
+const handleEnterSearch = useEnterSearch();
+</script>
 
 <style lang="scss" scoped></style>
