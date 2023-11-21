@@ -74,17 +74,12 @@ const initParams = reactive({
   keyword: getQueryStringUrl("keyword"),
 });
 
-const fetchAlbums = async (params) => {
-  try {
-    await albumStore.getListAlbumsPublic({ ...initParams, ...params });
-  } catch (error) {
-    // TODO: handler error
-  }
-};
-
 onMounted(async () => {
   isLoadingAlbums.value = true;
-  await fetchAlbums();
+
+  await albumStore.getListAlbumsPublic({
+    ...initParams,
+  });
   isLoadingAlbums.value = false;
 });
 
@@ -92,7 +87,11 @@ const visibilityChanged = async (isVisible) => {
   if (!isVisible || albumStore.cancelLoadMore) return;
 
   isLoadingScroll.value = true;
-  await fetchAlbums({ page: ++initParams.page });
+  await albumStore.getListAlbumsPublic({
+    ...initParams,
+    page: ++initParams.page,
+  });
+
   isLoadingScroll.value = false;
 };
 
@@ -101,15 +100,11 @@ watch(
     return route.query.keyword;
   },
   async () => {
-    isLoadingAlbums.value = true;
     searchStore.setKeyword(route.query.keyword);
-
-    await fetchAlbums({
+    await albumStore.getListAlbumsPublic({
+      ...initParams,
       keyword: route.query.keyword,
-      hasSearch: true,
     });
-
-    isLoadingAlbums.value = false;
   }
 );
 

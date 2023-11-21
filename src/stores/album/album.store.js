@@ -20,9 +20,9 @@ export const useAlbumStore = defineStore("album", {
       const res = await albumApi.createAlbumApi(data);
       return res.data.metadata;
     },
-    async getListAlbumsPublic({ hasSearch, ...rest }) {
-      const res = await albumApi.getListAlbumsPublicApi(rest);
-      if (this.listAlbums && this.listAlbums.length && !hasSearch) {
+    async getListAlbumsPublic(params) {
+      const res = await albumApi.getListAlbumsPublicApi(params);
+      if (this.listAlbums && this.listAlbums.length) {
         this.listAlbums = this.listAlbums.concat(res.data.metadata);
       } else {
         this.listAlbums = res.data.metadata;
