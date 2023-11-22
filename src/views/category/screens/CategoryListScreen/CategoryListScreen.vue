@@ -3,7 +3,9 @@
     <h1 class="font-bold text-2xl">Những bức ảnh về cuộc sống đời thường</h1>
     <p class="mt-3 text-[#656f79]">
       Kết quả tìm kiếm:
-      <span class="font-semibold">20 tấm hình</span>
+      <span v-if="!isLoadingAlbums" class="font-semibold">
+        {{ albumStore.total }} tấm hình
+      </span>
     </p>
 
     <div class="mt-7">

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import get from "lodash.get";
 
 import { albumApi } from "@/views/album/album";
 
@@ -9,6 +10,7 @@ export const useAlbumStore = defineStore("album", {
       listAlbums: null,
       albumDetail: null,
       cancelLoadMore: false,
+      total: 0,
     };
   },
   actions: {
@@ -22,12 +24,16 @@ export const useAlbumStore = defineStore("album", {
     },
     async getListAlbumsPublic({ hasSearch, ...rest }) {
       const res = await albumApi.getListAlbumsPublicApi(rest);
+      const data = get(res, "data.metadata");
+      const meta = get(res, "data.meta");
+
       if (this.listAlbums && this.listAlbums.length && !hasSearch) {
-        this.listAlbums = this.listAlbums.concat(res.data.metadata);
+        this.listAlbums = this.listAlbums.concat(data);
       } else {
-        this.listAlbums = res.data.metadata;
+        this.listAlbums = data;
       }
-      this.cancelLoadMore = this.listAlbums?.length >= res.data.meta?.total;
+      this.cancelLoadMore = this.listAlbums?.length >= meta.total;
+      this.total = meta.total;
     },
     async getAlbumDetailPublic(slug) {
       const res = await albumApi.getAlbumDetailPublicApi(slug);
