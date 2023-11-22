@@ -8,12 +8,15 @@
 
     <div class="mt-7">
       <button
-        class="font-sans text-sm border px-2 py-1 rounded border-[#ddd] bg-gray mr-3"
+        :class="[
+          'font-sans text-sm border px-2 py-1 rounded border-[#ddd]  mr-3',
+          sort.value === initParams.sort ? 'bg-main text-white' : 'bg-gray',
+        ]"
+        v-for="(sort, index) in LIST_SORT_CATEGORIES"
+        :index="index"
+        @click="() => handlerSortAlbums(sort)"
       >
-        Mới nhất
-      </button>
-      <button class="font-sans text-sm border px-2 py-1 rounded border-[#ddd]">
-        Cũ nhất
+        {{ sort.label }}
       </button>
     </div>
 
@@ -61,6 +64,11 @@ import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 import { getQueryStringUrl } from "@/helpers/app.helper";
 
+import {
+  LIST_SORT_CATEGORIES,
+  SORT_VALUE,
+} from "../../constants/category.constants";
+
 const albumStore = useAlbumStore();
 const searchStore = useSearchStore();
 const route = useRoute();
@@ -72,6 +80,7 @@ const initParams = reactive({
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
   keyword: getQueryStringUrl("keyword"),
+  sort: SORT_VALUE.CREATED_DESC,
 });
 
 const fetchAlbums = async (params) => {
@@ -98,7 +107,7 @@ const visibilityChanged = async (isVisible) => {
 
 watch(
   () => {
-    return route.query.keyword;
+    return [route.query.keyword, initParams.sort];
   },
   async () => {
     isLoadingAlbums.value = true;
@@ -117,6 +126,10 @@ onUnmounted(() => {
   searchStore.setKeyword("");
   albumStore.resetListAlbums();
 });
+
+const handlerSortAlbums = (valueSort) => {
+  initParams.sort = valueSort.value;
+};
 </script>
 
 <style lang="css" scoped></style>
