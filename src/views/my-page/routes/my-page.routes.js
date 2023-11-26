@@ -1,4 +1,5 @@
 import MyPageScreen from "@/views/my-page/screens/MyPageScreen/MyPageScreen.vue";
+import ProfileScreen from "@/views/my-page/screens/ProfileScreen/ProfileScreen.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import { NamespaceRouter } from "@/constants/router.constants";
 
@@ -14,4 +15,14 @@ const MY_PAGE_SCREEN = {
   },
 };
 
-export const MY_PAGE_ROUTES = [MY_PAGE_SCREEN];
+const PROFILE_SCREEN = {
+  path: MyPagePaths.PROFILE,
+  name: NamespaceRouter.PROFILE,
+  component: ProfileScreen,
+  meta: {
+    layout: DefaultLayout,
+    isPrivate: true,
+  },
+};
+
+export const MY_PAGE_ROUTES = [MY_PAGE_SCREEN, PROFILE_SCREEN];
