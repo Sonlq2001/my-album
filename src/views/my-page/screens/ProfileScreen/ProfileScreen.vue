@@ -26,9 +26,11 @@
         <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
       </div>
 
-      <div class="flex flex-col gap-3 mt-6 border-b border-[#eee]">
+      <div class="flex flex-col gap-3 mt-6">
         <label class="font-semibold">Email</label>
-        <span class="bg-black/5 p-2">Sonweb2001@gmail.com</span>
+        <span class="inline-block bg-black/5 p-2 rounded-md">
+          Sonweb2001@gmail.com
+        </span>
       </div>
 
       <div class="flex flex-col mt-6 gap-3">
@@ -45,21 +47,9 @@
         <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
       </div>
 
-      <div class="flex flex-col gap-3 mt-6 border-b border-[#eee] pb-2">
-        <label class="font-semibold">Avatar</label>
-        <img
-          src="https://cdn.pixabay.com/photo/2023/11/13/18/09/forest-8386084_640.jpg"
-          alt="avatar"
-          class="w-[120px] h-[120px] rounded-full"
-        />
-        <span class="text-xs">Ảnh JPG, JPEG, PNG</span>
-      </div>
+      <upload-user-avatar :isEdit="isEdit" />
 
-      <div class="flex flex-col gap-3 mt-6 border-b border-[#eee] pb-2">
-        <label class="font-semibold">Background</label>
-        <div class="background" />
-        <span class="text-xs">Ảnh JPG, JPEG, PNG</span>
-      </div>
+      <upload-background-user :isEdit="isEdit" />
 
       <div class="mt-7 flex justify-end">
         <app-button type="submit" size="small" intent="primary">
@@ -78,6 +68,9 @@ import InputField from "@/components/Form/InputField/InputField.vue";
 import ReturnTo from "@/components/ReturnTo/ReturnTo.vue";
 import AppButton from "@/components/AppButton/AppButton.vue";
 
+import UploadUserAvatar from "../../components/UploadUserAvatar/UploadUserAvatar.vue";
+import UploadBackgroundUser from "../../components/UploadBackgroundUser/UploadBackgroundUser.vue";
+
 const isEdit = ref(false);
 
 const handlerClickEdit = () => {
@@ -89,14 +82,4 @@ const handleSubmit = () => {
 };
 </script>
 
-<style lang="css" scoped>
-.background {
-  background-image: url("https://cdn.pixabay.com/photo/2023/11/16/22/06/fritillary-butterfly-8393205_640.jpg");
-  position: relative;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  padding-top: 33%;
-  border-radius: 10px;
-}
-</style>
+<style lang="css" scoped></style>
