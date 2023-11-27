@@ -10,7 +10,7 @@
         <img
           src="https://cdn.pixabay.com/photo/2023/08/08/17/20/yosemite-8177850_640.jpg"
           alt="bg-avatar"
-          class="w-[140px] h-[140px] rounded-full"
+          class="w-[130px] h-[130px] rounded-full"
         />
         <span class="font-semibold block mt-3">Lê Quang Sơn</span>
       </div>
@@ -18,34 +18,34 @@
 
     <div class="mt-[88px]">
       <div class="pt-[50px] flex flex-col justify-start gap-3">
-        <button
+        <component
           class="flex items-center justify-between font-semibold w-full p-2 px-3 text-text_gray text-left hover:bg-gray"
+          v-for="(menu, index) in MENUS_MY_PAGE"
+          :key="index"
+          :to="menu.nameRouter ? { name: menu.nameRouter } : null"
+          :is="menu.nameRouter ? 'router-link' : 'button'"
+          @click="() => clickLogout(menu.nameRouter)"
         >
-          Thông tin cá nhân
+          {{ menu.label }}
           <i class="ri-arrow-right-s-line"></i>
-        </button>
-        <button
-          class="flex items-center justify-between font-semibold w-full p-2 px-3 text-text_gray text-left hover:bg-gray"
-        >
-          Album của bạn
-          <i class="ri-arrow-right-s-line"></i>
-        </button>
-        <button
-          class="flex items-center justify-between font-semibold w-full p-2 px-3 text-text_gray text-left hover:bg-gray"
-        >
-          Chủ đề
-          <i class="ri-arrow-right-s-line"></i>
-        </button>
-        <button
-          class="flex items-center justify-between font-semibold w-full p-2 px-3 text-text_gray text-left hover:bg-gray"
-        >
-          Đăng xuất
-        </button>
+        </component>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import useLogout from "@/composable/useLogout";
+
+import { MENUS_MY_PAGE } from "../../constants/my-page.constants";
+
+const handleLogout = useLogout();
+
+const clickLogout = (nameRouter) => {
+  if (nameRouter) return;
+
+  handleLogout();
+};
+</script>
 
 <style lang="scss" scoped></style>

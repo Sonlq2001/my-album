@@ -1,7 +1,7 @@
 <template>
   <div class="flex mr-4 relative" ref="menuRef">
     <button @click="handleClickMenu">
-      <user-avatar :user-name="authStore.authData.name" />
+      <user-avatar :user-name="authStore.authData?.name" />
     </button>
 
     <div
@@ -9,7 +9,7 @@
       v-if="isOpenMenuHeader"
     >
       <h3 class="text-white font-semibold py-2 px-3">
-        {{ authStore.authData.name }}
+        {{ authStore.authData?.name }}
       </h3>
       <component
         v-for="(menu, index) in MENUS_HEADER"
@@ -17,7 +17,7 @@
         :key="index"
         :is="menu.nameRouter ? 'router-link' : 'button'"
         class="block w-full"
-        @click="() => handleLogout(menu.nameRouter)"
+        @click="() => clickLogout(menu.nameRouter)"
         :disabled="menu.nameRouter ? null : isPendingLogout"
       >
         <div
@@ -44,12 +44,11 @@ import { useRouter } from "vue-router";
 
 import { MENUS_HEADER } from "@/constants/header.constants";
 import { useAuthStore } from "@/stores/auth/auth.store";
-import { DELAY_REDIRECT_LOGIN } from "@/constants/http.constants";
 import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
+import useLogout from "@/composable/useLogout";
 
 const router = useRouter();
 const menuRef = ref(null);
-const isPendingLogout = ref(false);
 const isOpenMenuHeader = ref(false);
 const authStore = useAuthStore();
 
@@ -68,25 +67,12 @@ watch(
   }
 );
 
-const handleLogout = (nameRouter) => {
+const handleLogout = useLogout();
+
+const clickLogout = (nameRouter) => {
   if (nameRouter) return;
 
-  isPendingLogout.value = true;
-  authStore
-    .logout()
-    .then(() => {
-      setTimeout(() => {
-        window.location.reload();
-      }, DELAY_REDIRECT_LOGIN);
-    })
-    .catch(() => {
-      // TODO: handle error
-    })
-    .finally(() => {
-      setTimeout(() => {
-        isPendingLogout.value = false;
-      }, DELAY_REDIRECT_LOGIN);
-    });
+  handleLogout();
 };
 </script>
 
