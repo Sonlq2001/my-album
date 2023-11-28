@@ -11,16 +11,21 @@
       Thông tin cá nhân
     </h1>
 
-    <FormVee @submit="handleSubmit">
-      <div class="flex flex-col gap-3">
-        <label class="font-semibold">Họ tên</label>
+    <FormVee
+      @submit="handleSubmit"
+      :initial-values="initValuesProfile"
+      :validation-schema="schemaUpdateProfile"
+      v-slot="{ setFieldValue }"
+    >
+      <div class="flex flex-col">
+        <label class="font-semibold mb-3">Họ tên</label>
 
         <input-field
           variant="standard"
           name="name"
           placeholder="Họ tên"
           v-if="isEdit"
-          overWriteClass="pt-0"
+          overWriteClass="pt-0 pb-2"
         />
 
         <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
@@ -29,29 +34,29 @@
       <div class="flex flex-col gap-3 mt-6">
         <label class="font-semibold">Email</label>
         <span class="inline-block bg-black/5 p-2 rounded-md">
-          Sonweb2001@gmail.com
+          {{ email }}
         </span>
       </div>
 
-      <div class="flex flex-col mt-6 gap-3">
-        <label class="font-semibold">Mật khẩu</label>
+      <div class="flex flex-col mt-6">
+        <label class="font-semibold mb-3">Mật khẩu</label>
 
         <input-field
           variant="standard"
           name="password"
           placeholder="Mật khẩu"
           v-if="isEdit"
-          overWriteClass="pt-0"
+          overWriteClass="pt-0 pb-2"
         />
 
         <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
       </div>
 
-      <upload-user-avatar :isEdit="isEdit" />
+      <upload-user-avatar :isEdit="isEdit" :setFieldValue="setFieldValue" />
 
-      <upload-background-user :isEdit="isEdit" />
+      <upload-background-user :isEdit="isEdit" :setFieldValue="setFieldValue" />
 
-      <div class="mt-7 flex justify-end">
+      <div class="mt-7 flex justify-end" v-if="isEdit">
         <app-button type="submit" size="small" intent="primary">
           Lưu
         </app-button>
@@ -67,18 +72,25 @@ import { Form as FormVee } from "vee-validate";
 import InputField from "@/components/Form/InputField/InputField.vue";
 import ReturnTo from "@/components/ReturnTo/ReturnTo.vue";
 import AppButton from "@/components/AppButton/AppButton.vue";
+import useGetUserInfo from "@/composable/useGetUserInfo";
 
+import {
+  initValuesProfile,
+  schemaUpdateProfile,
+} from "../../helpers/profile.helpers";
 import UploadUserAvatar from "../../components/UploadUserAvatar/UploadUserAvatar.vue";
 import UploadBackgroundUser from "../../components/UploadBackgroundUser/UploadBackgroundUser.vue";
 
+const { email } = useGetUserInfo();
 const isEdit = ref(false);
 
 const handlerClickEdit = () => {
   isEdit.value = !isEdit.value;
 };
 
-const handleSubmit = () => {
-  console.log("vod ay");
+const handleSubmit = (values) => {
+  // TODO: call api
+  console.log(values, "submit");
 };
 </script>
 

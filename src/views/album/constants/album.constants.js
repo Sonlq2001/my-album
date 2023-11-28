@@ -2,8 +2,6 @@ export const MAX_TITLE = 50;
 export const MIN_IMAGE = 1;
 export const MAX_IMAGE = 10;
 
-export const FILES_ACCEPT = ["image/jpg", "image/jpeg", "image/png"];
-
 export const STATUS_ALBUM = {
   PUBLIC: 0,
   PRIVATE: 1,

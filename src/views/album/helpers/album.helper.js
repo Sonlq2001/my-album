@@ -1,8 +1,9 @@
 import { object, string, array, mixed } from "yup";
 
+import { FILES_ACCEPT } from "@/constants/app.constants";
+
 import {
   MAX_TITLE,
-  FILES_ACCEPT,
   MIN_IMAGE,
   MAX_IMAGE,
   STATUS_ALBUM,
