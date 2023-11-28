@@ -25,7 +25,10 @@
       <i v-else class="ri-eye-line" />
     </span>
   </div>
-  <span v-if="errorMessage && meta.touched" class="text-sm text-red-500">
+  <span
+    v-if="errorMessage && meta.touched"
+    class="text-sm text-red-500 inline-block mt-1"
+  >
     {{ errorMessage }}
   </span>
 </template>

@@ -18,17 +18,13 @@
         :is="menu.nameRouter ? 'router-link' : 'button'"
         class="block w-full"
         @click="() => clickLogout(menu.nameRouter)"
-        :disabled="menu.nameRouter ? null : isPendingLogout"
       >
         <div
           v-if="index === MENUS_HEADER.length - 1"
           class="border-b mt-[2px] mb-[6px] border-[#ffffff1a]"
         />
         <span
-          :class="[
-            'text-[#eee] text-sm py-2 px-3 block hover:bg-[#30323c] rounded-lg text-left',
-            isPendingLogout && !menu.nameRouter && 'bg-[#282930]',
-          ]"
+          class="text-[#eee] text-sm py-2 px-3 block hover:bg-[#30323c] rounded-lg text-left"
         >
           {{ menu.label }}
         </span>
