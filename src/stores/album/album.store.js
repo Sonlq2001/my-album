@@ -14,10 +14,6 @@ export const useAlbumStore = defineStore("album", {
     };
   },
   actions: {
-    async uploadFiles(data) {
-      const res = await albumApi.uploadFilesAlbumApi(data);
-      return res.data.metadata;
-    },
     async createAlbum(data) {
       const res = await albumApi.createAlbumApi(data);
       return res.data.metadata;

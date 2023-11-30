@@ -71,6 +71,7 @@ import InputField from "@/components/Form/InputField/InputField.vue";
 import TextareaField from "@/components/Form/TextareaField/TextareaField.vue";
 import RadioField from "@/components/Form/RadioField/RadioField.vue";
 import { useAlbumStore } from "@/stores/album/album.store";
+import { useUploadStore } from "@/stores/upload/upload.store";
 import useGetUserInfo from "@/composable/useGetUserInfo";
 import { NamespaceRouter } from "@/constants/router.constants";
 import AppButton from "@/components/AppButton/AppButton.vue";
@@ -83,7 +84,8 @@ import DateAlbum from "../../components/DateAlbum/DateAlbum.vue";
 import { schemaCreateAlbum, initValuesAlbum } from "../../helpers/album.helper";
 import { STATUS_OPTIONS_ALBUM } from "../../constants/album.constants";
 
-const { uploadFiles, createAlbum } = useAlbumStore();
+const { createAlbum } = useAlbumStore();
+const { uploadFiles } = useUploadStore();
 const { userId } = useGetUserInfo();
 const router = useRouter();
 const isPendingCreateAlbum = ref(false);

@@ -1,12 +1,6 @@
 import instanceApi from "@/api/api";
 import { AlbumEndpoints } from "../constants/album.endpoints";
 
-const uploadFilesAlbumApi = (data) => {
-  return instanceApi.post(AlbumEndpoints.UPLOAD_FILES, data, {
-    headers: { useFormData: true },
-  });
-};
-
 const createAlbumApi = async (data) => {
   return instanceApi.post(AlbumEndpoints.CREATE_ALBUM, data);
 };
@@ -28,7 +22,6 @@ const getAlbumDetailPrivateApi = async (slug) => {
 };
 
 export const albumApi = {
-  uploadFilesAlbumApi,
   createAlbumApi,
   getListAlbumsPublicApi,
   getAlbumDetailPublicApi,

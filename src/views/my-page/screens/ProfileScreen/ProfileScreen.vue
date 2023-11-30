@@ -73,6 +73,8 @@ import InputField from "@/components/Form/InputField/InputField.vue";
 import ReturnTo from "@/components/ReturnTo/ReturnTo.vue";
 import AppButton from "@/components/AppButton/AppButton.vue";
 import useGetUserInfo from "@/composable/useGetUserInfo";
+import { useUploadStore } from "@/stores/upload/upload.store";
+import { useMyPageStore } from "@/stores/my-page/my-page.store";
 
 import {
   initValuesProfile,
@@ -81,16 +83,52 @@ import {
 import UploadUserAvatar from "../../components/UploadUserAvatar/UploadUserAvatar.vue";
 import UploadBackgroundUser from "../../components/UploadBackgroundUser/UploadBackgroundUser.vue";
 
-const { email } = useGetUserInfo();
+const { email, userId } = useGetUserInfo();
+const { uploadFiles } = useUploadStore();
+const { updateProfileUser } = useMyPageStore();
 const isEdit = ref(false);
 
 const handlerClickEdit = () => {
   isEdit.value = !isEdit.value;
 };
 
-const handleSubmit = (values) => {
-  // TODO: call api
-  console.log(values, "submit");
+const handleSubmit = async ({ avatar, background, ...reset }) => {
+  const filterImage = [avatar, background].filter((file) => file);
+
+  let listImage = [];
+  let isAvatar;
+  if (filterImage.length) {
+    isAvatar = Boolean(avatar) && filterImage.length === 1;
+
+    const formData = new FormData();
+    for (const album of filterImage) {
+      formData.append("albums", album);
+    }
+
+    listImage = await uploadFiles(formData);
+  }
+
+  let imageBackground;
+
+  if (listImage.length === 2) {
+    imageBackground = listImage[1];
+  } else if (!isAvatar && listImage.length === 1) {
+    imageBackground = listImage[0];
+  }
+
+  try {
+    const payload = {
+      ...reset,
+      avatar: isAvatar || listImage.length === 2 ? listImage[0] : undefined,
+      background: imageBackground,
+      userId,
+    };
+
+    await updateProfileUser(payload);
+    isEdit.value = false;
+  } catch (error) {
+    // TODO: handler error
+  }
 };
 </script>
 
