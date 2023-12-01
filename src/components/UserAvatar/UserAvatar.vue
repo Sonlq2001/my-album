@@ -8,10 +8,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { storeToRefs } from "pinia";
 import { cva } from "class-variance-authority";
-
-import { useAlbumStore } from "@/stores/album/album.store";
 
 const props = defineProps({
   userName: {
@@ -38,9 +35,6 @@ const avatarClass = computed(() => {
     size: props.size,
   });
 });
-
-const albumStore = useAlbumStore();
-const { albumDetail } = storeToRefs(albumStore);
 
 const firstCharacterName = computed(() => {
   return props.userName?.split(" ").pop()[0];
