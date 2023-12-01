@@ -10,6 +10,9 @@ const useGetUserInfo = () => {
     accessToken: token,
     userId: authData?.id,
     email: authData?.email,
+    avatar: authData?.avatar.imageUrl,
+    background: authData?.background.imageUrl,
+    name: authData?.name,
   };
 };
 

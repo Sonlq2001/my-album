@@ -42,7 +42,7 @@
 import { ref, computed } from "vue";
 import { useField } from "vee-validate";
 
-const { setFieldValue } = defineProps({
+const { setFieldValue, avatar } = defineProps({
   isEdit: {
     type: Boolean,
     default: false,
@@ -50,13 +50,17 @@ const { setFieldValue } = defineProps({
   setFieldValue: {
     type: Function,
   },
+  avatar: {
+    type: String,
+    default: "",
+  },
 });
 
 const { errorMessage } = useField("avatar");
 const fileAvatar = ref(null);
 
 const imageBackground = computed(() => {
-  return fileAvatar.value ? URL.createObjectURL(fileAvatar.value) : "";
+  return fileAvatar.value ? URL.createObjectURL(fileAvatar.value) : avatar;
 });
 
 const handleChangeFile = (e) => {

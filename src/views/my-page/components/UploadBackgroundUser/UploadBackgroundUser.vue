@@ -53,7 +53,7 @@
 import { ref, computed } from "vue";
 import { useField } from "vee-validate";
 
-const { setFieldValue } = defineProps({
+const { setFieldValue, background } = defineProps({
   isEdit: {
     type: Boolean,
     default: false,
@@ -61,13 +61,19 @@ const { setFieldValue } = defineProps({
   setFieldValue: {
     type: Function,
   },
+  background: {
+    type: String,
+    default: "",
+  },
 });
 
 const { errorMessage } = useField("background");
 const fileBackground = ref(null);
 
 const imageBackground = computed(() => {
-  return fileBackground.value ? URL.createObjectURL(fileBackground.value) : "";
+  return fileBackground.value
+    ? URL.createObjectURL(fileBackground.value)
+    : background;
 });
 
 const handleChangeFile = (e) => {
