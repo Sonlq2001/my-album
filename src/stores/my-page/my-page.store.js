@@ -11,8 +11,11 @@ export const useMyPageStore = defineStore("my-page", {
   },
   actions: {
     async updateProfileUser(data) {
-      await myPageApi.updateProfileUserApi(data);
+      const res = await myPageApi.updateProfileUserApi(data);
+      this.user = res.data.metadata;
+      return res.data.metadata;
     },
+
     async getUser(userId) {
       const res = await myPageApi.getUserApi(userId);
       this.user = res.data.metadata;

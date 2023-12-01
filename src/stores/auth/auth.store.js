@@ -45,6 +45,13 @@ export const useAuthStore = defineStore("auth", {
       await authApi.registerApi(data);
       this.isRegisterSuccess = true;
     },
+
+    updateUserStore(data) {
+      this.authData = {
+        ...this.authData,
+        ...data,
+      };
+    },
   },
   persist: {
     key: "auth",

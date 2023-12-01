@@ -41,10 +41,3 @@ export const schemaUpdateProfile = object().shape({
   //   .required("Bạn chưa nhập mật khẩu !")
   //   .max(MAX_PASSWORD, `Mật khẩu tối đa ${MAX_PASSWORD} ký tự !`),
 });
-
-export const initValuesProfile = {
-  name: "",
-  password: "",
-  avatar: "",
-  background: "",
-};
