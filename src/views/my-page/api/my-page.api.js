@@ -8,6 +8,11 @@ const updateProfileUserApi = ({ userId, ...reset }) => {
   );
 };
 
+const getUserApi = (userId) => {
+  return instanceApi.get(MyPageEndpoints.GET_USER.replace(":user_id", userId));
+};
+
 export const myPageApi = {
   updateProfileUserApi,
+  getUserApi,
 };
