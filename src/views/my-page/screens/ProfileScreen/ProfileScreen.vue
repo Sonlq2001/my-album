@@ -17,7 +17,7 @@
 
     <FormVee
       @submit="handleSubmit"
-      :initial-values="initValuesProfile"
+      :initial-values="initValueUser"
       :validation-schema="schemaUpdateProfile"
       v-slot="{ setFieldValue }"
     >
@@ -69,7 +69,12 @@
       />
 
       <div class="mt-7 flex justify-end" v-if="isEdit">
-        <app-button type="submit" size="small" intent="primary">
+        <app-button
+          type="submit"
+          size="small"
+          intent="primary"
+          :disabled="isSubmitting"
+        >
           Lưu
         </app-button>
       </div>
@@ -78,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { Form as FormVee } from "vee-validate";
 import { storeToRefs } from "pinia";
 
@@ -88,11 +93,9 @@ import AppButton from "@/components/AppButton/AppButton.vue";
 import useGetUserInfo from "@/composable/useGetUserInfo";
 import { useUploadStore } from "@/stores/upload/upload.store";
 import { useMyPageStore } from "@/stores/my-page/my-page.store";
+import { useAuthStore } from "@/stores/auth/auth.store";
 
-import {
-  initValuesProfile,
-  schemaUpdateProfile,
-} from "../../helpers/profile.helpers";
+import { schemaUpdateProfile } from "../../helpers/profile.helpers";
 import UploadUserAvatar from "../../components/UploadUserAvatar/UploadUserAvatar.vue";
 import UploadBackgroundUser from "../../components/UploadBackgroundUser/UploadBackgroundUser.vue";
 import { MyPagePaths } from "../../constants/my-page.paths";
@@ -100,13 +103,22 @@ import { MyPagePaths } from "../../constants/my-page.paths";
 const { userId } = useGetUserInfo();
 const { uploadFiles } = useUploadStore();
 const myPageStore = useMyPageStore();
+const { updateUserStore } = useAuthStore();
 const { user } = storeToRefs(myPageStore);
+
 const isEdit = ref(false);
 const isLoading = ref(true);
+const isSubmitting = ref(false);
 
 onMounted(async () => {
   await myPageStore.getUser(userId);
   isLoading.value = false;
+});
+
+const initValueUser = computed(() => {
+  return {
+    name: user.value?.name || "",
+  };
 });
 
 const handlerClickEdit = () => {
@@ -114,6 +126,8 @@ const handlerClickEdit = () => {
 };
 
 const handleSubmit = async ({ avatar, background, ...reset }) => {
+  isSubmitting.value = true;
+
   const filterImage = [avatar, background].filter((file) => file);
 
   let listImage = [];
@@ -145,8 +159,13 @@ const handleSubmit = async ({ avatar, background, ...reset }) => {
       userId,
     };
 
-    await myPageStore.updateProfileUser(payload);
+    const { name, avatar, background } = await myPageStore.updateProfileUser(
+      payload
+    );
+    updateUserStore({ name, avatar, background });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     isEdit.value = false;
+    isSubmitting.value = false;
   } catch (error) {
     // TODO: handler error
   }
