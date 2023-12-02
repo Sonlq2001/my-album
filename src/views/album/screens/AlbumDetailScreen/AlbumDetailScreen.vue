@@ -1,71 +1,74 @@
 <template>
   <div class="max-w-[1830px] mx-auto px-8">
-    <!-- tools album -->
-    <div class="flex items-center mt-7 justify-between">
-      <div class="flex">
-        <user-avatar size="large" :user-name="albumDetail?.user?.name" />
-
-        <div class="flex flex-col ml-3">
-          <span class="font-semibold">{{ albumDetail?.user.name }}</span>
-          <span class="text-sm text-[#aaa]">123 album</span>
-        </div>
-      </div>
-
-      <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
-        Download <i class="ri-download-cloud-line"></i>
-      </button>
-    </div>
-    <!-- end tools album -->
-
     <!-- loading -->
     <div v-if="isLoadingAlbum">Loading...</div>
-    <!-- info album -->
-    <div class="max-w-5xl mx-auto flex gap-8 mt-7" v-else-if="albumDetail">
-      <div class="w-[60%]">
-        <album-carousel :list-images="albumDetail?.albums || []" />
-      </div>
 
-      <div class="w-[40%]">
-        <div class="mb-3">
-          <span>Tiêu đề</span>
-          <p class="text-text_gray">
-            <i class="ri-hashtag mr-3"></i>
-            {{ albumDetail?.title }}
-          </p>
+    <div v-else-if="albumDetail">
+      <!-- tools album -->
+      <div class="flex items-center mt-7 justify-between">
+        <div class="flex">
+          <user-avatar size="large" :avatar="avatarUser" />
+
+          <div class="flex flex-col ml-3">
+            <span class="font-semibold">{{ albumDetail?.user.name }}</span>
+            <span class="text-sm text-[#aaa]">123 album</span>
+          </div>
         </div>
-        <div class="mb-3">
-          <span>Thời gian</span>
-          <p class="text-text_gray">
-            <i class="ri-calendar-event-fill mr-3"></i>
-            {{ formatDate(albumDetail?.date) }}
-          </p>
+
+        <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
+          Download <i class="ri-download-cloud-line"></i>
+        </button>
+      </div>
+      <!-- end tools album -->
+
+      <!-- info album -->
+      <div class="max-w-5xl mx-auto flex gap-8 mt-7">
+        <div class="w-[60%]">
+          <album-carousel :list-images="albumDetail?.albums || []" />
         </div>
-        <div class="mb-3">
-          <span>Chủ đề</span>
-          <p class="text-text_gray">
-            <i class="ri-lightbulb-flash-fill mr-3"></i>
-            {{ albumDetail?.category?.title }}
-          </p>
-        </div>
-        <div class="mb-3">
-          <span>Sự kiện</span>
-          <p class="text-text_gray">
-            <i class="ri-fire-fill mr-3"></i>
-            {{ albumDetail?.eventAlbum }}
-          </p>
-        </div>
-        <div>
-          <span>Câu chuyện</span>
-          <p class="text-text_gray">
-            <i class="ri-booklet-fill mr-3"></i>
-            <span>
-              {{ albumDetail?.story }}
-            </span>
-          </p>
+
+        <div class="w-[40%]">
+          <div class="mb-3">
+            <span>Tiêu đề</span>
+            <p class="text-text_gray">
+              <i class="ri-hashtag mr-3"></i>
+              {{ albumDetail?.title }}
+            </p>
+          </div>
+          <div class="mb-3">
+            <span>Thời gian</span>
+            <p class="text-text_gray">
+              <i class="ri-calendar-event-fill mr-3"></i>
+              {{ formatDate(albumDetail?.date) }}
+            </p>
+          </div>
+          <div class="mb-3">
+            <span>Chủ đề</span>
+            <p class="text-text_gray">
+              <i class="ri-lightbulb-flash-fill mr-3"></i>
+              {{ albumDetail?.category?.title }}
+            </p>
+          </div>
+          <div class="mb-3">
+            <span>Sự kiện</span>
+            <p class="text-text_gray">
+              <i class="ri-fire-fill mr-3"></i>
+              {{ albumDetail?.eventAlbum }}
+            </p>
+          </div>
+          <div>
+            <span>Câu chuyện</span>
+            <p class="text-text_gray">
+              <i class="ri-booklet-fill mr-3"></i>
+              <span>
+                {{ albumDetail?.story }}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
+      <!-- end info album -->
     </div>
-    <!-- end info album -->
 
     <!-- TODO: no data -->
     <div v-else>no data album detail</div>
@@ -76,7 +79,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted } from "vue";
+import { onMounted, ref, onUnmounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import get from "lodash.get";
@@ -115,6 +118,13 @@ onMounted(async () => {
 
 onUnmounted(() => {
   albumStore.resetAlbumDetail();
+});
+
+const avatarUser = computed(() => {
+  return (
+    albumStore.albumDetail?.user?.avatar?.imageUrl ||
+    albumStore.albumDetail?.user?.name
+  );
 });
 </script>
 
