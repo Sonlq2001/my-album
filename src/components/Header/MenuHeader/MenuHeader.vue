@@ -1,7 +1,7 @@
 <template>
   <div class="flex mr-4 relative" ref="menuRef">
     <button @click="handleClickMenu">
-      <user-avatar :user-name="authStore.authData?.name" />
+      <user-avatar :avatar="avatarUser" />
     </button>
 
     <div
@@ -9,7 +9,7 @@
       v-if="isOpenMenuHeader"
     >
       <h3 class="text-white font-semibold py-2 px-3">
-        {{ authStore.authData?.name }}
+        {{ name }}
       </h3>
       <component
         v-for="(menu, index) in MENUS_HEADER"
@@ -34,19 +34,20 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useRouter } from "vue-router";
 
 import { MENUS_HEADER } from "@/constants/header.constants";
-import { useAuthStore } from "@/stores/auth/auth.store";
 import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
 import useLogout from "@/composable/useLogout";
+import useGetUserInfo from "@/composable/useGetUserInfo";
 
 const router = useRouter();
+const { name, avatar } = useGetUserInfo();
+
 const menuRef = ref(null);
 const isOpenMenuHeader = ref(false);
-const authStore = useAuthStore();
 
 onClickOutside(menuRef, () => {
   isOpenMenuHeader.value = false;
@@ -70,6 +71,10 @@ const clickLogout = (nameRouter) => {
 
   handleLogout();
 };
+
+const avatarUser = computed(() => {
+  return avatar || name;
+});
 </script>
 
 <style lang="css" scoped>

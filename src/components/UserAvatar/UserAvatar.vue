@@ -1,6 +1,7 @@
 <template>
   <div :class="avatarClass">
-    <span class="text-white font-semibold uppercase">
+    <img v-if="isAvatar" class="rounded-full w-full h-full" :src="avatar" />
+    <span class="text-white font-semibold uppercase" v-else>
       {{ firstCharacterName }}
     </span>
   </div>
@@ -10,8 +11,8 @@
 import { computed } from "vue";
 import { cva } from "class-variance-authority";
 
-const props = defineProps({
-  userName: {
+const { avatar, size } = defineProps({
+  avatar: {
     type: String,
     require: true,
   },
@@ -32,12 +33,16 @@ const avatarClass = computed(() => {
       },
     },
   })({
-    size: props.size,
+    size,
   });
 });
 
+const isAvatar = computed(() => {
+  return avatar?.startsWith("http");
+});
+
 const firstCharacterName = computed(() => {
-  return props.userName?.split(" ").pop()[0];
+  return !isAvatar ? avatar?.split(" ").pop()[0] : "";
 });
 </script>
 
