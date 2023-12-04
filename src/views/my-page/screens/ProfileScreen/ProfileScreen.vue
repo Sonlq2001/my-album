@@ -1,9 +1,5 @@
 <template>
-  <div v-if="isLoading">Loading...</div>
-  <div
-    class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7"
-    v-else
-  >
+  <div class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7">
     <div class="flex items-center justify-between">
       <return-to :to="MyPagePaths.MY_PAGE" />
       <app-button size="small" @click="handlerClickEdit">
@@ -15,7 +11,10 @@
       Thông tin cá nhân
     </h1>
 
+    <div v-if="isLoading">Loading...</div>
+
     <FormVee
+      v-else
       @submit="handleSubmit"
       :initial-values="initValueUser"
       :validation-schema="schemaUpdateProfile"

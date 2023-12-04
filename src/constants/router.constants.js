@@ -7,4 +7,5 @@ export const NamespaceRouter = {
   MY_PAGE: "My-page",
   LIST_CATEGORY: "List-category",
   PROFILE: "Profile",
+  ALBUM_LIST: "Album-list",
 };
