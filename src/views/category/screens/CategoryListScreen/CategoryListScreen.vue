@@ -14,7 +14,7 @@
           'font-sans text-sm border px-2 py-1 rounded border-[#ddd]  mr-3',
           sort.value === initParams.sort ? 'bg-main text-white' : 'bg-gray',
         ]"
-        v-for="(sort, index) in LIST_SORT_CATEGORIES"
+        v-for="(sort, index) in LIST_SORT"
         :index="index"
         @click="() => handlerSortAlbums(sort)"
       >
@@ -66,10 +66,7 @@ import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 import { getQueryStringUrl } from "@/helpers/app.helper";
 
-import {
-  LIST_SORT_CATEGORIES,
-  SORT_VALUE,
-} from "../../constants/category.constants";
+import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
 
 const albumStore = useAlbumStore();
 const searchStore = useSearchStore();

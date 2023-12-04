@@ -7,12 +7,12 @@ export const MENUS_MY_PAGE = [
   },
   {
     label: "Albums đã lưu",
-    nameRouter: NamespaceRouter.HOME,
+    nameRouter: NamespaceRouter.ALBUM_LIST,
   },
-  {
-    label: "Albums của bạn",
-    nameRouter: NamespaceRouter.HOME,
-  },
+  // {
+  //   label: "Albums của bạn",
+  //   nameRouter: NamespaceRouter.ALBUM_LIST,
+  // },
   {
     label: "Đăng xuất",
     nameRouter: "",

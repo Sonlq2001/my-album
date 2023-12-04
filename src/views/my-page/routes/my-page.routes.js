@@ -1,5 +1,6 @@
 import MyPageScreen from "@/views/my-page/screens/MyPageScreen/MyPageScreen.vue";
 import ProfileScreen from "@/views/my-page/screens/ProfileScreen/ProfileScreen.vue";
+import MyAlbumList from "@/views/my-page/screens/MyAlbumList/MyAlbumList.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import { NamespaceRouter } from "@/constants/router.constants";
 
@@ -25,4 +26,18 @@ const PROFILE_SCREEN = {
   },
 };
 
-export const MY_PAGE_ROUTES = [MY_PAGE_SCREEN, PROFILE_SCREEN];
+const YOUR_ALBUM_LIST_SCREEN = {
+  path: MyPagePaths.ALBUM_LIST,
+  name: NamespaceRouter.ALBUM_LIST,
+  component: MyAlbumList,
+  meta: {
+    layout: DefaultLayout,
+    // isPrivate: true,
+  },
+};
+
+export const MY_PAGE_ROUTES = [
+  MY_PAGE_SCREEN,
+  PROFILE_SCREEN,
+  YOUR_ALBUM_LIST_SCREEN,
+];
