@@ -26,18 +26,18 @@ const PROFILE_SCREEN = {
   },
 };
 
-const YOUR_ALBUM_LIST_SCREEN = {
+const ALBUM_LIST_SCREEN = {
   path: MyPagePaths.ALBUM_LIST,
   name: NamespaceRouter.ALBUM_LIST,
   component: MyAlbumList,
   meta: {
     layout: DefaultLayout,
-    // isPrivate: true,
+    isPrivate: true,
   },
 };
 
 export const MY_PAGE_ROUTES = [
   MY_PAGE_SCREEN,
   PROFILE_SCREEN,
-  YOUR_ALBUM_LIST_SCREEN,
+  ALBUM_LIST_SCREEN,
 ];
