@@ -12,7 +12,12 @@ const getUserApi = (userId) => {
   return instanceApi.get(MyPageEndpoints.GET_USER.replace(":user_id", userId));
 };
 
+const getAlbumsUserApi = (params) => {
+  return instanceApi.get(MyPageEndpoints.GET_ALBUMS_USER, { params });
+};
+
 export const myPageApi = {
   updateProfileUserApi,
   getUserApi,
+  getAlbumsUserApi,
 };

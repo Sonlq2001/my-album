@@ -18,6 +18,7 @@ export const useAlbumStore = defineStore("album", {
       const res = await albumApi.createAlbumApi(data);
       return res.data.metadata;
     },
+
     async getListAlbumsPublic({ hasSearch, ...rest }) {
       const res = await albumApi.getListAlbumsPublicApi(rest);
       const data = get(res, "data.metadata");
@@ -31,17 +32,21 @@ export const useAlbumStore = defineStore("album", {
       this.cancelLoadMore = this.listAlbums?.length >= meta.total;
       this.total = meta.total;
     },
+
     async getAlbumDetailPublic(slug) {
       const res = await albumApi.getAlbumDetailPublicApi(slug);
       this.albumDetail = res.data.metadata;
     },
+
     async getAlbumDetailPrivate(slug) {
       const res = await albumApi.getAlbumDetailPrivateApi(slug);
       this.albumDetail = res.data.metadata;
     },
+
     resetAlbumDetail() {
       this.albumDetail = null;
     },
+
     resetListAlbums() {
       this.listAlbums = null;
       this.cancelLoadMore = false;
