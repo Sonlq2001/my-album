@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import get from "lodash.get";
 
 import { myPageApi } from "@/views/my-page/my-page";
 
@@ -8,6 +9,8 @@ export const useMyPageStore = defineStore("my-page", {
     return {
       user: null,
       albumsUser: null,
+      cancelLoadMore: false,
+      total: 0,
     };
   },
   actions: {
@@ -22,9 +25,24 @@ export const useMyPageStore = defineStore("my-page", {
       this.user = res.data.metadata;
     },
 
-    async getAlbumsUserApi(params) {
-      const res = await myPageApi.getAlbumsUserApi(params);
-      this.albumsUser = res.data.metadata;
+    async getAlbumsUserApi({ hasSearch, ...rest }) {
+      const res = await myPageApi.getAlbumsUserApi(rest);
+      const data = get(res, "data.metadata");
+      const meta = get(res, "data.meta");
+
+      if (this.albumsUser && this.albumsUser.length && !hasSearch) {
+        this.albumsUser = this.albumsUser.concat(data);
+      } else {
+        this.albumsUser = data;
+      }
+      this.total = meta?.total;
+      this.cancelLoadMore = this.albumsUser?.length >= meta?.total;
+    },
+
+    resetAlbumsUser() {
+      this.total = 0;
+      this.albumsUser = null;
+      this.cancelLoadMore = false;
     },
   },
 

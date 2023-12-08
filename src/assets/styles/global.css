@@ -1,10 +1,5 @@
-@font-face {
-  font-family: Arial Rounded;
-  src: url(../fonts/arial-rounded/ArialRoundedMTRegular.ttf);
-}
-
 * {
-  font-family: Arial Rounded;
+  font-family: "Nunito", Arial, sans-serif;
 }
 
 img {

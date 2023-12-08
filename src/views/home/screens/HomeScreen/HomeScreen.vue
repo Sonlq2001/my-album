@@ -13,10 +13,13 @@
     </div>
     <!-- end navigation -->
 
-    <div class="mt-7">
-      <button class="font-sans text-sm border px-2 py-1 rounded border-[#ddd]">
+    <div class="mt-7 text-right">
+      <router-link
+        :to="CategoryPaths.CATEGORY_LIST"
+        class="font-sans text-sm border px-2 py-1 border-[#ddd] rounded-3xl hover:bg-black/5"
+      >
         Mới nhất
-      </button>
+      </router-link>
     </div>
 
     <!-- loading -->
