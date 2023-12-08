@@ -11,11 +11,13 @@
     <div class="mt-7">
       <button
         :class="[
-          'font-sans text-sm border px-2 py-1 rounded border-[#ddd]  mr-3',
-          sort.value === initParams.sort ? 'bg-main text-white' : 'bg-gray',
+          'font-sans text-sm border px-2 py-1 rounded-3xl border-[#ddd]  mr-3',
+          sort.value === initParams.sort
+            ? 'bg-main text-white hover:bg-sub'
+            : 'bg-gray hover:bg-[#eee]',
         ]"
         v-for="(sort, index) in LIST_SORT"
-        :index="index"
+        :key="index"
         @click="() => handlerSortAlbums(sort)"
       >
         {{ sort.label }}
@@ -40,7 +42,13 @@
           :album="album"
         />
       </div>
-      <div id="observe-visibility" v-observe-visibility="visibilityChanged" />
+      <div
+        id="observe-visibility"
+        v-observe-visibility="{
+          callback: visibilityChanged,
+          throttle: 100,
+        }"
+      />
       <div class="flex justify-center mt-5" v-if="isLoadingScroll">
         <div
           class="inline-block h-7 w-7 animate-spin rounded-full border-[3px] border-solid border-main border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -128,6 +136,7 @@ onUnmounted(() => {
 
 const handlerSortAlbums = (valueSort) => {
   initParams.sort = valueSort.value;
+  initParams.page = DEFAULT_PAGE;
 };
 </script>
 
