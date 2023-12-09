@@ -8,9 +8,10 @@
       class="absolute top-[120%] right-0 w-[220px] bg-dark_menu rounded-lg p-3 transition-all flex flex-col gap-1"
       v-if="isOpenMenuHeader"
     >
-      <h3 class="text-white font-semibold py-2 px-3">
+      <h3 class="text-white font-semibold px-3 pt-1">
         {{ name }}
       </h3>
+      <div class="border-b my-1 border-[#ffffff1a]"></div>
       <component
         v-for="(menu, index) in MENUS_HEADER"
         :to="menu.nameRouter ? { name: menu.nameRouter } : null"

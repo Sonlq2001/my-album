@@ -18,7 +18,7 @@
         :to="CategoryPaths.CATEGORY_LIST"
         class="font-sans text-sm border px-2 py-1 border-[#ddd] rounded-3xl hover:bg-black/5"
       >
-        Mới nhất
+        Xêm thêm
       </router-link>
     </div>
 

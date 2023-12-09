@@ -6,12 +6,12 @@ export const POSITION_ACTIVE_HEADER = 30; // window.scrollY
 
 export const MENUS_HEADER = [
   {
-    label: "Tải lên",
-    nameRouter: NamespaceRouter.CREATE_ALBUM,
+    label: "Tất cả albums",
+    nameRouter: NamespaceRouter.LIST_CATEGORY,
   },
   {
-    label: "Albums đã lưu",
-    nameRouter: NamespaceRouter.HOME,
+    label: "Tải lên",
+    nameRouter: NamespaceRouter.CREATE_ALBUM,
   },
   {
     label: "Cài đặt",
