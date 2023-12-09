@@ -6,12 +6,12 @@ export const MENUS_MY_PAGE = [
     nameRouter: NamespaceRouter.PROFILE,
   },
   {
-    label: "Albums đã lưu",
+    label: "Albums của bạn",
     nameRouter: NamespaceRouter.ALBUM_LIST,
   },
   {
-    label: "Albums của bạn",
-    nameRouter: NamespaceRouter.ALBUM_LIST,
+    label: "Albums đã lưu",
+    nameRouter: NamespaceRouter.SAVED_ALBUMS,
   },
   {
     label: "Đăng xuất",
