@@ -15,9 +15,19 @@
           </div>
         </div>
 
-        <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
-          Download <i class="ri-download-cloud-line"></i>
-        </button>
+        <div class="flex items-center gap-5">
+          <button
+            title="Lưu vào albums"
+            class="border w-[33px] h-[33px] rounded-md border-[#ddd] hover:bg-black/5"
+            @click="handleSaveAlbum"
+          >
+            <i class="ri-bookmark-fill text-main" v-if="isSavedAlbum" />
+            <i class="ri-bookmark-line text-text_gray" v-else />
+          </button>
+          <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
+            Download <i class="ri-download-cloud-line"></i>
+          </button>
+        </div>
       </div>
       <!-- end tools album -->
 
@@ -94,13 +104,14 @@ import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 
 const route = useRoute();
 const router = useRouter();
+const albumStore = useAlbumStore();
+
+const { albumDetail } = storeToRefs(albumStore);
 
 const historyStatusAlbum = get(router.options, "history.state.status");
 
-const albumStore = useAlbumStore();
-const { albumDetail } = storeToRefs(albumStore);
-
 const isLoadingAlbum = ref(true);
+const isSavedAlbum = ref(false);
 
 const slug = route.params.slug;
 
@@ -126,6 +137,11 @@ const avatarUser = computed(() => {
     albumStore.albumDetail?.user?.name
   );
 });
+
+const handleSaveAlbum = () => {
+  // TODO: save album
+  isSavedAlbum.value = !isSavedAlbum.value;
+};
 </script>
 
 <style lang="scss" scoped></style>

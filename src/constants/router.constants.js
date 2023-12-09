@@ -8,4 +8,5 @@ export const NamespaceRouter = {
   LIST_CATEGORY: "List-category",
   PROFILE: "Profile",
   ALBUM_LIST: "Album-list",
+  SAVED_ALBUMS: "Saved-albums",
 };
