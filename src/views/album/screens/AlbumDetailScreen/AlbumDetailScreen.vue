@@ -20,8 +20,9 @@
             title="Lưu vào albums"
             class="border w-[33px] h-[33px] rounded-md border-[#ddd] hover:bg-black/5"
             @click="handleSaveAlbum"
+            :disabled="isLoadingBookmark"
           >
-            <i class="ri-bookmark-fill text-main" v-if="isSavedAlbum" />
+            <i class="ri-bookmark-fill text-main" v-if="isBookmark" />
             <i class="ri-bookmark-line text-text_gray" v-else />
           </button>
           <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
@@ -97,6 +98,8 @@ import get from "lodash.get";
 import { useAlbumStore } from "@/stores/album/album.store";
 import { formatDate } from "@/helpers/app.helper";
 import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
+import useGetUserInfo from "@/composable/useGetUserInfo";
+import { NamespaceRouter } from "@/constants/router.constants";
 
 import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
 import { STATUS_ALBUM } from "../../constants/album.constants";
@@ -105,13 +108,15 @@ import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 const route = useRoute();
 const router = useRouter();
 const albumStore = useAlbumStore();
+const { isLogged } = useGetUserInfo();
 
 const { albumDetail } = storeToRefs(albumStore);
 
 const historyStatusAlbum = get(router.options, "history.state.status");
 
 const isLoadingAlbum = ref(true);
-const isSavedAlbum = ref(false);
+const isBookmark = ref(false);
+const isLoadingBookmark = ref(false);
 
 const slug = route.params.slug;
 
@@ -124,6 +129,7 @@ onMounted(async () => {
     await albumStore.getAlbumDetailPublic(slug);
   }
 
+  isBookmark.value = albumDetail.value?.isBookmark;
   isLoadingAlbum.value = false;
 });
 
@@ -138,9 +144,17 @@ const avatarUser = computed(() => {
   );
 });
 
-const handleSaveAlbum = () => {
-  // TODO: save album
-  isSavedAlbum.value = !isSavedAlbum.value;
+const handleSaveAlbum = async () => {
+  if (!isLogged) {
+    router.push({ name: NamespaceRouter.LOGIN });
+    return;
+  }
+
+  isLoadingBookmark.value = true;
+  const resBookmark = await albumStore.bookmarkAlbum(albumDetail.value.id);
+  isLoadingBookmark.value = false;
+
+  isBookmark.value = resBookmark;
 };
 </script>
 
