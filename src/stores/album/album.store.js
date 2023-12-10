@@ -51,6 +51,11 @@ export const useAlbumStore = defineStore("album", {
       this.listAlbums = null;
       this.cancelLoadMore = false;
     },
+
+    async bookmarkAlbum(albumId) {
+      const res = await albumApi.bookmarkAlbumApi(albumId);
+      return res.data.metadata.newValue;
+    },
   },
   getters: {
     listAlbumsData() {

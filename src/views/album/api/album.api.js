@@ -21,9 +21,14 @@ const getAlbumDetailPrivateApi = async (slug) => {
   );
 };
 
+const bookmarkAlbumApi = async (albumId) => {
+  return instanceApi.patch(AlbumEndpoints.PATCH_BOOKMARK, { albumId });
+};
+
 export const albumApi = {
   createAlbumApi,
   getListAlbumsPublicApi,
   getAlbumDetailPublicApi,
   getAlbumDetailPrivateApi,
+  bookmarkAlbumApi,
 };
