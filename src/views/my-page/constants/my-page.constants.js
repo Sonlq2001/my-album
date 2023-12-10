@@ -11,7 +11,7 @@ export const MENUS_MY_PAGE = [
   },
   {
     label: "Albums đã lưu",
-    nameRouter: NamespaceRouter.SAVED_ALBUMS,
+    nameRouter: NamespaceRouter.BOOKMARK_LIST,
   },
   {
     label: "Đăng xuất",

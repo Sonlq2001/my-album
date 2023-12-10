@@ -1,7 +1,7 @@
 import MyPageScreen from "@/views/my-page/screens/MyPageScreen/MyPageScreen.vue";
 import ProfileScreen from "@/views/my-page/screens/ProfileScreen/ProfileScreen.vue";
 import MyAlbumList from "@/views/my-page/screens/MyAlbumList/MyAlbumList.vue";
-import ListSavedAlbums from "@/views/my-page/screens/ListSavedAlbums/ListSavedAlbums.vue";
+import BookmarkList from "@/views/my-page/screens/BookmarkList/BookmarkList.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import { NamespaceRouter } from "@/constants/router.constants";
 
@@ -37,10 +37,10 @@ const ALBUM_LIST_SCREEN = {
   },
 };
 
-const LIST_SAVED_ALBUMS_SCREEN = {
-  path: MyPagePaths.SAVED_ALBUMS,
-  name: NamespaceRouter.SAVED_ALBUMS,
-  component: ListSavedAlbums,
+const BOOKMARK_LIST_SCREEN = {
+  path: MyPagePaths.BOOKMARK_LIST,
+  name: NamespaceRouter.BOOKMARK_LIST,
+  component: BookmarkList,
   meta: {
     layout: DefaultLayout,
     isPrivate: true,
@@ -51,5 +51,5 @@ export const MY_PAGE_ROUTES = [
   MY_PAGE_SCREEN,
   PROFILE_SCREEN,
   ALBUM_LIST_SCREEN,
-  LIST_SAVED_ALBUMS_SCREEN,
+  BOOKMARK_LIST_SCREEN,
 ];
