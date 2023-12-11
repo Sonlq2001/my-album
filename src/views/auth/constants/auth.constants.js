@@ -98,3 +98,8 @@ export const LIST_IMAGE = [
 export const MIN_PASSWORD = 8;
 export const MAX_PASSWORD = 20;
 export const MAX_NAME = 50;
+
+export const TAB_REGISTER = {
+  INFO: 1,
+  AUTH: 2,
+};
