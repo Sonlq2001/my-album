@@ -1,52 +1,52 @@
 <template>
-  <div
-    class="absolute z-10 max-w-[400px] w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl p-9"
-  >
-    <h1 class="font-extrabold text-2xl">Đăng nhập MyAlbum</h1>
-    <caption-auth />
+  <div class="flex justify-center items-center h-full">
+    <div class="z-10 max-w-[400px] w-full bg-white rounded-xl p-9 mx-6">
+      <h1 class="font-extrabold text-2xl">Đăng nhập MyAlbum</h1>
+      <caption-auth />
 
-    <span
-      v-if="isRegisterSuccess"
-      class="inline-block mt-4 bg-success rounded-md text-white p-2 text-sm"
-    >
-      Đăng ký tài khoản thành công !
-    </span>
+      <span
+        v-if="isRegisterSuccess"
+        class="inline-block mt-4 bg-success rounded-md text-white p-2 text-sm"
+      >
+        Đăng ký tài khoản thành công !
+      </span>
 
-    <form-vee
-      @submit="handleSubmit"
-      :class="isRegisterSuccess ? 'mt-5' : 'mt-8'"
-      :validation-schema="schemaLogin"
-      :initial-values="initialLoginValue"
-    >
-      <div class="mb-5">
-        <input-field
-          name="email"
-          placeholder="my_album@gmail.com"
-          label="Email"
-        />
-      </div>
-      <div class="mb-5">
-        <input-field
-          name="password"
-          placeholder="Mật khẩu"
-          label="Mật khẩu"
-          type="password"
-        />
-      </div>
-      <div class="flex justify-end mt-10">
-        <app-button :disabled="isPendingLogin" intent="primary">
-          Đăng nhập
-        </app-button>
-      </div>
-      <div class="text-right mt-5">
-        <router-link
-          :to="{ name: NamespaceRouter.REGISTER }"
-          class="text-sm text-text_gray"
-        >
-          Đăng ký ?
-        </router-link>
-      </div>
-    </form-vee>
+      <form-vee
+        @submit="handleSubmit"
+        :class="isRegisterSuccess ? 'mt-5' : 'mt-8'"
+        :validation-schema="schemaLogin"
+        :initial-values="initialLoginValue"
+      >
+        <div class="mb-5">
+          <input-field
+            name="email"
+            placeholder="my_album@gmail.com"
+            label="Email"
+          />
+        </div>
+        <div class="mb-5">
+          <input-field
+            name="password"
+            placeholder="Mật khẩu"
+            label="Mật khẩu"
+            type="password"
+          />
+        </div>
+        <div class="flex justify-end mt-10">
+          <app-button :disabled="isPendingLogin" intent="primary">
+            Đăng nhập
+          </app-button>
+        </div>
+        <div class="text-right mt-5">
+          <router-link
+            :to="{ name: NamespaceRouter.REGISTER }"
+            class="text-sm text-text_gray"
+          >
+            Đăng ký ?
+          </router-link>
+        </div>
+      </form-vee>
+    </div>
   </div>
 </template>
 
