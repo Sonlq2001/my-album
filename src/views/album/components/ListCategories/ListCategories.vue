@@ -9,7 +9,7 @@
     >
       <div
         :class="[
-          ' text-sm p-2 rounded-3xl cursor-pointer hover:bg-[#ddd]',
+          'text-sm p-2 rounded-3xl cursor-pointer hover:bg-[#ddd] whitespace-nowrap',
           value === cate.value ? 'bg-main text-white hover:bg-sub' : 'bg-gray',
         ]"
         v-for="cate in listOptionCategories"
