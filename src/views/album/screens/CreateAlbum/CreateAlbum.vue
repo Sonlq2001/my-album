@@ -8,7 +8,7 @@
       v-slot="{ setFieldValue, values }"
     >
       <button
-        class="fixed z-10 right-[10px] top-[85px] bg-main text-white py-1 px-2 rounded-3xl text-sm flex items-center justify-center gap-1"
+        class="md:hidden fixed z-10 right-[10px] top-[85px] bg-main text-white py-1 px-2 rounded-3xl text-sm flex items-center justify-center gap-1"
         @click="handleToggleSidebar"
       >
         Ảnh ({{ values.albums?.length || 0 }})
