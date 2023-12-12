@@ -3,7 +3,7 @@
     <label for="">Chủ đề bức ảnh</label>
     <div
       :class="[
-        'flex mt-3 gap-4 border-b  pb-4',
+        'flex mt-3 gap-4 border-b flex-wrap pb-4',
         errorMessage && meta.touched ? 'border-red-500' : 'border-[#ddd]',
       ]"
     >
