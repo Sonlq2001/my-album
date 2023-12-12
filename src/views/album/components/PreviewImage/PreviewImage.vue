@@ -1,20 +1,33 @@
 <template>
-  <div class="mr-10 w-[400px]">
-    <div class="mb-5">Tổng tấm hình ({{ linksBloBImage.length }})</div>
-    <div v-if="linksBloBImage.length > 0">
+  <div :class="['max-w-[400px] w-full', isToggleSidebar && 'active-sidebar']">
+    <div class="mb-5 flex items-center justify-between">
+      Tổng tấm hình ({{ linksBloBImage.length }})
+      <i
+        class="hidden ri-close-line cursor-pointer max-md:block"
+        @click="handleClickSidebar"
+      />
+    </div>
+
+    <span v-if="errorMessage" class="text-sm text-red-500 inline-block mb-3">
+      {{ errorMessage }}
+    </span>
+
+    <div v-if="linksBloBImage.length > 0" class="list-image">
       <div
         v-for="(imageUpload, index) in linksBloBImage"
         :key="index"
-        class="mb-4 flex items-start"
+        class="mb-4 flex items-start justify-between"
       >
-        <img
-          :src="imageUpload.image"
-          :alt="'upload-' + index"
-          class="max-w-[200px] w-full rounded max-h-[200px] mr-4"
-        />
-        <div class="w-full">
-          <div class="bg-gray p-2">
-            <span class="text-sm text-text_gray">
+        <div class="max-w-[220px] h-full max-h-[200px] overflow-hidden">
+          <img
+            :src="imageUpload.image"
+            :alt="'upload-' + index"
+            class="rounded w-full h-auto mr-4"
+          />
+        </div>
+        <div>
+          <div class="bg-gray p-2 max-w-[150px] w-full max-lg:hidden">
+            <span class="text-sm text-text_gray break-all">
               {{ imageUpload.name }}
             </span>
             <span class="text-sm text-text_gray block mt-2">
@@ -22,7 +35,7 @@
             </span>
           </div>
           <button
-            class="mt-4 flex items-center justify-center bg-main w-[20px] h-[20px] ml-auto hover:bg-sub"
+            class="mt-4 flex items-center justify-center bg-main w-[20px] h-[20px] ml-auto hover:bg-sub max-lg:mt-0"
             @click="handleRemoveImage(index)"
             type="button"
           >
@@ -38,14 +51,19 @@
 
 <script setup>
 import { onUnmounted, computed } from "vue";
-import { useFieldValue } from "vee-validate";
+import { useFieldValue, useField } from "vee-validate";
 
 const { setFieldValue } = defineProps({
   setFieldValue: {
     type: Function,
   },
+  isToggleSidebar: {
+    type: Boolean,
+  },
 });
 
+const emits = defineEmits(["closeSidebar"]);
+const { errorMessage } = useField("albums");
 const listAlbums = useFieldValue("albums");
 
 const linksBloBImage = computed(() =>
@@ -70,6 +88,33 @@ onUnmounted(() => {
     URL.revokeObjectURL(imageUpload.image);
   }
 });
+
+const handleClickSidebar = () => {
+  emits("closeSidebar");
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped>
+@media (max-width: 768px) {
+  .preview-image {
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    position: fixed;
+    z-index: 100;
+    background-color: #eee;
+    max-width: 300px;
+    padding: 20px;
+    transition: ease 0.4s;
+    opacity: 0;
+  }
+  .active-sidebar {
+    left: 0;
+    opacity: 1;
+  }
+  .list-image {
+    overflow: scroll;
+    height: 100%;
+  }
+}
+</style>
