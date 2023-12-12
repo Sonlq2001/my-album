@@ -1,83 +1,87 @@
 <template>
   <div class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7">
-    <div class="flex items-center justify-between">
-      <return-to :to="MyPagePaths.MY_PAGE" />
-      <app-button size="small" @click="handlerClickEdit">
-        {{ isEdit ? "Hủy chỉnh sửa" : "Chỉnh sửa" }}
-      </app-button>
-    </div>
-
-    <h1 class="border-b py-2 text-lg font-semibold border-[#eee] mt-3 mb-7">
-      Thông tin cá nhân
-    </h1>
-
-    <div v-if="isLoading">Loading...</div>
-
-    <FormVee
-      v-else
-      @submit="handleSubmit"
-      :initial-values="initValueUser"
-      :validation-schema="schemaUpdateProfile"
-      v-slot="{ setFieldValue }"
-    >
-      <div class="flex flex-col">
-        <label class="font-semibold mb-3">Họ tên</label>
-
-        <input-field
-          variant="standard"
-          name="name"
-          placeholder="Họ tên"
-          v-if="isEdit"
-          overWriteClass="pt-0 pb-2"
-        />
-
-        <span class="border-b border-[#eee] p-2" v-else>{{ user?.name }}</span>
-      </div>
-
-      <div class="flex flex-col gap-3 mt-6">
-        <label class="font-semibold">Email</label>
-        <span class="inline-block bg-black/5 p-2 rounded-md">
-          {{ user?.email }}
-        </span>
-      </div>
-
-      <div class="flex flex-col mt-6">
-        <label class="font-semibold mb-3">Mật khẩu</label>
-
-        <input-field
-          variant="standard"
-          name="password"
-          placeholder="Mật khẩu"
-          v-if="isEdit"
-          overWriteClass="pt-0 pb-2"
-        />
-
-        <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
-      </div>
-
-      <upload-user-avatar
-        :isEdit="isEdit"
-        :setFieldValue="setFieldValue"
-        :avatar="user?.avatar?.imageUrl"
-      />
-
-      <upload-background-user
-        :isEdit="isEdit"
-        :setFieldValue="setFieldValue"
-        :background="user?.background?.imageUrl"
-      />
-
-      <div class="mt-7 flex justify-end" v-if="isEdit">
-        <app-button
-          type="submit"
-          size="small"
-          intent="primary"
-          :disabled="isSubmitting"
-        >
-          Lưu
+    <div class="mx-6">
+      <div class="flex items-center justify-between">
+        <return-to :to="MyPagePaths.MY_PAGE" />
+        <app-button size="small" @click="handlerClickEdit">
+          {{ isEdit ? "Hủy chỉnh sửa" : "Chỉnh sửa" }}
         </app-button>
       </div>
-    </FormVee>
+
+      <h1 class="border-b py-2 text-lg font-semibold border-[#eee] mt-3 mb-7">
+        Thông tin cá nhân
+      </h1>
+
+      <div v-if="isLoading">Loading...</div>
+
+      <FormVee
+        v-else
+        @submit="handleSubmit"
+        :initial-values="initValueUser"
+        :validation-schema="schemaUpdateProfile"
+        v-slot="{ setFieldValue }"
+      >
+        <div class="flex flex-col">
+          <label class="font-semibold mb-3">Họ tên</label>
+
+          <input-field
+            variant="standard"
+            name="name"
+            placeholder="Họ tên"
+            v-if="isEdit"
+            overWriteClass="pt-0 pb-2"
+          />
+
+          <span class="border-b border-[#eee] p-2" v-else>
+            {{ user?.name }}
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-3 mt-6">
+          <label class="font-semibold">Email</label>
+          <span class="inline-block bg-black/5 p-2 rounded-md">
+            {{ user?.email }}
+          </span>
+        </div>
+
+        <div class="flex flex-col mt-6">
+          <label class="font-semibold mb-3">Mật khẩu</label>
+
+          <input-field
+            variant="standard"
+            name="password"
+            placeholder="Mật khẩu"
+            v-if="isEdit"
+            overWriteClass="pt-0 pb-2"
+          />
+
+          <span class="border-b border-[#eee] p-2" v-else>Lê Quang Sơn</span>
+        </div>
+
+        <upload-user-avatar
+          :isEdit="isEdit"
+          :setFieldValue="setFieldValue"
+          :avatar="user?.avatar?.imageUrl"
+        />
+
+        <upload-background-user
+          :isEdit="isEdit"
+          :setFieldValue="setFieldValue"
+          :background="user?.background?.imageUrl"
+        />
+
+        <div class="mt-7 flex justify-end" v-if="isEdit">
+          <app-button
+            type="submit"
+            size="small"
+            intent="primary"
+            :disabled="isSubmitting"
+          >
+            Lưu
+          </app-button>
+        </div>
+      </FormVee>
+    </div>
   </div>
 </template>
 

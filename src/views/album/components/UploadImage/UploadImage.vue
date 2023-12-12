@@ -1,13 +1,13 @@
 <template>
   <label
-    class="text-center border border-[#ccc] border-dashed py-8 cursor-pointer rounded-md block"
+    class="text-center border border-[#ccc] border-dashed py-8 px-4 cursor-pointer rounded-md block"
     for="file"
     @drop.prevent="handleDropImage"
     @dragover="handleDragoverImage"
   >
     Kéo thả hoặc chọn ảnh bất kỳ mà bạn muốn tạo album của mình.
-    <span class="block text-sm text-[#aaa] mt-3"
-      >Hỗ trợ các loại file JPG, JPEG, PNG,
+    <span class="block text-sm text-[#aaa] mt-3">
+      Hỗ trợ các loại file JPG, JPEG, PNG,
     </span>
     <input
       type="file"

@@ -4,7 +4,7 @@
 
     <div v-if="isEdit">
       <label
-        class="block relative pt-[33%] bg-black/5 rounded-md"
+        class="block relative pt-[56.25%] bg-black/5 rounded-md sm:pt-[33%]"
         v-if="isEdit"
       >
         <input
@@ -38,7 +38,7 @@
     </div>
 
     <div
-      class="relative bg-no-repeat bg-center bg-cover pt-[33%] rounded-[10px]"
+      class="relative bg-no-repeat bg-center bg-cover pt-[56.25%] rounded-[10px] sm:pt-[33%]"
       v-else-if="imageBackground"
       :style="{
         backgroundImage: `url(${imageBackground})`,
