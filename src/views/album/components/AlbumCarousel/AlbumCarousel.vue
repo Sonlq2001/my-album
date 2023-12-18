@@ -49,7 +49,7 @@ const props = defineProps({
     type: String,
   },
   autoplay: {
-    type: Number | String,
+    type: [Number, String],
   },
 });
 
