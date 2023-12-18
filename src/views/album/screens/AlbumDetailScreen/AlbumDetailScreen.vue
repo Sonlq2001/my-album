@@ -35,7 +35,12 @@
       <!-- info album -->
       <div class="max-w-5xl mx-auto flex gap-8 mt-7">
         <div class="w-[60%]">
-          <album-carousel :list-images="albumDetail?.albums || []" />
+          <album-carousel
+            :list-images="albumDetail?.albums || []"
+            @click-slide="clickSlide"
+            class="list-slides"
+            :autoplay="4000"
+          />
         </div>
 
         <div class="w-[40%]">
@@ -87,6 +92,11 @@
     <!-- related image -->
     <related-images />
   </div>
+
+  <display-image
+    v-if="isDisplayImage && albumDetail.albums?.length"
+    :album-detail="albumDetail.albums"
+  />
 </template>
 
 <script setup>
@@ -104,6 +114,7 @@ import { NamespaceRouter } from "@/constants/router.constants";
 import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
 import { STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
+import DisplayImage from "../../components/DisplayImage/DisplayImage.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -117,6 +128,7 @@ const historyStatusAlbum = get(router.options, "history.state.status");
 const isLoadingAlbum = ref(true);
 const isBookmark = ref(false);
 const isLoadingBookmark = ref(false);
+const isDisplayImage = ref(false);
 
 const slug = route.params.slug;
 
@@ -156,6 +168,15 @@ const handleSaveAlbum = async () => {
 
   isBookmark.value = resBookmark;
 };
+
+const clickSlide = () => {
+  isDisplayImage.value = true;
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css">
+.list-slides img {
+  max-height: 400px;
+  height: 100%;
+}
+</style>
