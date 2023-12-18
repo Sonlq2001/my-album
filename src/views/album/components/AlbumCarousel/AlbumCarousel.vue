@@ -1,17 +1,22 @@
 <template>
   <carousel
-    :autoplay="4000"
+    :autoplay="autoplay"
     :items-to-show="1"
     :pause-autoplay-on-hover="true"
     :wrap-around="isLoopCarousel"
     :mouse-drag="isLoopCarousel"
     ref="myCarousel"
+    :class="class"
   >
-    <slide v-for="slideImage in listImages" :key="slideImage.id">
+    <slide
+      v-for="slideImage in listImages"
+      :key="slideImage.id"
+      @click="handleClickSlide"
+    >
       <img
         :src="slideImage.imageUrl"
         alt="my-album"
-        class="w-full cursor-pointer h-[400px] rounded border border-[#eee]"
+        class="max-w-full cursor-pointer rounded border border-[#eee] max-h-full"
       />
     </slide>
   </carousel>
@@ -40,7 +45,15 @@ const props = defineProps({
     type: [Object],
     default: [],
   },
+  class: {
+    type: String,
+  },
+  autoplay: {
+    type: Number | String,
+  },
 });
+
+const emits = defineEmits(["click-slide"]);
 
 const isLoopCarousel = computed(() => props.listImages.length > 2);
 const myCarousel = ref(null);
@@ -55,6 +68,10 @@ const handleNextCarousel = () => {
   if (myCarousel) {
     myCarousel._value.next();
   }
+};
+
+const handleClickSlide = () => {
+  emits("click-slide");
 };
 </script>
 
