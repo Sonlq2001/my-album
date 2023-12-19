@@ -96,11 +96,12 @@
   <display-image
     v-if="isDisplayImage && albumDetail.albums?.length"
     :album-detail="albumDetail.albums"
+    @close-display-images="handleCloseImages"
   />
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted, computed } from "vue";
+import { onMounted, ref, onUnmounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import get from "lodash.get";
@@ -172,6 +173,19 @@ const handleSaveAlbum = async () => {
 const clickSlide = () => {
   isDisplayImage.value = true;
 };
+
+const handleCloseImages = () => {
+  isDisplayImage.value = false;
+};
+
+watch(
+  () => isDisplayImage.value,
+  (newValue) => {
+    const elBody = document.querySelector("body");
+    if (!elBody) return;
+    elBody.style.overflow = newValue ? "hidden" : "auto";
+  }
+);
 </script>
 
 <style lang="css">
