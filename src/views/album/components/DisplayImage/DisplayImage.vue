@@ -1,6 +1,16 @@
 <template>
   <div class="fixed h-[100vh] bg-black/90 z-50 inset-0">
-    <div class="h-[calc(100vh-60px)] w-full py-[48px]">
+    <div class="text-white z-[200px]">
+      {{ isDisplayImage }}
+    </div>
+    <button
+      class="absolute right-[20px] top-[20px]"
+      @click="closeDisplayImages"
+    >
+      <i class="ri-close-line text-3xl text-white" />
+    </button>
+
+    <div class="h-[calc(100vh-80px)] w-full pt-[80px]">
       <album-carousel
         :list-images="albumDetail"
         class="display-images h-full"
@@ -19,11 +29,21 @@ defineProps({
     default: [],
   },
 });
+
+const emits = defineEmits(["close-display-images"]);
+
+const closeDisplayImages = () => {
+  emits("close-display-images");
+};
 </script>
 
 <style lang="css">
 .display-images ol,
 .display-images .carousel__viewport {
   height: 100%;
+}
+
+.display-images img {
+  border: none;
 }
 </style>
