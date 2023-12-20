@@ -1,10 +1,10 @@
 <template>
-  <main class="max-w-[1830px] px-8 mx-auto page-top mt-7">
+  <main class="max-w-[1830px] px-8 mx-auto page-top mt-7 max-sm:px-6">
     <!-- navigation -->
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center flex-nowrap overflow-auto">
       <router-link
         v-for="cate in listCategories"
-        class="px-3 py-2 flex items-center rounded-3xl mr-5 bg-gray hover:bg-black/5 text-main"
+        class="px-3 py-2 flex items-center rounded-3xl mr-5 bg-gray hover:bg-black/5 text-main whitespace-nowrap"
         :key="cate.id"
         :to="`${CategoryPaths.CATEGORY_LIST}?cate=${cate.slug}`"
       >
@@ -32,7 +32,7 @@
         albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
       "
     >
-      <div class="mt-7 columns-4 gap-5">
+      <div class="mt-7 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2">
         <item-album
           v-for="album in albumStore.listAlbumsData"
           :key="album.id"
