@@ -1,5 +1,5 @@
 <template>
-  <main class="max-w-[1830px] mx-auto px-8 pt-10 mb-[70px]">
+  <main class="max-w-[1830px] mx-auto px-8 pt-10 mb-[70px] max-sm:px-6">
     <h1 class="font-bold text-2xl">Những bức ảnh về cuộc sống đời thường</h1>
     <p class="mt-3 text-[#656f79]">
       Kết quả tìm kiếm:
@@ -35,7 +35,9 @@
         albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
       "
     >
-      <div class="mt-4 columns-4 gap-5">
+      <div
+        class="mt-4 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
+      >
         <item-album
           v-for="album in albumStore.listAlbumsData"
           :key="album.id"
