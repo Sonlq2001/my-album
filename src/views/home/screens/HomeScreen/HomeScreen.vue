@@ -32,7 +32,9 @@
         albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
       "
     >
-      <div class="mt-7 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2">
+      <div
+        class="mt-7 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
+      >
         <item-album
           v-for="album in albumStore.listAlbumsData"
           :key="album.id"
