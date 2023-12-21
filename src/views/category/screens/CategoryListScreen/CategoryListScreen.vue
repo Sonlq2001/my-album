@@ -1,6 +1,6 @@
 <template>
   <main class="max-w-[1830px] mx-auto px-8 pt-10 mb-[70px] max-sm:px-6">
-    <h1 class="font-bold text-2xl">Những bức ảnh về cuộc sống đời thường</h1>
+    <h1 class="font-bold text-2xl">{{ titleCategory }}</h1>
     <p class="mt-3 text-[#656f79]">
       Kết quả tìm kiếm:
       <span v-if="!isLoadingAlbums" class="font-semibold">
@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, onUnmounted, watch } from "vue";
+import { onMounted, ref, reactive, onUnmounted, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
@@ -75,8 +75,9 @@ import { useSearchStore } from "@/stores/search/search.store";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 import { getQueryStringUrl } from "@/helpers/app.helper";
-
 import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
+
+import { TITLE_CATEGORIES } from "../../constants/category.constants";
 
 const albumStore = useAlbumStore();
 const searchStore = useSearchStore();
@@ -140,6 +141,12 @@ const handlerSortAlbums = (valueSort) => {
   initParams.sort = valueSort.value;
   initParams.page = DEFAULT_PAGE;
 };
+
+const titleCategory = computed(() => {
+  return route.query?.cate
+    ? `Những bức ảnh về ${TITLE_CATEGORIES[route.query.cate]}`
+    : "Tất cả những bức ảnh từ mọi chủ đề.";
+});
 </script>
 
 <style lang="css" scoped></style>
