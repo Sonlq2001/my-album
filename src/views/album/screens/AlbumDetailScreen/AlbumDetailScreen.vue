@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1830px] mx-auto px-8">
+  <div class="max-w-[1830px] mx-auto px-8 max-sm:px-6">
     <!-- loading -->
     <div v-if="isLoadingAlbum">Loading...</div>
 
@@ -33,8 +33,10 @@
       <!-- end tools album -->
 
       <!-- info album -->
-      <div class="max-w-5xl mx-auto flex gap-8 mt-7">
-        <div class="w-[60%]">
+      <div
+        class="max-w-5xl mx-auto flex gap-8 mt-7 max-lg:flex-col max-sm:gap-5"
+      >
+        <div class="w-[60%] max-lg:w-full">
           <album-carousel
             :list-images="albumDetail?.albums || []"
             @click-slide="clickSlide"
@@ -43,7 +45,7 @@
           />
         </div>
 
-        <div class="w-[40%]">
+        <div class="w-[40%] max-lg:w-full">
           <div class="mb-3">
             <span>Tiêu đề</span>
             <p class="text-text_gray">

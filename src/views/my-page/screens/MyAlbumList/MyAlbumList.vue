@@ -31,7 +31,7 @@
             :album="album"
             v-for="album in myPageStore?.listAlbumsUser"
             :key="album.id"
-            class="item-album !mb-0 h-full"
+            class="item-album !mb-0 h-full overflow-hidden"
           />
         </div>
 
