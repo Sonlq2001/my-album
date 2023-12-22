@@ -9,4 +9,5 @@ export const NamespaceRouter = {
   PROFILE: "Profile",
   ALBUM_LIST: "Album-list",
   BOOKMARK_LIST: "Bookmark-list",
+  NOT_FOUND: "Not-found",
 };

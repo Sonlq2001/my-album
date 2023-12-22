@@ -5,6 +5,7 @@ import { CATEGORY_ROUTES } from "@/views/category/category.js";
 import { ALBUM_ROUTES } from "@/views/album/album.js";
 import { AUTH_ROUTES } from "@/views/auth/auth.js";
 import { MY_PAGE_ROUTES } from "@/views/my-page/my-page.js";
+import { NOT_FOUND_ROUTES } from "@/views/not-found/not-found";
 
 import { NamespaceRouter } from "@/constants/router.constants";
 import useGetUserInfo from "@/composable/useGetUserInfo";
@@ -15,6 +16,7 @@ const routes = [
   ...ALBUM_ROUTES,
   ...AUTH_ROUTES,
   ...MY_PAGE_ROUTES,
+  ...NOT_FOUND_ROUTES,
 ];
 
 const router = createRouter({
