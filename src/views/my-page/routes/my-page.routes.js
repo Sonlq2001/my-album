@@ -33,7 +33,7 @@ const ALBUM_LIST_SCREEN = {
   component: MyAlbumList,
   meta: {
     layout: DefaultLayout,
-    // isPrivate: true,
+    isPrivate: true,
   },
 };
 
