@@ -2,9 +2,14 @@
   font-family: "Nunito", Arial, sans-serif;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   height: -webkit-fill-available;
+  min-height: 100vh;
 }
 
 img {
