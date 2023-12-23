@@ -96,7 +96,7 @@ watch(
 
 const fetchAlbums = async (params) => {
   try {
-    await myPageStore.getAlbumsUserApi({ ...initParams, ...params });
+    await myPageStore.getAlbumsUser({ ...initParams, ...params });
   } catch (error) {
     // TODO: handler error
   }
@@ -108,7 +108,7 @@ const handlerSortAlbums = (valueSort) => {
 };
 
 const visibilityChanged = async (isVisible) => {
-  if (!isVisible || myPageStore.cancelLoadMore) return;
+  if (!isVisible || myPageStore.albumsUser.cancelLoadMore) return;
 
   isLoadingScroll.value = true;
   await fetchAlbums({ page: ++initParams.page });

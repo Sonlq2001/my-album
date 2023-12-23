@@ -21,14 +21,14 @@
     <div class="mt-5" v-if="isLoading">Loading...</div>
     <div
       v-else-if="
-        myPageStore?.listAlbumsUser && myPageStore?.listAlbumsUser?.length > 0
+        myPageStore?.listBookmarks && myPageStore?.listBookmarks?.length > 0
       "
       ref="masonry"
     >
       <div class="mt-5 gap-4 flex flex-wrap">
         <item-album
           :album="album"
-          v-for="album in myPageStore?.listAlbumsUser"
+          v-for="album in myPageStore?.listBookmarks"
           :key="album.id"
           class="item-album !mb-0 h-full"
         />
@@ -74,7 +74,7 @@ const initParams = reactive({
 });
 
 onMounted(async () => {
-  if (myPageStore.listAlbumsUser?.length) {
+  if (myPageStore.listBookmarks?.length) {
     isLoading.value = false;
     return;
   }
@@ -94,7 +94,7 @@ watch(
 
 const fetchAlbums = async (params) => {
   try {
-    await myPageStore.getAlbumsUserApi({ ...initParams, ...params });
+    await myPageStore.getBookmarks({ ...initParams, ...params });
   } catch (error) {
     // TODO: handler error
   }
@@ -106,7 +106,7 @@ const handlerSortAlbums = (valueSort) => {
 };
 
 const visibilityChanged = async (isVisible) => {
-  if (!isVisible || myPageStore.cancelLoadMore) return;
+  if (!isVisible || myPageStore.bookmarks.cancelLoadMore) return;
 
   isLoadingScroll.value = true;
   await fetchAlbums({ page: ++initParams.page });

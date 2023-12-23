@@ -16,8 +16,13 @@ const getAlbumsUserApi = (params) => {
   return instanceApi.get(MyPageEndpoints.GET_ALBUMS_USER, { params });
 };
 
+const getBookmarksApi = (params) => {
+  return instanceApi.get(MyPageEndpoints.GET_BOOKMARKS, { params });
+};
+
 export const myPageApi = {
   updateProfileUserApi,
   getUserApi,
   getAlbumsUserApi,
+  getBookmarksApi,
 };
