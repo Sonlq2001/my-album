@@ -8,7 +8,16 @@ export const useMyPageStore = defineStore("my-page", {
   state: () => {
     return {
       user: null,
-      albumsUser: null,
+      albumsUser: {
+        total: 0,
+        list: null,
+        cancelLoadMore: false,
+      },
+      bookmarks: {
+        total: 0,
+        list: null,
+        cancelLoadMore: false,
+      },
       cancelLoadMore: false,
       total: 0,
     };
@@ -25,18 +34,19 @@ export const useMyPageStore = defineStore("my-page", {
       this.user = res.data.metadata;
     },
 
-    async getAlbumsUserApi({ hasSearch, ...rest }) {
+    async getAlbumsUser({ hasSearch, ...rest }) {
       const res = await myPageApi.getAlbumsUserApi(rest);
       const data = get(res, "data.metadata");
       const meta = get(res, "data.meta");
 
-      if (this.albumsUser && this.albumsUser.length && !hasSearch) {
-        this.albumsUser = this.albumsUser.concat(data);
+      if (this.albumsUser.list && this.albumsUser.list.length && !hasSearch) {
+        this.albumsUser.list = this.albumsUser.list.concat(data);
       } else {
-        this.albumsUser = data;
+        this.albumsUser.list = data;
       }
-      this.total = meta?.total;
-      this.cancelLoadMore = this.albumsUser?.length >= meta?.total;
+      this.albumsUser.total = meta?.total;
+      this.albumsUser.cancelLoadMore =
+        this.albumsUser.list?.length >= meta?.total;
     },
 
     resetAlbumsUser() {
@@ -44,11 +54,32 @@ export const useMyPageStore = defineStore("my-page", {
       this.albumsUser = null;
       this.cancelLoadMore = false;
     },
+
+    async getBookmarks({ hasSearch, ...rest }) {
+      const res = await myPageApi.getBookmarksApi(rest);
+      const data = get(res, "data.metadata");
+      const meta = get(res, "data.meta");
+
+      if (this.bookmarks.list && this.bookmarks.list.length && !hasSearch) {
+        this.bookmarks.list = this.bookmarks.list.concat(data);
+      } else {
+        this.bookmarks.list = data;
+      }
+      this.bookmarks.total = meta?.total;
+      this.bookmarks.cancelLoadMore =
+        this.bookmarks.list?.length >= meta?.total;
+    },
   },
 
   getters: {
     listAlbumsUser() {
-      return (this.albumsUser ?? []).map((album) => ({
+      return (this.albumsUser.list ?? []).map((album) => ({
+        ...album,
+        albumAvatar: album.albums[0],
+      }));
+    },
+    listBookmarks() {
+      return (this.bookmarks.list ?? []).map((album) => ({
         ...album,
         albumAvatar: album.albums[0],
       }));
