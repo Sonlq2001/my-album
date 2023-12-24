@@ -1,7 +1,7 @@
 <template>
   <div
     id="auth-layout"
-    class="h-[100svh] w-full overflow-hidden relative login-screen"
+    class="h-[100dvh] w-full overflow-hidden relative login-screen"
   >
     <div
       class="flex flex-wrap flex-col gap-4 absolute top-0 left-0 right-0 bottom-0"
