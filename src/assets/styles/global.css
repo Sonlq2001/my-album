@@ -2,14 +2,19 @@
   font-family: "Nunito", Arial, sans-serif;
 }
 
-html {
-  height: -webkit-fill-available;
+html,
+body {
+  height: 100%;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
-  height: -webkit-fill-available;
-  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-user-drag: none;
 }
 
 img {

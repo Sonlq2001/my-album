@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed h-[100vh] bg-black/90 z-50 inset-0">
+  <div class="fixed h-[100-dvh] bg-black/90 z-50 inset-0">
     <div class="text-white z-[200px]">
       {{ isDisplayImage }}
     </div>
@@ -10,7 +10,7 @@
       <i class="ri-close-line text-3xl text-white" />
     </button>
 
-    <div class="h-[calc(100vh-80px)] w-full pt-[80px]">
+    <div class="h-[calc(100-dvh-80px)] w-full pt-[80px]">
       <album-carousel
         :list-images="albumDetail"
         class="display-images h-full"
