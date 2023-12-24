@@ -1,6 +1,6 @@
 <template>
   <footer class="border-t border-[#cccc]">
-    <div class="max-w-[1830px] mx-auto px-8 py-10 max-sm:py-7">
+    <div class="max-w-[1830px] mx-auto px-8 py-10 max-sm:py-7 max-sm:px-6">
       <router-link
         :to="{ name: 'Home' }"
         class="text-black text-xl font-semibold leading-6"
