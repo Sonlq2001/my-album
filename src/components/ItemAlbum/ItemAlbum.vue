@@ -4,7 +4,7 @@
       name: NamespaceRouter.ALBUM_DETAIL,
       params: { slug: album.slug },
     }"
-    class="mb-5 relative overflow-hidden box-image block max-sm:mb-4"
+    class="mb-5 relative overflow-hidden box-image inline-block max-sm:mb-4"
   >
     <img :src="album.albumAvatar?.imageUrl" alt="" class="w-full h-full" />
 
