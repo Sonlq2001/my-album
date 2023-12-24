@@ -36,7 +36,7 @@
       "
     >
       <div
-        class="mt-4 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
+        class="mt-4 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4 text-[0px]"
       >
         <item-album
           v-for="album in albumStore.listAlbumsData"
