@@ -1,10 +1,10 @@
 <template>
-  <div class="border-t border-[#ccc] py-10">
-    <div class="flex">
+  <div class="border-t border-[#ccc] py-10 max-sm:py-7">
+    <div class="flex gap-6 max-sm:gap-4">
       <span
-        class="w-[40px] h-[40px] rounded-full bg-[rgba(0,171,107,.1)] flex items-center justify-center mr-6"
+        class="max-w-[40px] w-full h-[40px] rounded-full bg-[rgba(0,171,107,.1)] flex items-center justify-center"
       >
-        <i class="ri-heart-fill text-main"></i>
+        <i class="ri-heart-fill text-main leading-[0px]"></i>
       </span>
       <div>
         <div class="font-semibold">
