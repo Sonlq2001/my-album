@@ -11,7 +11,7 @@
 
       <div class="flex items-center">
         <select
-          class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[3px] outline-none mr-3"
+          class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[4px] outline-none mr-3"
           @change="handlerSortAlbums"
         >
           <option
@@ -25,7 +25,7 @@
 
         <button
           :class="[
-            'text-[13px] border px-2 py-[3px] rounded-3xl border-[#ddd] mr-3 whitespace-nowrap',
+            'text-[13px] border px-2 py-[4px] rounded-3xl border-[#ddd] mr-3 whitespace-nowrap',
             filter.value === initParams.filter
               ? 'bg-main text-white'
               : 'bg-gray',
@@ -159,7 +159,6 @@ onUnmounted(() => {
   flex: 1 0 auto;
   height: 180px;
   max-width: 100%;
-  max-height: 100%;
 }
 
 .item-album:last-child {
