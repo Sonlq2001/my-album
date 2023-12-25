@@ -18,3 +18,24 @@ export const MENUS_MY_PAGE = [
     nameRouter: "",
   },
 ];
+
+export const FILTER_VALUE = {
+  ALL: "all",
+  ALBUM_PUBLIC: "public",
+  ALBUM_PRIVATE: "private",
+};
+
+export const LIST_FILTER_ALBUMS = [
+  {
+    label: "Tất cả",
+    value: FILTER_VALUE.ALL,
+  },
+  {
+    label: "Công khai",
+    value: FILTER_VALUE.ALBUM_PUBLIC,
+  },
+  {
+    label: "Riêng tư",
+    value: FILTER_VALUE.ALBUM_PRIVATE,
+  },
+];
