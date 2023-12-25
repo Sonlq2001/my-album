@@ -158,7 +158,6 @@ onUnmounted(() => {
 .item-album {
   flex: 1 0 auto;
   height: 180px;
-  max-width: 100%;
 }
 
 .item-album:last-child {
