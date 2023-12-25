@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7 overflow-auto"
+    class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7 overflow-hidden"
   >
     <div class="mx-6">
       <return-to :to="MyPagePaths.MY_PAGE" />
@@ -158,6 +158,8 @@ onUnmounted(() => {
 .item-album {
   flex: 1 0 auto;
   height: 180px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .item-album:last-child {
