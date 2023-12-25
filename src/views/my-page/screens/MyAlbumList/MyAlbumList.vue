@@ -1,5 +1,7 @@
 <template>
-  <div class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7">
+  <div
+    class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7 overflow-auto"
+  >
     <div class="mx-6">
       <return-to :to="MyPagePaths.MY_PAGE" />
 
@@ -7,17 +9,34 @@
         Albums của bạn
       </h1>
 
-      <button
-        :class="[
-          'font-sans text-[13px] border px-2 py-[3px] rounded-3xl border-[#ddd]  mr-3',
-          sort.value === initParams.sort ? 'bg-main text-white' : 'bg-gray',
-        ]"
-        v-for="(sort, index) in LIST_SORT"
-        :key="index"
-        @click="() => handlerSortAlbums(sort)"
-      >
-        {{ sort.label }}
-      </button>
+      <div class="flex items-center">
+        <select
+          class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[3px] outline-none mr-3"
+          @change="handlerSortAlbums"
+        >
+          <option
+            v-for="(sort, index) in LIST_SORT"
+            :key="index"
+            :value="sort.value"
+          >
+            {{ sort.label }}
+          </option>
+        </select>
+
+        <button
+          :class="[
+            'text-[13px] border px-2 py-[3px] rounded-3xl border-[#ddd] mr-3 whitespace-nowrap',
+            filter.value === initParams.filter
+              ? 'bg-main text-white'
+              : 'bg-gray',
+          ]"
+          v-for="(filter, index) in LIST_FILTER_ALBUMS"
+          :key="index"
+          @click="() => handleFilterAlbums(filter)"
+        >
+          {{ filter.label }}
+        </button>
+      </div>
 
       <div class="mt-5" v-if="isLoading">Loading...</div>
       <div
@@ -64,6 +83,10 @@ import { useMyPageStore } from "@/stores/my-page/my-page.store";
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 
 import { MyPagePaths } from "../../constants/my-page.paths.js";
+import {
+  LIST_FILTER_ALBUMS,
+  FILTER_VALUE,
+} from "../../constants/my-page.constants";
 
 const myPageStore = useMyPageStore();
 
@@ -71,6 +94,7 @@ const isLoading = ref(true);
 const isLoadingScroll = ref(false);
 const initParams = reactive({
   sort: SORT_VALUE.CREATED_DESC,
+  filter: FILTER_VALUE.ALL,
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
 });
@@ -86,7 +110,7 @@ onMounted(async () => {
 });
 
 watch(
-  () => initParams.sort,
+  () => [initParams.sort, initParams.filter],
   async () => {
     isLoading.value = true;
     await fetchAlbums({ hasSearch: true });
@@ -102,8 +126,13 @@ const fetchAlbums = async (params) => {
   }
 };
 
-const handlerSortAlbums = (valueSort) => {
-  initParams.sort = valueSort.value;
+const handlerSortAlbums = (e) => {
+  initParams.sort = e.target.value;
+  initParams.page = DEFAULT_PAGE;
+};
+
+const handleFilterAlbums = (filter) => {
+  initParams.filter = filter.value;
   initParams.page = DEFAULT_PAGE;
 };
 

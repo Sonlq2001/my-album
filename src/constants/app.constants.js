@@ -6,6 +6,8 @@ export const FILES_ACCEPT = ["image/jpg", "image/jpeg", "image/png"];
 export const SORT_VALUE = {
   CREATED_DESC: "-createdAt",
   CREATED_ASC: "createdAt",
+  ALBUM_PUBLIC: "public",
+  ALBUM_PRIVATE: "private",
 };
 
 export const LIST_SORT = [
