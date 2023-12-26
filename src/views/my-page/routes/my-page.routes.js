@@ -1,8 +1,10 @@
 import MyPageScreen from "@/views/my-page/screens/MyPageScreen/MyPageScreen.vue";
-import ProfileScreen from "@/views/my-page/screens/ProfileScreen/ProfileScreen.vue";
+import SettingProfileScreen from "@/views/my-page/screens/SettingProfileScreen/SettingProfileScreen.vue";
 import MyAlbumList from "@/views/my-page/screens/MyAlbumList/MyAlbumList.vue";
 import BookmarkList from "@/views/my-page/screens/BookmarkList/BookmarkList.vue";
+import ProfileScreen from "@/views/my-page/screens/ProfileScreen/ProfileScreen.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import MyPageLayout from "@/layouts/MyPageLayout.vue";
 import { NamespaceRouter } from "@/constants/router.constants";
 
 import { MyPagePaths } from "../constants/my-page.paths";
@@ -12,15 +14,15 @@ const MY_PAGE_SCREEN = {
   name: NamespaceRouter.MY_PAGE,
   component: MyPageScreen,
   meta: {
-    layout: DefaultLayout,
+    layout: MyPageLayout,
     isPrivate: true,
   },
 };
 
-const PROFILE_SCREEN = {
-  path: MyPagePaths.PROFILE,
-  name: NamespaceRouter.PROFILE,
-  component: ProfileScreen,
+const SETTING_PROFILE_SCREEN = {
+  path: MyPagePaths.SETTING_PROFILE,
+  name: NamespaceRouter.SETTING_PROFILE,
+  component: SettingProfileScreen,
   meta: {
     layout: DefaultLayout,
     isPrivate: true,
@@ -47,9 +49,20 @@ const BOOKMARK_LIST_SCREEN = {
   },
 };
 
+const PROFILE_SCREEN = {
+  path: MyPagePaths.PROFILE,
+  name: NamespaceRouter.PROFILE,
+  component: ProfileScreen,
+  meta: {
+    layout: MyPageLayout,
+    isPrivate: true,
+  },
+};
+
 export const MY_PAGE_ROUTES = [
   MY_PAGE_SCREEN,
-  PROFILE_SCREEN,
+  SETTING_PROFILE_SCREEN,
   ALBUM_LIST_SCREEN,
   BOOKMARK_LIST_SCREEN,
+  PROFILE_SCREEN,
 ];

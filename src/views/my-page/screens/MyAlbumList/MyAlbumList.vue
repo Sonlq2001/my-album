@@ -1,8 +1,8 @@
 <template>
-  <div
-    class="max-w-3xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7 overflow-hidden"
-  >
-    <div class="mx-6">
+  <div class="mx-6">
+    <div
+      class="max-w-5xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)] mt-7 overflow-hidden"
+    >
       <return-to :to="MyPagePaths.MY_PAGE" />
 
       <h1 class="border-b py-2 text-lg font-semibold border-[#eee] mt-3 mb-7">
@@ -43,7 +43,6 @@
         v-else-if="
           myPageStore?.listAlbumsUser && myPageStore?.listAlbumsUser?.length > 0
         "
-        ref="masonry"
       >
         <div class="mt-5 gap-4 flex flex-wrap">
           <item-album
@@ -51,6 +50,7 @@
             v-for="album in myPageStore?.listAlbumsUser"
             :key="album.id"
             class="item-album !mb-0 h-full overflow-hidden"
+            overlay
           />
         </div>
 
@@ -154,11 +154,17 @@ onUnmounted(() => {
 });
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .item-album {
   flex: 1 0 auto;
   height: 180px;
   max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.item-album img {
+  width: auto;
 }
 
 @media (min-width: 640px) {
