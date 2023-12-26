@@ -1,8 +1,5 @@
 <template>
   <div class="fixed h-[100dvh] bg-black/90 z-50 inset-0">
-    <div class="text-white z-[200px]">
-      {{ isDisplayImage }}
-    </div>
     <button
       class="absolute right-[20px] top-[20px]"
       @click="closeDisplayImages"

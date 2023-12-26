@@ -14,7 +14,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(data) {
       const res = await authApi.loginApi(data);
-      const { accessToken, id, name, email, avatar, background } =
+      const { accessToken, id, name, email, avatar, background, slug } =
         res.data.metadata;
 
       this.userInfo = res.data.metadata;
@@ -25,6 +25,7 @@ export const useAuthStore = defineStore("auth", {
         email,
         avatar,
         background,
+        slug,
       };
     },
 

@@ -20,9 +20,16 @@ const getBookmarksApi = (params) => {
   return instanceApi.get(MyPageEndpoints.GET_BOOKMARKS, { params });
 };
 
+const getUserInfoApi = (slugUser) => {
+  return instanceApi.get(
+    MyPageEndpoints.GET_USER_INFO.replace(":slug_user", slugUser)
+  );
+};
+
 export const myPageApi = {
   updateProfileUserApi,
   getUserApi,
   getAlbumsUserApi,
   getBookmarksApi,
+  getUserInfoApi,
 };

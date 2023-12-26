@@ -20,6 +20,7 @@ export const useMyPageStore = defineStore("my-page", {
       },
       cancelLoadMore: false,
       total: 0,
+      userInfo: null,
     };
   },
   actions: {
@@ -68,6 +69,11 @@ export const useMyPageStore = defineStore("my-page", {
       this.bookmarks.total = meta?.total;
       this.bookmarks.cancelLoadMore =
         this.bookmarks.list?.length >= meta?.total;
+    },
+
+    async getUserInfo(slugUser) {
+      const res = await myPageApi.getUserInfoApi(slugUser);
+      this.userInfo = res.data.metadata;
     },
   },
 
