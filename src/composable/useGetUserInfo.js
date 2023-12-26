@@ -13,6 +13,7 @@ const useGetUserInfo = () => {
     avatar: authData?.avatar?.imageUrl,
     background: authData?.background?.imageUrl,
     name: authData?.name,
+    slugUser: authData?.slug,
   };
 };
 

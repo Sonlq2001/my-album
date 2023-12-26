@@ -4,11 +4,11 @@ export const TIME_DELAY_HEADER_SCROLL = 100; // 0.1s
 
 export const POSITION_ACTIVE_HEADER = 30; // window.scrollY
 
-export const listMenusHeader = ({ user_id }) => [
+export const listMenusHeader = ({ slug_user }) => [
   {
     label: "Trang cá nhân",
     nameRouter: NamespaceRouter.PROFILE,
-    params: { user_id },
+    params: { slug_user },
   },
   {
     label: "Tất cả albums",

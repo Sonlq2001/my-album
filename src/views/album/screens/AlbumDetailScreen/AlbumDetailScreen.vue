@@ -7,7 +7,14 @@
       <!-- tools album -->
       <div class="flex items-center mt-7 justify-between">
         <div class="flex">
-          <user-avatar size="large" :avatar="avatarUser" />
+          <router-link
+            :to="{
+              name: NamespaceRouter.PROFILE,
+              params: { slug_user: albumDetail?.user.slug },
+            }"
+          >
+            <user-avatar size="large" :avatar="avatarUser" />
+          </router-link>
 
           <div class="flex flex-col ml-3">
             <span class="font-semibold">{{ albumDetail?.user.name }}</span>

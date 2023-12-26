@@ -49,7 +49,7 @@ import useLogout from "@/composable/useLogout";
 import useGetUserInfo from "@/composable/useGetUserInfo";
 
 const router = useRouter();
-const { name, avatar } = useGetUserInfo();
+const { name, avatar, slugUser } = useGetUserInfo();
 
 const menuRef = ref(null);
 const isOpenMenuHeader = ref(false);
@@ -81,7 +81,7 @@ const avatarUser = computed(() => {
   return avatar || name;
 });
 
-const menusHeader = computed(() => listMenusHeader({ user_id: name }));
+const menusHeader = computed(() => listMenusHeader({ slug_user: slugUser }));
 </script>
 
 <style lang="css" scoped>
