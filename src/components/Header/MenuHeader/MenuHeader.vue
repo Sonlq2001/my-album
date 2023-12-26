@@ -13,15 +13,19 @@
       </h3>
       <div class="border-b my-1 border-[#ffffff1a]"></div>
       <component
-        v-for="(menu, index) in MENUS_HEADER"
-        :to="menu.nameRouter ? { name: menu.nameRouter } : null"
+        v-for="(menu, index) in menusHeader"
+        :to="
+          menu.nameRouter
+            ? { name: menu.nameRouter, params: menu.params }
+            : null
+        "
         :key="index"
         :is="menu.nameRouter ? 'router-link' : 'button'"
         class="block w-full"
         @click="() => clickLogout(menu.nameRouter)"
       >
         <div
-          v-if="index === MENUS_HEADER.length - 1"
+          v-if="index === menusHeader.length - 1 || index === 1"
           class="border-b mt-[2px] mb-[6px] border-[#ffffff1a]"
         />
         <span
@@ -39,7 +43,7 @@ import { ref, watch, computed } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useRouter } from "vue-router";
 
-import { MENUS_HEADER } from "@/constants/header.constants";
+import { listMenusHeader } from "@/constants/header.constants";
 import UserAvatar from "@/components/UserAvatar/UserAvatar.vue";
 import useLogout from "@/composable/useLogout";
 import useGetUserInfo from "@/composable/useGetUserInfo";
@@ -76,6 +80,8 @@ const clickLogout = (nameRouter) => {
 const avatarUser = computed(() => {
   return avatar || name;
 });
+
+const menusHeader = computed(() => listMenusHeader({ user_id: name }));
 </script>
 
 <style lang="css" scoped>

@@ -2,8 +2,8 @@ import { NamespaceRouter } from "@/constants/router.constants";
 
 export const MENUS_MY_PAGE = [
   {
-    label: "Thông tin cá nhân",
-    nameRouter: NamespaceRouter.PROFILE,
+    label: "Cài đặt tài khoản",
+    nameRouter: NamespaceRouter.SETTING_PROFILE,
   },
   {
     label: "Albums của bạn",

@@ -4,14 +4,14 @@
 
     <div v-if="isEdit">
       <label
-        class="w-[130px] h-[130px] rounded-full flex justify-center items-center bg-black/5"
+        class="w-[150px] h-[150px] max-sm:w-[130px] max-sm:h-[130px] rounded-full flex justify-center items-center bg-black/5"
       >
         <input hidden type="file" name="avatar" @change="handleChangeFile" />
         <img
           v-if="imageBackground"
           :src="imageBackground"
           alt="avatar"
-          class="w-[130px] h-[130px] rounded-full"
+          class="w-[150px] h-[150px] max-sm:w-[130px] max-sm:h-[130px] rounded-full"
         />
 
         <div v-else>
@@ -31,7 +31,7 @@
       v-else-if="imageBackground"
       :src="imageBackground"
       alt="avatar"
-      class="w-[130px] h-[130px] rounded-full"
+      class="w-[150px] h-[150px] max-sm:w-[130px] max-sm:h-[130px] rounded-full"
     />
 
     <div v-else>Chưa có ảnh đại diện</div>

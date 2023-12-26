@@ -6,6 +6,11 @@
     }"
     class="mb-5 relative overflow-hidden box-image inline-block max-sm:mb-4 text-[16px]"
   >
+    <div
+      v-if="overlay"
+      :class="`image-overlay absolute inset-0 z-[-1] bg-no-repeat bg-cover bg-center blur-sm`"
+      :style="{ backgroundImage: `url('${album.albumAvatar?.imageUrl}')` }"
+    />
     <img
       :src="album.albumAvatar?.imageUrl"
       alt=""
@@ -30,6 +35,10 @@ defineProps({
   album: {
     type: Object,
     require: true,
+  },
+  overlay: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

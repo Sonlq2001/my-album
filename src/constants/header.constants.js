@@ -4,7 +4,12 @@ export const TIME_DELAY_HEADER_SCROLL = 100; // 0.1s
 
 export const POSITION_ACTIVE_HEADER = 30; // window.scrollY
 
-export const MENUS_HEADER = [
+export const listMenusHeader = ({ user_id }) => [
+  {
+    label: "Trang cá nhân",
+    nameRouter: NamespaceRouter.PROFILE,
+    params: { user_id },
+  },
   {
     label: "Tất cả albums",
     nameRouter: NamespaceRouter.LIST_CATEGORY,
@@ -14,7 +19,7 @@ export const MENUS_HEADER = [
     nameRouter: NamespaceRouter.CREATE_ALBUM,
   },
   {
-    label: "Cài đặt",
+    label: "Quản lý",
     nameRouter: NamespaceRouter.MY_PAGE,
   },
   {
