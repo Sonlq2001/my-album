@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, ref } from "vue";
+import { reactive, onMounted, ref, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
 import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
@@ -52,6 +52,10 @@ onMounted(async () => {
 
   await myPageStore.getUserInfo(slugUser);
   isLoadingUserInfo.value = false;
+});
+
+onUnmounted(() => {
+  myPageStore.resetUserInfo();
 });
 
 const data = [
