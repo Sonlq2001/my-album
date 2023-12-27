@@ -55,7 +55,6 @@ const PROFILE_SCREEN = {
   component: ProfileScreen,
   meta: {
     layout: MyPageLayout,
-    isPrivate: true,
   },
 };
 
