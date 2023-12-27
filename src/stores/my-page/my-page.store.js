@@ -75,6 +75,10 @@ export const useMyPageStore = defineStore("my-page", {
       const res = await myPageApi.getUserInfoApi(slugUser);
       this.userInfo = res.data.metadata;
     },
+
+    resetUserInfo() {
+      this.userInfo = null;
+    },
   },
 
   getters: {
