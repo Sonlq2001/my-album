@@ -1,10 +1,8 @@
 <template>
-  <div
-    class="max-w-full w-full min-h-[calc(100vh-64px-191px)] overflow-hidden px-6"
-  >
+  <div class="max-w-full w-full min-h-[calc(100vh-64px-191px)] px-6">
     <div v-if="isLoadingUserInfo">Loading...</div>
     <div class="py-8 flex gap-6 max-lg:flex-col" v-else>
-      <div class="max-w-[300px] w-full">
+      <div class="max-w-[300px] w-full info self-start">
         <h4 class="font-semibold mb-3">Giới thiệu</h4>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores
@@ -13,13 +11,14 @@
       </div>
       <div class="w-full">
         <h4 class="font-semibold mb-3">Albums</h4>
-
-        <div class="columns-3 gap-4 text-[0px] max-sm:columns-2">
+        <div
+          class="columns-3 gap-4 text-[0px] max-sm:columns-2"
+          v-if="listUserAlbumsInfo.length > 0"
+        >
           <item-album
-            :album="item"
-            v-for="(item, index) in data"
-            :key="index"
-            overlay
+            :album="album"
+            v-for="album in listUserAlbumsInfo"
+            :key="album.id"
           />
         </div>
       </div>
@@ -30,16 +29,23 @@
 <script setup>
 import { reactive, onMounted, ref, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
 
-import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
+import { SORT_VALUE, DEFAULT_PAGE } from "@/constants/app.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useMyPageStore } from "@/stores/my-page/my-page.store";
+
+import { DEFAULT_PER_PAGE_PROFILE } from "../../constants/my-page.constants";
 
 const route = useRoute();
 const myPageStore = useMyPageStore();
 
+const { listUserAlbumsInfo } = storeToRefs(myPageStore);
+
 const initParams = reactive({
   sort: SORT_VALUE.CREATED_DESC,
+  page: DEFAULT_PAGE,
+  perPage: DEFAULT_PER_PAGE_PROFILE,
 });
 const isLoadingUserInfo = ref(true);
 
@@ -50,64 +56,25 @@ onMounted(async () => {
     return;
   }
 
-  await myPageStore.getUserInfo(slugUser);
-  isLoadingUserInfo.value = false;
+  Promise.all([
+    myPageStore.getUserInfo(slugUser),
+    myPageStore.getUserAlbumsInfo({ slugUser, ...initParams }),
+  ]).finally(() => {
+    isLoadingUserInfo.value = false;
+  });
 });
 
 onUnmounted(() => {
   myPageStore.resetUserInfo();
 });
-
-const data = [
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/12/08/09/13/vine-8437282_1280.jpg",
-    },
-  },
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/11/12/18/52/christmas-8383920_640.jpg",
-    },
-  },
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/11/10/08/06/dog-8378909_640.jpg",
-    },
-  },
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/11/22/20/31/snowman-8406382_640.jpg",
-    },
-  },
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/12/15/03/11/fishermen-8449951_640.jpg",
-    },
-  },
-  {
-    title: "123",
-    slug: "123",
-    albumAvatar: {
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2023/10/29/12/29/pumpkin-8349988_640.jpg",
-    },
-  },
-];
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+@media (min-width: 1024px) {
+  .info {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 90px;
+  }
+}
+</style>

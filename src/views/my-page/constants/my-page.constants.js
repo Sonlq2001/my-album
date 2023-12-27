@@ -39,3 +39,5 @@ export const LIST_FILTER_ALBUMS = [
     value: FILTER_VALUE.ALBUM_PRIVATE,
   },
 ];
+
+export const DEFAULT_PER_PAGE_PROFILE = 15;

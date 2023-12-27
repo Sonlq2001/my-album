@@ -21,6 +21,11 @@ export const useMyPageStore = defineStore("my-page", {
       cancelLoadMore: false,
       total: 0,
       userInfo: null,
+      userAlbumsInfo: {
+        list: null,
+        total: 0,
+        cancelLoadMore: false,
+      },
     };
   },
   actions: {
@@ -76,8 +81,18 @@ export const useMyPageStore = defineStore("my-page", {
       this.userInfo = res.data.metadata;
     },
 
+    async getUserAlbumsInfo(params) {
+      const res = await myPageApi.getUserAlbumsInfoApi(params);
+      const data = get(res, "data.metadata");
+      const meta = get(res, "data.meta");
+
+      this.userAlbumsInfo.list = data;
+      this.userAlbumsInfo.total = meta?.total;
+    },
+
     resetUserInfo() {
       this.userInfo = null;
+      this.userAlbumsInfo = { list: null, total: 0 };
     },
   },
 
@@ -90,6 +105,12 @@ export const useMyPageStore = defineStore("my-page", {
     },
     listBookmarks() {
       return (this.bookmarks.list ?? []).map((album) => ({
+        ...album,
+        albumAvatar: album.albums[0],
+      }));
+    },
+    listUserAlbumsInfo() {
+      return (this.userAlbumsInfo.list ?? []).map((album) => ({
         ...album,
         albumAvatar: album.albums[0],
       }));

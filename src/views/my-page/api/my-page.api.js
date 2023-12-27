@@ -26,10 +26,18 @@ const getUserInfoApi = (slugUser) => {
   );
 };
 
+const getUserAlbumsInfoApi = ({ slugUser, ...rest }) => {
+  return instanceApi.get(
+    MyPageEndpoints.GET_USER_ALBUMS_INFO.replace(":slug_user", slugUser),
+    { params: rest }
+  );
+};
+
 export const myPageApi = {
   updateProfileUserApi,
   getUserApi,
   getAlbumsUserApi,
   getBookmarksApi,
   getUserInfoApi,
+  getUserAlbumsInfoApi,
 };
