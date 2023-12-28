@@ -27,8 +27,8 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, ref, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { reactive, onMounted, ref, onUnmounted, watch } from "vue";
+import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { SORT_VALUE, DEFAULT_PAGE } from "@/constants/app.constants";
@@ -37,7 +37,7 @@ import { useMyPageStore } from "@/stores/my-page/my-page.store";
 
 import { DEFAULT_PER_PAGE_PROFILE } from "../../constants/my-page.constants";
 
-const route = useRoute();
+const router = useRouter();
 const myPageStore = useMyPageStore();
 
 const { listUserAlbumsInfo } = storeToRefs(myPageStore);
@@ -49,20 +49,31 @@ const initParams = reactive({
 });
 const isLoadingUserInfo = ref(true);
 
-const slugUser = route.params.slug_user;
+const slugUser = router.currentRoute.value.params.slug_user;
+
+const fetchDataProfile = (slug) => {
+  Promise.all([
+    myPageStore.getUserInfo(slug),
+    myPageStore.getUserAlbumsInfo({ slugUser: slug, ...initParams }),
+  ]).finally(() => {
+    isLoadingUserInfo.value = false;
+  });
+};
 
 onMounted(async () => {
   if (!slugUser) {
     return;
   }
 
-  Promise.all([
-    myPageStore.getUserInfo(slugUser),
-    myPageStore.getUserAlbumsInfo({ slugUser, ...initParams }),
-  ]).finally(() => {
-    isLoadingUserInfo.value = false;
-  });
+  fetchDataProfile(slugUser);
 });
+
+watch(
+  () => router.currentRoute.value.params.slug_user,
+  (newSlugUser) => {
+    fetchDataProfile(newSlugUser);
+  }
+);
 
 onUnmounted(() => {
   myPageStore.resetUserInfo();
