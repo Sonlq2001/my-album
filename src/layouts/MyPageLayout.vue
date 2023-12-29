@@ -42,7 +42,10 @@ const { avatar, background, name } = useGetUserInfo();
 const myPageStore = useMyPageStore();
 
 const dataUser = computed(() => {
-  if (window.location.pathname === MyPagePaths.MY_PAGE) {
+  if (
+    window.location.pathname === MyPagePaths.MY_PAGE &&
+    !myPageStore.userInfo
+  ) {
     return { avatar, background, name };
   }
 
