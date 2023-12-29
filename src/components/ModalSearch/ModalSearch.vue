@@ -33,16 +33,25 @@ const handleCloseModal = () => {
 .input-search {
   animation: AnimationModalSearch 0.3s ease-in-out;
   -webkit-animation: AnimationModalSearch 0.3s ease-in-out;
+  -moz-animation: AnimationModalSearch 0.3s ease-in-out;
+  -ms-animation: AnimationModalSearch 0.3s ease-in-out;
+  -o-animation: AnimationModalSearch 0.3s ease-in-out;
 }
 
 @keyframes AnimationModalSearch {
   from {
     transform: scale(0.9);
     -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
   }
   to {
     transform: scale(1);
     -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
   }
 }
 
@@ -59,5 +68,8 @@ const handleCloseModal = () => {
   backdrop-filter: blur(8px);
   animation: FadeSearch 0.3s 1;
   -webkit-animation: FadeSearch 0.3s 1;
+  -moz-animation: FadeSearch 0.3s 1;
+  -ms-animation: FadeSearch 0.3s 1;
+  -o-animation: FadeSearch 0.3s 1;
 }
 </style>
