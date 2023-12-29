@@ -32,14 +32,17 @@ const handleCloseModal = () => {
 <style lang="css" scoped>
 .input-search {
   animation: AnimationModalSearch 0.3s ease-in-out;
+  -webkit-animation: AnimationModalSearch 0.3s ease-in-out;
 }
 
 @keyframes AnimationModalSearch {
   from {
     transform: scale(0.9);
+    -webkit-transform: scale(0.9);
   }
   to {
     transform: scale(1);
+    -webkit-transform: scale(1);
   }
 }
 
@@ -55,5 +58,6 @@ const handleCloseModal = () => {
 .overlay {
   backdrop-filter: blur(8px);
   animation: FadeSearch 0.3s 1;
+  -webkit-animation: FadeSearch 0.3s 1;
 }
 </style>
