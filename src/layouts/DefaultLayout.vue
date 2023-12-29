@@ -1,7 +1,7 @@
 <template>
   <div id="default-layout">
     <Header />
-    <div class="pt-[64px]">
+    <div class="pt-[64px] max-md:pt-[56px]">
       <slot />
     </div>
     <Footer />

@@ -7,7 +7,7 @@
   >
     <header
       :class="[
-        'flex items-center py-3 h-[64px] px-8 max-w-[1830px] mx-auto',
+        'flex items-center py-3 h-[64px] px-8 max-w-[1830px] mx-auto max-sm:px-6 max-sm:py-2 max-md:h-[56px] justify-between',
         isHome && 'justify-between',
       ]"
     >
@@ -26,11 +26,18 @@
       <!-- end input search -->
 
       <div class="flex items-center">
+        <button
+          class="md:hidden mr-6"
+          v-if="!isHome || isHeaderActive"
+          @click="handleOpenModalSearch"
+        >
+          <i class="ri-search-line text-[20px]" />
+        </button>
         <menu-header v-if="isLogged" />
         <router-link
           :to="{ name: NamespaceRouter.LOGIN }"
           :class="[
-            'px-3 py-2 rounded-3xl flex items-center mr-4',
+            'px-3 py-2 rounded-3xl flex items-center md:mr-4',
             isHome && !isHeaderActive
               ? 'text-white hover:bg-white_0_1'
               : 'text-black hover:bg-black_0_1',
@@ -42,7 +49,7 @@
 
         <router-link
           :to="{ name: NamespaceRouter.CREATE_ALBUM }"
-          class="text-white bg-main px-3 py-2 rounded-3xl flex items-center hover:bg-sub"
+          class="text-white bg-main px-3 py-2 rounded-3xl flex items-center hover:bg-sub max-md:hidden"
         >
           <img
             :src="IconUpload"
@@ -54,6 +61,11 @@
       </div>
     </header>
   </div>
+
+  <modal-search
+    v-if="isOpenModalSearch"
+    @close-modal="handleCloseModalSearch"
+  />
 </template>
 
 <script setup>
@@ -62,13 +74,15 @@ import debounce from "lodash.debounce";
 
 import IconUpload from "@/assets/images/upload.svg";
 import InputSearch from "@/components/InputSearch/InputSearch.vue";
-import MenuHeader from "./MenuHeader/MenuHeader.vue";
 import {
   TIME_DELAY_HEADER_SCROLL,
   POSITION_ACTIVE_HEADER,
 } from "@/constants/header.constants.js";
 import { NamespaceRouter } from "@/constants/router.constants";
 import useGetUserInfo from "@/composable/useGetUserInfo";
+import ModalSearch from "@/components/ModalSearch/ModalSearch.vue";
+
+import MenuHeader from "./MenuHeader/MenuHeader.vue";
 
 defineProps({
   isHome: {
@@ -78,6 +92,7 @@ defineProps({
 });
 
 const isHeaderActive = ref(false);
+const isOpenModalSearch = ref(false);
 const { isLogged } = useGetUserInfo();
 
 const handleScrollHeader = debounce(() => {
@@ -91,6 +106,14 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScrollHeader);
 });
+
+const handleOpenModalSearch = () => {
+  isOpenModalSearch.value = true;
+};
+
+const handleCloseModalSearch = () => {
+  isOpenModalSearch.value = false;
+};
 </script>
 
 <style lang="scss" scoped></style>

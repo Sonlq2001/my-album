@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mr-4 relative" ref="menuRef">
+  <div class="flex relative md:mr-4" ref="menuRef">
     <button @click="handleClickMenu">
       <user-avatar :avatar="avatarUser" />
     </button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 mx-10 h-full relative">
+  <div class="flex-1 mx-10 h-full relative max-md:hidden">
     <i
       class="ri-search-line absolute cursor-pointer text-xl top-1/2 -translate-y-1/2 left-[15px]"
     />

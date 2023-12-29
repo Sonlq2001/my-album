@@ -1,7 +1,7 @@
 <template>
   <div id="layout-my-page">
     <Header />
-    <div class="pt-[64px]">
+    <div class="pt-[64px] max-md:pt-[56px]">
       <div class="max-w-5xl mx-auto mb-10 min-h-[calc(100vh-64px-191px)]">
         <div class="relative">
           <img
