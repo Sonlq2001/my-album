@@ -23,7 +23,10 @@
     </div>
 
     <!-- loading -->
-    <loading-item-album v-if="isLoadingAlbums" />
+    <loading-item-album
+      v-if="!isLoadingAlbums"
+      class="gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
+    />
 
     <!-- map data -->
     <div
