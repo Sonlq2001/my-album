@@ -24,7 +24,7 @@
 
     <!-- loading -->
     <loading-item-album
-      v-if="!isLoadingAlbums"
+      v-if="isLoadingAlbums"
       class="gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
     />
 
