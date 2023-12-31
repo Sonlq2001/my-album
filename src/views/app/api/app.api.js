@@ -7,6 +7,11 @@ const uploadFilesApi = (data) => {
   });
 };
 
+const getSearchAlbumsApi = (q) => {
+  return instanceApi.get(AppEndpoints.GET_SEARCH_ALBUMS, { params: { q } });
+};
+
 export const appApi = {
   uploadFilesApi,
+  getSearchAlbumsApi,
 };
