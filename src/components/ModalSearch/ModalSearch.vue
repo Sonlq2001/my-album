@@ -1,20 +1,59 @@
 <template>
   <Teleport to="body">
-    <div class="fixed inset-0 z-50 flex justify-between overflow-hidden">
+    <div
+      class="fixed inset-0 z-50 flex justify-between overflow-hidden h-[100dvh]"
+    >
       <div
         class="bg-[#0f172a40] absolute inset-0 overlay"
         @click="handleCloseModal"
       />
-      <div class="mt-[80px] absolute flex justify-center mx-6 left-0 right-0">
-        <div class="relative max-w-[570px] w-full input-search">
-          <i
-            class="absolute top-1/2 -translate-y-1/2 ri-search-line text-[20px] left-[14px]"
-          />
-          <input
-            type="text"
-            class="w-full rounded-2xl outline-none py-4 pl-[48px] pr-4"
-            placeholder="Tìm kiếm tất cả hình ảnh của bạn"
-          />
+      <div
+        class="mt-[80px] absolute flex items-center flex-col mx-6 left-0 right-0"
+      >
+        <div class="max-w-[570px] w-full mx-auto">
+          <div class="relative w-full input-search">
+            <loading-circle-dot
+              class="absolute top-[36%] -translate-y-1/2 text-[20px] left-[14px] w-[20px] h-[20px]"
+              v-if="isLoadingSearch"
+            />
+            <i
+              class="absolute top-1/2 -translate-y-1/2 ri-search-line text-[20px] left-[14px]"
+              v-else
+            />
+            <input
+              type="text"
+              class="w-full rounded-2xl outline-none py-4 pl-[48px] pr-4"
+              placeholder="Tìm kiếm tất cả hình ảnh của bạn"
+              @input="handleSearch"
+            />
+          </div>
+
+          <div
+            class="w-full mt-2 bg-white rounded-2xl px-4 py-5"
+            v-if="
+              appStore.listSearchAlbums && appStore.listSearchAlbums.length > 0
+            "
+          >
+            <span class="inline-block mb-3 text-text_gray">Kết quả: 10</span>
+
+            <div
+              class="flex gap-5 mb-4"
+              v-for="album in appStore.listSearchAlbums"
+              :key="album.id"
+            >
+              <div class="max-w-[150px] w-full max-sm:max-w-[130px]">
+                <img
+                  :src="album.albumAvatar.imageUrl"
+                  alt=""
+                  class="max-h-[100px] max-w-auto rounded-[4px]"
+                />
+              </div>
+              <div class="text-sm text-text_gray">
+                <p class="mb-2">{{ album.title }}</p>
+                <p class="text-[#aaa]">31/12/2023</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,20 +61,37 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import debounce from "lodash.debounce";
+
+import { useAppStore } from "@/stores/app/app.store";
+import LoadingCircleDot from "@/components/LoadingCircleDot/LoadingCircleDot.vue";
+
+const appStore = useAppStore();
+
 const emits = defineEmits(["close-modal"]);
+
+const isLoadingSearch = ref(false);
 
 const handleCloseModal = () => {
   emits("close-modal");
 };
+
+const handleSearch = debounce(async (e) => {
+  isLoadingSearch.value = true;
+  await appStore.getSearchAlbums(e.target.value);
+
+  isLoadingSearch.value = false;
+}, 500);
 </script>
 
 <style lang="css" scoped>
 .input-search {
-  animation: AnimationModalSearch 0.3s ease-in-out;
   -webkit-animation: AnimationModalSearch 0.3s ease-in-out;
   -moz-animation: AnimationModalSearch 0.3s ease-in-out;
   -ms-animation: AnimationModalSearch 0.3s ease-in-out;
   -o-animation: AnimationModalSearch 0.3s ease-in-out;
+  animation: AnimationModalSearch 0.3s ease-in-out;
 }
 
 @keyframes AnimationModalSearch {
@@ -56,110 +112,6 @@ const handleCloseModal = () => {
 }
 
 @keyframes FadeSearch {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes AnimationModalSearch {
-  from {
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-  }
-}
-
-@-webkit-keyframes FadeSearch {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes AnimationModalSearch {
-  from {
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-  }
-}
-
-@-moz-keyframes FadeSearch {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes AnimationModalSearch {
-  from {
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-  }
-}
-
-@-ms-keyframes FadeSearch {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes AnimationModalSearch {
-  from {
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-  }
-}
-
-@-o-keyframes FadeSearch {
   from {
     opacity: 0;
   }

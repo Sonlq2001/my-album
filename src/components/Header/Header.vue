@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import debounce from "lodash.debounce";
 
 import IconUpload from "@/assets/images/upload.svg";
@@ -114,6 +114,15 @@ const handleOpenModalSearch = () => {
 const handleCloseModalSearch = () => {
   isOpenModalSearch.value = false;
 };
+
+watch(
+  () => isOpenModalSearch.value,
+  (newValue) => {
+    const elBody = document.querySelector("body");
+    if (!elBody) return;
+    elBody.style.overflow = newValue ? "hidden" : "auto";
+  }
+);
 </script>
 
 <style lang="scss" scoped></style>
