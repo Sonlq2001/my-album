@@ -54,7 +54,9 @@
                 </div>
                 <div class="text-sm text-text_gray">
                   <p class="mb-2">{{ album.title }}</p>
-                  <p class="text-[#aaa]">31/12/2023</p>
+                  <p class="text-[#aaa] text-xs">
+                    {{ formatDate(album.date) }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -73,6 +75,7 @@ import { useRouter } from "vue-router";
 import { useAppStore } from "@/stores/app/app.store";
 import LoadingCircleDot from "@/components/LoadingCircleDot/LoadingCircleDot.vue";
 import { NamespaceRouter } from "@/constants/router.constants";
+import { formatDate } from "@/helpers/app.helper";
 
 const router = useRouter();
 const appStore = useAppStore();
