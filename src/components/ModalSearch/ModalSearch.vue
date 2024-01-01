@@ -34,23 +34,28 @@
               appStore.listSearchAlbums && appStore.listSearchAlbums.length > 0
             "
           >
-            <span class="inline-block mb-3 text-text_gray">Kết quả: 10</span>
+            <span class="inline-block mb-3 text-text_gray">
+              Kết quả: {{ appStore.searchAlbums.total }}
+            </span>
 
-            <div
-              class="flex gap-5 mb-4"
-              v-for="album in appStore.listSearchAlbums"
-              :key="album.id"
-            >
-              <div class="max-w-[150px] w-full max-sm:max-w-[130px]">
-                <img
-                  :src="album.albumAvatar.imageUrl"
-                  alt=""
-                  class="max-h-[100px] max-w-auto rounded-[4px]"
-                />
-              </div>
-              <div class="text-sm text-text_gray">
-                <p class="mb-2">{{ album.title }}</p>
-                <p class="text-[#aaa]">31/12/2023</p>
+            <div class="max-h-[320px] overflow-auto">
+              <div
+                class="flex gap-5 mb-4"
+                v-for="album in appStore.listSearchAlbums"
+                :key="album.id"
+                @click="handleGoToAlbumDetail(album.slug)"
+              >
+                <div class="max-w-[150px] w-full max-sm:max-w-[130px]">
+                  <img
+                    :src="album.albumAvatar.imageUrl"
+                    alt=""
+                    class="max-h-[100px] max-w-auto rounded-[4px]"
+                  />
+                </div>
+                <div class="text-sm text-text_gray">
+                  <p class="mb-2">{{ album.title }}</p>
+                  <p class="text-[#aaa]">31/12/2023</p>
+                </div>
               </div>
             </div>
           </div>
@@ -61,12 +66,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onUnmounted } from "vue";
 import debounce from "lodash.debounce";
+import { useRouter } from "vue-router";
 
 import { useAppStore } from "@/stores/app/app.store";
 import LoadingCircleDot from "@/components/LoadingCircleDot/LoadingCircleDot.vue";
+import { NamespaceRouter } from "@/constants/router.constants";
 
+const router = useRouter();
 const appStore = useAppStore();
 
 const emits = defineEmits(["close-modal"]);
@@ -75,14 +83,31 @@ const isLoadingSearch = ref(false);
 
 const handleCloseModal = () => {
   emits("close-modal");
+  appStore.resetSearchAlbums();
 };
 
 const handleSearch = debounce(async (e) => {
+  const keyword = e.target.value.trim();
+
+  if (!keyword) {
+    appStore.resetSearchAlbums();
+    return;
+  }
+
   isLoadingSearch.value = true;
-  await appStore.getSearchAlbums(e.target.value);
+  await appStore.getSearchAlbums(keyword);
 
   isLoadingSearch.value = false;
 }, 500);
+
+onUnmounted(() => {
+  appStore.resetSearchAlbums();
+});
+
+const handleGoToAlbumDetail = (slug) => {
+  router.push({ name: NamespaceRouter.ALBUM_DETAIL, params: { slug } });
+  emits("close-modal");
+};
 </script>
 
 <style lang="css" scoped>
