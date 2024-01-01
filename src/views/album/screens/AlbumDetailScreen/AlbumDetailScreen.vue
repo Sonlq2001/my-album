@@ -111,7 +111,7 @@
 
 <script setup>
 import { onMounted, ref, onUnmounted, computed, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import get from "lodash.get";
 
@@ -126,7 +126,6 @@ import { STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 import DisplayImage from "../../components/DisplayImage/DisplayImage.vue";
 
-const route = useRoute();
 const router = useRouter();
 const albumStore = useAlbumStore();
 const { isLogged } = useGetUserInfo();
@@ -135,15 +134,17 @@ const { albumDetail } = storeToRefs(albumStore);
 
 const historyStatusAlbum = get(router.options, "history.state.status");
 
-const isLoadingAlbum = ref(true);
+const isLoadingAlbum = ref(false);
 const isBookmark = ref(false);
 const isLoadingBookmark = ref(false);
 const isDisplayImage = ref(false);
 
-const slug = route.params.slug;
+const slug = router.currentRoute.value.params.slug;
 
 onMounted(async () => {
   if (!slug) return;
+
+  isLoadingAlbum.value = true;
 
   if (STATUS_ALBUM.PRIVATE === historyStatusAlbum) {
     await albumStore.getAlbumDetailPrivate(slug);
@@ -193,6 +194,17 @@ watch(
     const elBody = document.querySelector("body");
     if (!elBody) return;
     elBody.style.overflow = newValue ? "hidden" : "auto";
+  }
+);
+
+watch(
+  () => router.currentRoute.value.params.slug,
+  async (newSlug) => {
+    isLoadingAlbum.value = true;
+
+    await albumStore.getAlbumDetailPublic(newSlug);
+    isBookmark.value = albumDetail.value?.isBookmark;
+    isLoadingAlbum.value = false;
   }
 );
 </script>
