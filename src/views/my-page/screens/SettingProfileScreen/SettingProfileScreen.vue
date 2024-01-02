@@ -12,7 +12,12 @@
         Thông tin cá nhân
       </h1>
 
-      <div v-if="isLoading">Loading...</div>
+      <div
+        v-if="isLoading"
+        class="h-full flex justify-center items-center mt-[100px]"
+      >
+        <loading-circle />
+      </div>
 
       <FormVee
         v-else
@@ -97,6 +102,7 @@ import useGetUserInfo from "@/composable/useGetUserInfo";
 import { useUploadStore } from "@/stores/upload/upload.store";
 import { useMyPageStore } from "@/stores/my-page/my-page.store";
 import { useAuthStore } from "@/stores/auth/auth.store";
+import LoadingCircle from "@/components/LoadingCircle/LoadingCircle.vue";
 
 import { schemaUpdateProfile } from "../../helpers/profile.helpers";
 import UploadUserAvatar from "../../components/UploadUserAvatar/UploadUserAvatar.vue";
