@@ -55,9 +55,7 @@
         }"
       />
       <div class="flex justify-center mt-5" v-if="isLoadingScroll">
-        <div
-          class="inline-block h-7 w-7 animate-spin rounded-full border-[3px] border-solid border-main border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-        />
+        <loading-circle />
       </div>
     </div>
     <!-- no data -->
@@ -79,6 +77,7 @@ import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 import { getQueryStringUrl } from "@/helpers/app.helper";
 import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
+import LoadingCircle from "@/components/LoadingCircle/LoadingCircle.vue";
 
 import { TITLE_CATEGORIES } from "../../constants/category.constants";
 

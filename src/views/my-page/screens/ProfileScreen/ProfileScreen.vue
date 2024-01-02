@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-full w-full min-h-[calc(100vh-64px-191px)] px-6">
-    <div v-if="isLoadingUserInfo">Loading...</div>
+    <div v-if="isLoadingUserInfo" class="pt-10 flex justify-center">
+      <loading-circle />
+    </div>
     <div class="py-8 flex gap-6 max-lg:flex-col" v-else>
       <div class="max-w-[300px] w-full info self-start">
         <h4 class="font-semibold mb-3">Giới thiệu</h4>
@@ -34,6 +36,7 @@ import { storeToRefs } from "pinia";
 import { SORT_VALUE, DEFAULT_PAGE } from "@/constants/app.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useMyPageStore } from "@/stores/my-page/my-page.store";
+import LoadingCircle from "@/components/LoadingCircle/LoadingCircle.vue";
 
 import { DEFAULT_PER_PAGE_PROFILE } from "../../constants/my-page.constants";
 

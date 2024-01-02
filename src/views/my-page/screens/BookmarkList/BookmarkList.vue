@@ -19,7 +19,10 @@
         {{ sort.label }}
       </button>
 
-      <div class="mt-5" v-if="isLoading">Loading...</div>
+      <loading-item-album
+        v-if="isLoading"
+        class="mt-5 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
+      />
       <div
         v-else-if="
           myPageStore?.listBookmarks && myPageStore?.listBookmarks?.length > 0
@@ -45,9 +48,7 @@
         />
 
         <div class="flex justify-center mt-5" v-if="isLoadingScroll">
-          <div
-            class="inline-block h-7 w-7 animate-spin rounded-full border-[3px] border-solid border-main border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-          />
+          <loading-circle />
         </div>
       </div>
       <div v-else>not data</div>
@@ -63,6 +64,8 @@ import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
 import ItemAlbum from "@/components/ItemAlbum/ItemAlbum.vue";
 import { useMyPageStore } from "@/stores/my-page/my-page.store";
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
+import LoadingCircle from "@/components/LoadingCircle/LoadingCircle.vue";
+import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 
 import { MyPagePaths } from "../../constants/my-page.paths.js";
 
