@@ -4,75 +4,80 @@
       @submit="handleSubmitAlbum"
       :initialValues="initValuesAlbum"
       :validation-schema="schemaCreateAlbum"
-      class="flex gap-[35px] max-lg:gap-[24px] mx-6"
-      v-slot="{ setFieldValue, values }"
+      v-slot="{ setFieldValue, values, isSubmitting }"
     >
-      <button
-        class="md:hidden fixed z-10 right-[10px] top-[85px] bg-main text-white py-1 px-2 rounded-3xl text-sm flex items-center justify-center gap-1"
-        @click="handleToggleSidebar"
-        type="button"
+      <scroll-to-error
+        class="flex gap-[35px] max-lg:gap-[24px] mx-6"
+        :isSubmitting="isSubmitting"
+        formId="form-create-album"
       >
-        <i class="ri-image-line" />
-        ({{ values.albums?.length || 0 }})
-      </button>
-      <preview-image
-        :setFieldValue="setFieldValue"
-        class="preview-image"
-        :isToggleSidebar="isToggleSidebar"
-        @closeSidebar="closeSidebar"
-      />
+        <button
+          class="md:hidden fixed z-10 right-[10px] top-[85px] bg-main text-white py-1 px-2 rounded-3xl text-sm flex items-center justify-center gap-1"
+          @click="handleToggleSidebar"
+          type="button"
+        >
+          <i class="ri-image-line" />
+          ({{ values.albums?.length || 0 }})
+        </button>
+        <preview-image
+          :setFieldValue="setFieldValue"
+          class="preview-image"
+          :isToggleSidebar="isToggleSidebar"
+          @closeSidebar="closeSidebar"
+        />
 
-      <div class="sticky top-[100px]">
-        <div class="flex-1">
-          <upload-image :setFieldValue="setFieldValue" />
+        <div class="sticky top-[100px]">
+          <div class="flex-1">
+            <upload-image :setFieldValue="setFieldValue" />
 
-          <div class="mt-8">
-            <input-field
-              name="title"
-              placeholder="Tiêu đề"
-              label="Tiêu đề bức ảnh"
-              variant="standard"
-              overWriteClass="pl-0 py-[6px]"
-            />
-          </div>
+            <div class="mt-8">
+              <input-field
+                name="title"
+                placeholder="Tiêu đề"
+                label="Tiêu đề bức ảnh"
+                variant="standard"
+                overWriteClass="pl-0 py-[6px]"
+              />
+            </div>
 
-          <list-categories :setFieldValue="setFieldValue" />
+            <list-categories :setFieldValue="setFieldValue" />
 
-          <date-album />
+            <date-album />
 
-          <div class="mt-8">
-            <input-field
-              name="event_album"
-              placeholder="Sự kiện liên quan"
-              label="Sự kiện"
-              variant="standard"
-              overWriteClass="pl-0"
-            />
-          </div>
+            <div class="mt-8">
+              <input-field
+                name="event_album"
+                placeholder="Sự kiện liên quan"
+                label="Sự kiện"
+                variant="standard"
+                overWriteClass="pl-0"
+              />
+            </div>
 
-          <div class="mt-8">
-            <textarea-field
-              name="story"
-              label="Câu chuyện"
-              placeholder="Câu chuyện của tấm hình"
-            />
-          </div>
+            <div class="mt-8">
+              <textarea-field
+                name="story"
+                label="Câu chuyện"
+                placeholder="Câu chuyện của tấm hình"
+              />
+            </div>
 
-          <div class="mt-8 mb-7">
-            <radio-field
-              label="Trạng thái"
-              :options="STATUS_OPTIONS_ALBUM"
-              name="status"
-            />
-          </div>
+            <div class="mt-8 mb-7">
+              <radio-field
+                label="Trạng thái"
+                :options="STATUS_OPTIONS_ALBUM"
+                name="status"
+              />
+            </div>
 
-          <div class="flex justify-end">
-            <app-button :disabled="isPendingCreateAlbum" intent="primary">
-              Tạo mới
-            </app-button>
+            <div class="flex justify-end">
+              <app-button :disabled="isPendingCreateAlbum" intent="primary">
+                Tạo mới
+              </app-button>
+            </div>
           </div>
         </div>
-      </div>
+      </scroll-to-error>
     </FormVee>
   </div>
 </template>
@@ -91,6 +96,7 @@ import useGetUserInfo from "@/composable/useGetUserInfo";
 import { NamespaceRouter } from "@/constants/router.constants";
 import AppButton from "@/components/AppButton/AppButton.vue";
 import useGetCategory from "@/composable/useGetCategory";
+import ScrollToError from "@/components/ScrollToError/ScrollToError.vue";
 
 import UploadImage from "../../components/UploadImage/UploadImage.vue";
 import PreviewImage from "../../components/PreviewImage/PreviewImage.vue";

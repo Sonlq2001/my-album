@@ -27,7 +27,7 @@
   </div>
   <span
     v-if="errorMessage && meta.touched"
-    class="text-sm text-red-500 inline-block mt-1"
+    class="text-sm text-red-500 inline-block mt-1 msg-error"
   >
     {{ errorMessage }}
   </span>

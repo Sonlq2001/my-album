@@ -12,7 +12,10 @@
     :placeholder="placeholder"
     :name="name"
   />
-  <span v-if="errorMessage && meta.touched" class="block text-sm text-red-500">
+  <span
+    v-if="errorMessage && meta.touched"
+    class="block text-sm text-red-500 msg-error"
+  >
     {{ errorMessage }}
   </span>
 </template>
