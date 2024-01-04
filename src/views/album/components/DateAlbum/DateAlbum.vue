@@ -10,7 +10,7 @@
         v-if="
           (errorDate && metaDate.touched) || (errorTime && metaTime.touched)
         "
-        class="block text-sm text-red-500 mt-1"
+        class="block text-sm text-red-500 mt-1 msg-error"
       >
         Bạn chưa nhập thời gian !
       </span>

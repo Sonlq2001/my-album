@@ -19,7 +19,7 @@
       name="albums"
     />
   </label>
-  <span v-if="errorMessage" class="text-sm text-red-500">
+  <span v-if="errorMessage" class="text-sm text-red-500 msg-error">
     {{ errorMessage }}
   </span>
 </template>

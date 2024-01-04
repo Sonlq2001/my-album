@@ -19,7 +19,10 @@
         {{ cate.label }}
       </div>
     </div>
-    <span v-if="errorMessage && meta.touched" class="text-sm text-red-500">
+    <span
+      v-if="errorMessage && meta.touched"
+      class="text-sm text-red-500 msg-error"
+    >
       {{ errorMessage }}
     </span>
   </div>
