@@ -19,7 +19,6 @@ watch(
     if (!formElement) return;
 
     const errorElement = formElement.querySelector(".msg-error");
-    console.log(errorElement);
     if (!errorElement) return;
 
     errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
