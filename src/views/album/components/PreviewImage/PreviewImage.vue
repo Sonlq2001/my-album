@@ -8,10 +8,7 @@
       />
     </div>
 
-    <span
-      v-if="errorMessage"
-      class="text-sm text-red-500 inline-block mb-3 msg-error"
-    >
+    <span v-if="errorMessage" class="text-sm text-red-500 inline-block mb-3">
       {{ errorMessage }}
     </span>
 
