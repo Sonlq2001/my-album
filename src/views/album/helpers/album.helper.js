@@ -7,6 +7,7 @@ import {
   MIN_IMAGE,
   MAX_IMAGE,
   STATUS_ALBUM,
+  KEY_STATUS_ALBUM,
 } from "../constants/album.constants";
 
 export const schemaCreateAlbum = object().shape({
@@ -40,5 +41,5 @@ export const initValuesAlbum = {
   story: "",
   date: "",
   time: "",
-  status: STATUS_ALBUM.PUBLIC,
+  status: STATUS_ALBUM[KEY_STATUS_ALBUM.public],
 };
