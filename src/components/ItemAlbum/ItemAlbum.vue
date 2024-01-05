@@ -3,6 +3,7 @@
     :to="{
       name: NamespaceRouter.ALBUM_DETAIL,
       params: { slug: album.slug },
+      query: { status: queryPrivate },
     }"
     class="mb-5 relative overflow-hidden box-image inline-block max-sm:mb-4 text-[16px]"
   >
@@ -29,9 +30,12 @@
 </template>
 
 <script setup>
-import { NamespaceRouter } from "@/constants/router.constants";
+import { computed } from "vue";
 
-defineProps({
+import { NamespaceRouter } from "@/constants/router.constants";
+import { KEY_STATUS_ALBUM, STATUS_ALBUM } from "@/views/album/album";
+
+const props = defineProps({
   album: {
     type: Object,
     require: true,
@@ -41,6 +45,12 @@ defineProps({
     default: false,
   },
 });
+
+const queryPrivate = computed(() =>
+  props.album?.status === STATUS_ALBUM[KEY_STATUS_ALBUM.private]
+    ? KEY_STATUS_ALBUM.private
+    : undefined
+);
 </script>
 
 <style lang="css" scoped>

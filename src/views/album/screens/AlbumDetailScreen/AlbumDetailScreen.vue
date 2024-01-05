@@ -113,7 +113,6 @@
 import { onMounted, ref, onUnmounted, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-import get from "lodash.get";
 
 import { useAlbumStore } from "@/stores/album/album.store";
 import { formatDate } from "@/helpers/app.helper";
@@ -122,7 +121,7 @@ import useGetUserInfo from "@/composable/useGetUserInfo";
 import { NamespaceRouter } from "@/constants/router.constants";
 
 import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
-import { STATUS_ALBUM } from "../../constants/album.constants";
+import { KEY_STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 import DisplayImage from "../../components/DisplayImage/DisplayImage.vue";
 
@@ -131,8 +130,6 @@ const albumStore = useAlbumStore();
 const { isLogged } = useGetUserInfo();
 
 const { albumDetail } = storeToRefs(albumStore);
-
-const historyStatusAlbum = get(router.options, "history.state.status");
 
 const isLoadingAlbum = ref(false);
 const isBookmark = ref(false);
@@ -143,10 +140,11 @@ const slug = router.currentRoute.value.params.slug;
 
 onMounted(async () => {
   if (!slug) return;
-
+  const statusAlbum =
+    router.currentRoute.value.query?.status === KEY_STATUS_ALBUM.private;
   isLoadingAlbum.value = true;
 
-  if (STATUS_ALBUM.PRIVATE === historyStatusAlbum) {
+  if (statusAlbum) {
     await albumStore.getAlbumDetailPrivate(slug);
   } else {
     await albumStore.getAlbumDetailPublic(slug);

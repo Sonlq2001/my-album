@@ -97,6 +97,7 @@ import { NamespaceRouter } from "@/constants/router.constants";
 import AppButton from "@/components/AppButton/AppButton.vue";
 import useGetCategory from "@/composable/useGetCategory";
 import ScrollToError from "@/components/ScrollToError/ScrollToError.vue";
+import { KEY_STATUS_ALBUM, STATUS_ALBUM } from "@/views/album/album";
 
 import UploadImage from "../../components/UploadImage/UploadImage.vue";
 import PreviewImage from "../../components/PreviewImage/PreviewImage.vue";
@@ -133,10 +134,16 @@ const handleSubmitAlbum = async (values) => {
     };
 
     const newAlbum = await createAlbum(reqData);
+
+    const queryPrivate =
+      newAlbum?.status === STATUS_ALBUM[KEY_STATUS_ALBUM.private]
+        ? KEY_STATUS_ALBUM.private
+        : undefined;
+
     router.push({
       name: NamespaceRouter.ALBUM_DETAIL,
       params: { slug: newAlbum.slug },
-      state: { status: rest.status },
+      query: { status: queryPrivate },
     });
   } catch (error) {
     // TODO: handle error
