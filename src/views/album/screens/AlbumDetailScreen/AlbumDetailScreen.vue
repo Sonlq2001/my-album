@@ -32,7 +32,10 @@
             <i class="ri-bookmark-fill text-main" v-if="isBookmark" />
             <i class="ri-bookmark-line text-text_gray" v-else />
           </button>
-          <button class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub">
+          <button
+            @click="handleDownloadImages"
+            class="bg-main px-3 py-2 rounded-3xl text-white hover:bg-sub"
+          >
             Download <i class="ri-download-cloud-line"></i>
           </button>
         </div>
@@ -113,6 +116,7 @@
 import { onMounted, ref, onUnmounted, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
+import JSZip from "jszip";
 
 import { useAlbumStore } from "@/stores/album/album.store";
 import { formatDate } from "@/helpers/app.helper";
@@ -205,6 +209,89 @@ watch(
     isLoadingAlbum.value = false;
   }
 );
+
+const handleSaveFiles = async (dataAlbums = [], multipleFiles = false) => {
+  let dataDownload, options;
+  const stringRandom = Math.random().toString(36).slice(2);
+  if (multipleFiles) {
+    // handle zip files
+    const blobArray = dataAlbums.map(async (item) => {
+      const blobs = await fetch(item.imageUrl).then((response) =>
+        response.blob()
+      );
+      return blobs;
+    });
+    const resBlobs = await Promise.all(blobArray);
+    const zip = new JSZip();
+
+    resBlobs.forEach((blob, index) => {
+      const typeFile = blob.type.split("/").pop();
+      zip.file(`image_${index + 1}.${typeFile}`, blob);
+    });
+
+    dataDownload = await zip.generateAsync({ type: "blob" });
+    options = {
+      suggestedName: `albums_${stringRandom}.zip`,
+      types: [
+        {
+          description: "Zip",
+          accept: {
+            "application/zip": [".zip"],
+          },
+        },
+      ],
+    };
+  } else {
+    const fileImage = dataAlbums[0];
+    const typeFile = fileImage.imageUrl.split(".").pop();
+    dataDownload = await fetch(`${fileImage.imageUrl}`).then((response) =>
+      response.blob()
+    );
+    options = {
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      suggestedName: `image_${stringRandom}.${typeFile}`,
+    };
+  }
+
+  const handle = await showSaveFilePicker(options);
+  const writable = await handle.createWritable();
+  await writable.write(dataDownload);
+  await writable.close();
+};
+
+const handleDownloadImages = async () => {
+  const dataAlbums = albumDetail.value.albums;
+
+  if (!dataAlbums) return;
+
+  const supportsFileSystemAccess =
+    "showSaveFilePicker" in window &&
+    (() => {
+      try {
+        return window.self === window.top;
+      } catch {
+        return false;
+      }
+    })();
+
+  if (!supportsFileSystemAccess) {
+    // TODO: browser not support
+    return;
+  }
+
+  try {
+    await handleSaveFiles(dataAlbums, dataAlbums.length > 1);
+  } catch (err) {
+    //TODO: Fail silently if the user has simply canceled the dialog.
+  }
+};
 </script>
 
 <style lang="css">

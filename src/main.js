@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { ObserveVisibility } from "vue-observe-visibility";
 import "vue3-carousel/dist/carousel.css";
+import JSZip from "jszip";
 
 import "./assets/styles/tailwind.css";
 import "./assets/styles/global.css";
@@ -25,5 +26,7 @@ app.directive("observe-visibility", {
   update: ObserveVisibility.update,
   unmounted: ObserveVisibility.unbind,
 });
+
+app.use(JSZip);
 
 app.mount("#app");
