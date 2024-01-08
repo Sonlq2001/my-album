@@ -40,7 +40,7 @@
 
             <div class="max-h-[320px] overflow-auto">
               <div
-                class="flex gap-5 mb-4"
+                class="flex gap-5 mb-4 cursor-pointer"
                 v-for="album in appStore.listSearchAlbums"
                 :key="album.id"
                 @click="handleGoToAlbumDetail(album.slug)"
