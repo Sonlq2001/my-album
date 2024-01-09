@@ -16,9 +16,8 @@
             <user-avatar size="large" :avatar="avatarUser" />
           </router-link>
 
-          <div class="flex flex-col ml-3">
+          <div class="flex items-center ml-3">
             <span class="font-semibold">{{ albumDetail?.user.name }}</span>
-            <span class="text-sm text-[#aaa]">123 album</span>
           </div>
         </div>
 
