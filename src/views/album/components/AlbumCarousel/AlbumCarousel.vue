@@ -8,15 +8,12 @@
     ref="myCarousel"
     :class="class"
   >
-    <slide
-      v-for="slideImage in listImages"
-      :key="slideImage.id"
-      @click="handleClickSlide"
-    >
+    <slide v-for="slideImage in listImages" :key="slideImage.id">
       <img
         :src="slideImage.imageUrl"
         alt="my-album"
         class="max-w-full cursor-pointer rounded border border-[#eee] max-h-full"
+        @click="handleClickSlide"
       />
     </slide>
   </carousel>
