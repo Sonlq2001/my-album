@@ -210,26 +210,32 @@ watch(
   }
 );
 
+// handle zip files
+const convertImagesZipFiles = async (dataAlbums) => {
+  const blobArray = dataAlbums.map(async (item) => {
+    const blobs = await fetch(item.imageUrl).then((response) =>
+      response.blob()
+    );
+    return blobs;
+  });
+  const resBlobs = await Promise.all(blobArray);
+  const zip = new JSZip();
+
+  resBlobs.forEach((blob, index) => {
+    const typeFile = blob.type.split("/").pop();
+    zip.file(`image_${index + 1}.${typeFile}`, blob);
+  });
+
+  return await zip.generateAsync({ type: "blob" });
+};
+
 const handleSaveFiles = async (dataAlbums = [], multipleFiles = false) => {
   let dataDownload, options;
   const stringRandom = Math.random().toString(36).slice(2);
   if (multipleFiles) {
-    // handle zip files
-    const blobArray = dataAlbums.map(async (item) => {
-      const blobs = await fetch(item.imageUrl).then((response) =>
-        response.blob()
-      );
-      return blobs;
-    });
-    const resBlobs = await Promise.all(blobArray);
-    const zip = new JSZip();
+    await convertImagesZipFiles(dataAlbums);
 
-    resBlobs.forEach((blob, index) => {
-      const typeFile = blob.type.split("/").pop();
-      zip.file(`image_${index + 1}.${typeFile}`, blob);
-    });
-
-    dataDownload = await zip.generateAsync({ type: "blob" });
+    dataDownload = await convertImagesZipFiles(dataAlbums);
     options = {
       suggestedName: `albums_${stringRandom}.zip`,
       types: [
@@ -266,6 +272,21 @@ const handleSaveFiles = async (dataAlbums = [], multipleFiles = false) => {
   await writable.close();
 };
 
+const handleSaveFilesWhenBrowserNotSupport = async (
+  dataAlbums = [],
+  multipleFiles = false
+) => {
+  if (multipleFiles) {
+    const zipFile = await convertImagesZipFiles(dataAlbums);
+    const blobURL = URL.createObjectURL(zipFile);
+    createElementDownload(blobURL, multipleFiles);
+  } else {
+    const blobURL = dataAlbums[0].imageUrl;
+    const urlDownload = blobURL.replace("/upload/", "/upload/fl_attachment/");
+    createElementDownload(urlDownload);
+  }
+};
+
 const handleDownloadImages = async () => {
   const dataAlbums = albumDetail.value.albums;
 
@@ -282,7 +303,7 @@ const handleDownloadImages = async () => {
     })();
 
   if (!supportsFileSystemAccess) {
-    // TODO: browser not support
+    handleSaveFilesWhenBrowserNotSupport(dataAlbums, dataAlbums.length > 1);
     return;
   }
 
@@ -291,6 +312,20 @@ const handleDownloadImages = async () => {
   } catch (err) {
     //TODO: Fail silently if the user has simply canceled the dialog.
   }
+};
+
+const createElementDownload = (url, multipleFiles = false) => {
+  const stringRandom = Math.random().toString(36).slice(2);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = multipleFiles ? `albums_${stringRandom}.zip` : "";
+  a.style.display = "none";
+  document.body.append(a);
+  a.click();
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+    a.remove();
+  }, 1000);
 };
 </script>
 
