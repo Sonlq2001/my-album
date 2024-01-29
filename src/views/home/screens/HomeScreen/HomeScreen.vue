@@ -30,13 +30,13 @@
 
     <!-- map data -->
     <div
-      class="relative"
+      class="relative max-h-[2500px] overflow-hidden mt-7"
       v-else-if="
         albumStore.listAlbumsData && albumStore.listAlbumsData.length > 0
       "
     >
       <div
-        class="mt-7 columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4 text-[0px]"
+        class="columns-4 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4 text-[0px]"
       >
         <item-album
           v-for="album in albumStore.listAlbumsData"
@@ -75,7 +75,7 @@ import { useCategoryStore } from "@/stores/category/category.store";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 import useGetCategory from "@/composable/useGetCategory";
 import { CategoryPaths } from "@/views/category/category";
-import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE_HOME } from "@/constants/app.constants";
 
 import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
 
@@ -87,7 +87,7 @@ onMounted(async () => {
   isLoadingAlbums.value = true;
   await albumStore.getListAlbumsPublic({
     page: DEFAULT_PAGE,
-    perPage: DEFAULT_PER_PAGE,
+    perPage: DEFAULT_PER_PAGE_HOME,
   });
   isLoadingAlbums.value = false;
 });

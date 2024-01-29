@@ -1,7 +1,7 @@
 <template>
   <div class="mt-7 columns-4 gap-5">
     <div
-      class="shadow rounded-md p-1 w-full mb-5 max-w-full"
+      class="shadow rounded-md w-full mb-5 max-w-full"
       v-for="(_, index) in listLoadings"
       :key="index"
     >
