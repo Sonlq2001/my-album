@@ -52,7 +52,7 @@ const props = defineProps({
 
 const emits = defineEmits(["click-slide"]);
 
-const isLoopCarousel = computed(() => props.listImages.length > 2);
+const isLoopCarousel = computed(() => props.listImages.length >= 2);
 const myCarousel = ref(null);
 
 const handlePreviousCarousel = () => {

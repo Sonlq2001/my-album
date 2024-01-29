@@ -13,10 +13,23 @@
     </div>
     <!-- end navigation -->
 
-    <div class="mt-7 text-right">
+    <div
+      class="mt-7 flex items-center justify-between max-lg:flex-col max-lg:items-start"
+    >
+      <div class="flex items-center gap-2 flex-wrap">
+        <router-link
+          :to="`${CategoryPaths.CATEGORY_LIST}?keyword=${keyWord.key}`"
+          class="border border-[#ddd] text-sm py-1 px-2 rounded-md hover:border-main whitespace-nowrap"
+          v-for="keyWord in LIST_KEY_WORDS"
+          :key="keyWord.key"
+        >
+          {{ keyWord.key }}
+        </router-link>
+      </div>
+
       <router-link
         :to="CategoryPaths.CATEGORY_LIST"
-        class="font-sans text-sm border px-2 py-1 border-[#ddd] rounded-3xl hover:bg-black/5"
+        class="font-sans text-sm border px-2 py-1 border-[#ddd] rounded-3xl hover:bg-black/5 whitespace-nowrap max-lg:mt-5 max-lg:ml-auto"
       >
         Xêm thêm
       </router-link>
@@ -78,6 +91,7 @@ import { CategoryPaths } from "@/views/category/category";
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE_HOME } from "@/constants/app.constants";
 
 import BoxMessage from "../../components/BoxMessage/BoxMessage.vue";
+import { LIST_KEY_WORDS } from "../../constants/home.constants";
 
 const albumStore = useAlbumStore();
 const categoryStore = useCategoryStore();
