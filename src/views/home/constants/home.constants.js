@@ -1,61 +1,32 @@
-export const LIST_DATA = [
+export const LIST_KEY_WORDS = [
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/05/17/15/00/beach-8000413_640.jpg",
+    key: "Bầu trời",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/03/22/19/24/nature-7870374_640.jpg",
+    key: "Hoa",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/07/21/14/12/wild-flowers-8141725_640.jpg",
+    key: "Mưa",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/05/28/03/34/flowers-8022731_640.jpg",
+    key: "Bạn bè",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/07/04/10/30/dragonfly-8105991_640.jpg",
+    key: "Gia đình",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2023/07/15/18/01/insect-8129419_640.jpg",
+    key: "Đồ ăn",
   },
   {
-    image: "https://cdn.pixabay.com/photo/2023/07/22/09/45/bee-8143028_640.jpg",
+    key: "Đường phố",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_640.jpg",
+    key: "Công việc",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2014/09/07/22/17/forest-438432_640.jpg",
+    key: "Bãi biển",
   },
   {
-    image:
-      "https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_640.jpg",
-  },
-  {
-    image:
-      "https://cdn.pixabay.com/photo/2018/08/12/15/29/hintersee-3601004_640.jpg",
-  },
-  {
-    image:
-      "https://cdn.pixabay.com/photo/2016/11/29/13/46/book-1869969_640.jpg",
-  },
-  {
-    image:
-      "https://cdn.pixabay.com/photo/2020/05/31/19/37/iranian-architecture-5243948_640.jpg",
-  },
-  {
-    image:
-      "https://cdn.pixabay.com/photo/2021/11/02/21/57/prayer-6764197_640.jpg",
-  },
-  {
-    image:
-      "https://cdn.pixabay.com/photo/2016/11/23/13/46/honey-1852934_640.jpg",
+    key: "Thể dục",
   },
 ];
