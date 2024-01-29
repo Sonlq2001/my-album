@@ -18,7 +18,7 @@
         :key="index"
         class="mb-4 flex items-start justify-between"
       >
-        <div class="max-w-[220px] h-full max-h-[200px] overflow-hidden">
+        <div class="max-w-[220px] h-full overflow-hidden">
           <img
             :src="imageUpload.image"
             :alt="'upload-' + index"
