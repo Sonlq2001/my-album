@@ -24,8 +24,15 @@
 <script setup>
 import { computed } from "vue";
 
+const props = defineProps({
+  countItem: {
+    type: Number,
+    default: 8,
+  },
+});
+
 const listLoadings = computed(() => {
-  return Array(8).fill();
+  return Array(props.countItem).fill();
 });
 </script>
 

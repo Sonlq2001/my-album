@@ -4,6 +4,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { ObserveVisibility } from "vue-observe-visibility";
 import "vue3-carousel/dist/carousel.css";
 import JSZip from "jszip";
+import VueDragscroll from "vue-dragscroll";
 
 import "./assets/styles/tailwind.css";
 import "./assets/styles/global.css";
@@ -28,5 +29,6 @@ app.directive("observe-visibility", {
 });
 
 app.use(JSZip);
+app.use(VueDragscroll);
 
 app.mount("#app");

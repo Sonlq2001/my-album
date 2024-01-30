@@ -30,3 +30,10 @@ export const LIST_KEY_WORDS = [
     key: "Thể dục",
   },
 ];
+
+export const ICONS = {
+  ["dong-vat"]: `<i class="ri-mickey-fill"></i>`,
+  ["cuoc-song"]: `<i class="ri-earth-fill"></i>`,
+  ["con-nguoi"]: `<i class="ri-parent-line"></i>`,
+  ["thien-nhien"]: `<i class="ri-plant-fill"></i>`,
+};
