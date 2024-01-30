@@ -331,6 +331,6 @@ const createElementDownload = (url, multipleFiles = false) => {
 <style lang="css">
 .list-slides img {
   max-height: 400px;
-  height: 100%;
+  height: auto;
 }
 </style>
