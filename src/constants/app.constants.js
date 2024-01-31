@@ -57,3 +57,11 @@ export const IMAGES_TOP = [
 export const TIME_KEY = "time";
 export const BACKGROUND_KEY = "background";
 export const ONE_HOURS = 60 * 60 * 1000; // 1 hours
+
+export const BREAKPOINTS = {
+  MIN_LG: 1023,
+  MIN_MD: 767,
+  MIN_SM: 639,
+};
+
+export const TIME_DELAY_RESIZE = 500; // 500 millisecond <=> 0.5s

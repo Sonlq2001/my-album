@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-[1830px] mx-auto px-8 max-sm:px-6">
     <!-- loading -->
-    <div v-if="isLoadingAlbum">Loading...</div>
+    <loading-album-detail v-if="isLoadingAlbum" />
 
     <div v-else-if="albumDetail">
       <!-- tools album -->
@@ -127,6 +127,7 @@ import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel.vue";
 import { KEY_STATUS_ALBUM } from "../../constants/album.constants";
 import RelatedImages from "../../components/RelatedImages/RelatedImages.vue";
 import DisplayImage from "../../components/DisplayImage/DisplayImage.vue";
+import LoadingAlbumDetail from "../../components/LoadingAlbumDetail/LoadingAlbumDetail.vue";
 
 const router = useRouter();
 const albumStore = useAlbumStore();
