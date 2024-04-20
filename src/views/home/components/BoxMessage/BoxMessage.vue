@@ -8,7 +8,7 @@
       </span>
       <div>
         <div class="font-semibold">
-          Sau mỗi tấm hình là những câu chuyện đây thú vị
+          Sau mỗi tấm hình là những câu chuyện đầy thú vị.
         </div>
         <p class="text-sm mt-1 text-[#aaa]">
           Những khoảng khắc mà bạn muốn lưu giữ lại, trên hành trình phát triển
