@@ -21,8 +21,8 @@ export const schemaCreateAlbum = object().shape({
         .test("albums", "Định dạng file ảnh không được hỗ trợ !", (file) => {
           return FILES_ACCEPT.includes(file.type);
         })
-        .test("albums", "Kích thước file ảnh vượt quá 2mb", (file) => {
-          return file.size / (1024 * 1024) < 2;
+        .test("albums", "Kích thước file ảnh vượt quá 5mb", (file) => {
+          return file.size / (1024 * 1024) < 5;
         })
     )
     .min(MIN_IMAGE, "Cần chọn tối thiểu 1 file ảnh !")
