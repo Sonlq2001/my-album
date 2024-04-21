@@ -41,3 +41,4 @@ export const LIST_FILTER_ALBUMS = [
 ];
 
 export const DEFAULT_PER_PAGE_PROFILE = 15;
+export const MAX_REMOVE_ALBUMS = 10;

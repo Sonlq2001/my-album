@@ -9,33 +9,37 @@
         Albums của bạn
       </h1>
 
-      <div class="flex items-center">
-        <select
-          class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[4px] outline-none mr-3"
-          @change="handlerSortAlbums"
-        >
-          <option
-            v-for="(sort, index) in LIST_SORT"
-            :key="index"
-            :value="sort.value"
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <select
+            class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[4px] outline-none mr-3"
+            @change="handlerSortAlbums"
           >
-            {{ sort.label }}
-          </option>
-        </select>
+            <option
+              v-for="(sort, index) in LIST_SORT"
+              :key="index"
+              :value="sort.value"
+            >
+              {{ sort.label }}
+            </option>
+          </select>
 
-        <button
-          :class="[
-            'text-[13px] border px-2 py-[4px] rounded-3xl border-[#ddd] mr-3 whitespace-nowrap',
-            filter.value === initParams.filter
-              ? 'bg-main text-white'
-              : 'bg-gray',
-          ]"
-          v-for="(filter, index) in LIST_FILTER_ALBUMS"
-          :key="index"
-          @click="() => handleFilterAlbums(filter)"
-        >
-          {{ filter.label }}
-        </button>
+          <button
+            :class="[
+              'text-[13px] border px-2 py-[4px] rounded-3xl border-[#ddd] mr-3 whitespace-nowrap',
+              filter.value === initParams.filter
+                ? 'bg-main text-white'
+                : 'bg-gray',
+            ]"
+            v-for="(filter, index) in LIST_FILTER_ALBUMS"
+            :key="index"
+            @click="() => handleFilterAlbums(filter)"
+          >
+            {{ filter.label }}
+          </button>
+        </div>
+
+        <remove-albums :listCheckedAlbums="listCheckedAlbums" />
       </div>
 
       <loading-item-album
@@ -48,13 +52,24 @@
         "
       >
         <div class="mt-5 gap-4 flex flex-wrap">
-          <item-album
-            :album="album"
+          <div
             v-for="album in myPageStore?.listAlbumsUser"
-            :key="album.id"
-            class="item-album !mb-0 h-full overflow-hidden"
-            overlay
-          />
+            class="item-album relative overflow-hidden"
+          >
+            <item-album
+              :album="album"
+              :key="album.id"
+              class="!mb-0 h-full overflow-hidden"
+              overlay
+              isCheckbox
+            />
+            <input
+              type="checkbox"
+              class="w-[20px] h-[20px] absolute top-3 right-3 cursor-pointer"
+              :value="album.id"
+              v-model="listCheckedAlbums"
+            />
+          </div>
         </div>
 
         <div
@@ -85,6 +100,8 @@ import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from "@/constants/app.constants";
 import LoadingCircle from "@/components/LoadingCircle/LoadingCircle.vue";
 import LoadingItemAlbum from "@/components/LoadingItemAlbum/LoadingItemAlbum.vue";
 
+import RemoveAlbums from "../../components/RemoveAlbums/RemoveAlbums.vue";
+
 import { MyPagePaths } from "../../constants/my-page.paths.js";
 import {
   LIST_FILTER_ALBUMS,
@@ -101,6 +118,7 @@ const initParams = reactive({
   page: DEFAULT_PAGE,
   perPage: DEFAULT_PER_PAGE,
 });
+const listCheckedAlbums = ref([]);
 
 onMounted(async () => {
   if (myPageStore.listAlbumsUser?.length) {

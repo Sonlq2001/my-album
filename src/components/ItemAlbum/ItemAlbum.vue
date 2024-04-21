@@ -5,7 +5,10 @@
       params: { slug: album.slug },
       query: { status: queryPrivate },
     }"
-    class="mb-5 relative overflow-hidden box-image inline-block max-sm:mb-4 text-[16px]"
+    :class="[
+      'mb-5 overflow-hidden box-image inline-block max-sm:mb-4 text-[16px]',
+      isCheckbox ? '' : 'relative',
+    ]"
   >
     <div
       v-if="overlay"
@@ -41,6 +44,10 @@ const props = defineProps({
     require: true,
   },
   overlay: {
+    type: Boolean,
+    default: false,
+  },
+  isCheckbox: {
     type: Boolean,
     default: false,
   },
