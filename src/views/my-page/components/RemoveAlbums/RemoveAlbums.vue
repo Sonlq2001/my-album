@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center gap-3">
+  <div class="flex items-center gap-3 ml-auto">
     <span class="text-[16px]" v-if="allCheckedAlbums">
       <span class="font-semibold">{{ allCheckedAlbums }}</span>
       album
