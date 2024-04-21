@@ -133,6 +133,8 @@ onMounted(async () => {
 watch(
   () => [initParams.sort, initParams.filter],
   async () => {
+    listCheckedAlbums.value = [];
+
     isLoading.value = true;
     await fetchAlbums({ hasSearch: true });
     isLoading.value = false;
