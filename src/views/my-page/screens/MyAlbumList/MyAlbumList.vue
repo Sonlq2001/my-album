@@ -9,7 +9,9 @@
         Albums của bạn
       </h1>
 
-      <div class="flex items-center justify-between">
+      <div
+        class="flex items-center justify-between gap-4 max-sm:flex-col max-sm:items-start"
+      >
         <div class="flex items-center">
           <select
             class="cursor-pointer bg-gray border border-[#ddd] text-[13px] rounded-3xl focus:ring-main focus:border-main px-2 py-[4px] outline-none mr-3"
