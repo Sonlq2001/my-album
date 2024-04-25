@@ -33,6 +33,12 @@ const getUserAlbumsInfoApi = ({ slugUser, ...rest }) => {
   );
 };
 
+const deleteManyAlbumsApi = (ids) => {
+  return instanceApi.delete(MyPageEndpoints.DELETE_MANY_ALBUMS, {
+    data: { ids },
+  });
+};
+
 export const myPageApi = {
   updateProfileUserApi,
   getUserApi,
@@ -40,4 +46,5 @@ export const myPageApi = {
   getBookmarksApi,
   getUserInfoApi,
   getUserAlbumsInfoApi,
+  deleteManyAlbumsApi,
 };

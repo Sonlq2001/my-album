@@ -56,9 +56,11 @@ export const useMyPageStore = defineStore("my-page", {
     },
 
     resetAlbumsUser() {
-      this.total = 0;
-      this.albumsUser = null;
-      this.cancelLoadMore = false;
+      this.albumsUser = {
+        total: 0,
+        list: null,
+        cancelLoadMore: false,
+      };
     },
 
     async getBookmarks({ hasSearch, ...rest }) {
@@ -94,15 +96,16 @@ export const useMyPageStore = defineStore("my-page", {
       this.userInfo = null;
       this.userAlbumsInfo = { list: null, total: 0 };
     },
+
+    async deleteManyAlbums(ids = []) {
+      await myPageApi.deleteManyAlbumsApi(ids);
+      this.albumsUser.list = (this.albumsUser.list ?? []).filter(
+        (item) => !ids.includes(item.id)
+      );
+    },
   },
 
   getters: {
-    listAlbumsUser() {
-      return (this.albumsUser.list ?? []).map((album) => ({
-        ...album,
-        albumAvatar: album.albums[0],
-      }));
-    },
     listBookmarks() {
       return (this.bookmarks.list ?? []).map((album) => ({
         ...album,

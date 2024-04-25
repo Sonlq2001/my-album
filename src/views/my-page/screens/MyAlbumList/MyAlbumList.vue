@@ -48,15 +48,12 @@
         v-if="isLoading"
         class="mt-5 gap-5 max-lg:columns-3 max-sm:columns-2 max-sm:gap-4"
       />
-      <div
-        v-else-if="
-          myPageStore?.listAlbumsUser && myPageStore?.listAlbumsUser?.length > 0
-        "
-      >
+      <div v-else-if="convertData && convertData.length > 0">
         <div class="mt-5 gap-4 flex flex-wrap">
           <div
-            v-for="album in myPageStore?.listAlbumsUser"
+            v-for="album in convertData"
             class="item-album relative overflow-hidden"
+            :key="album.id"
           >
             <item-album
               :album="album"
@@ -92,7 +89,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, watch, onUnmounted } from "vue";
+import { onMounted, ref, reactive, watch, onUnmounted, computed } from "vue";
+import { storeToRefs } from "pinia";
 
 import ReturnTo from "@/components/ReturnTo/ReturnTo.vue";
 import { LIST_SORT, SORT_VALUE } from "@/constants/app.constants";
@@ -111,7 +109,7 @@ import {
 } from "../../constants/my-page.constants";
 
 const myPageStore = useMyPageStore();
-
+const { albumsUser } = storeToRefs(myPageStore);
 const isLoading = ref(true);
 const isLoadingScroll = ref(false);
 const initParams = reactive({
@@ -123,12 +121,7 @@ const initParams = reactive({
 const listCheckedAlbums = ref([]);
 
 onMounted(async () => {
-  if (myPageStore.listAlbumsUser?.length) {
-    isLoading.value = false;
-    return;
-  }
-
-  await fetchAlbums();
+  await fetchAlbums({ ...initParams, page: 1 });
   isLoading.value = false;
 });
 
@@ -169,13 +162,15 @@ const visibilityChanged = async (isVisible) => {
   isLoadingScroll.value = false;
 };
 
+const convertData = computed(() => {
+  return (albumsUser.value.list ?? []).map((album) => ({
+    ...album,
+    albumAvatar: album.albums[0],
+  }));
+});
+
 onUnmounted(() => {
-  if (
-    initParams.page > DEFAULT_PAGE ||
-    initParams.sort !== SORT_VALUE.CREATED_DESC
-  ) {
-    myPageStore.resetAlbumsUser();
-  }
+  myPageStore.resetAlbumsUser();
 });
 </script>
 

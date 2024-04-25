@@ -5,4 +5,5 @@ export const MyPageEndpoints = {
   GET_BOOKMARKS: "/bookmark/album_list",
   GET_USER_INFO: "/user/:slug_user/info",
   GET_USER_ALBUMS_INFO: "/album/:slug_user/info",
+  DELETE_MANY_ALBUMS: "/album/delete/many",
 };
