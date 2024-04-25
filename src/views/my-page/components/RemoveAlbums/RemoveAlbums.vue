@@ -30,9 +30,6 @@ const props = defineProps({
     type: Array,
     default: [String],
   },
-  deleteSuccess: {
-    typeof: Function,
-  },
 });
 const myPageStore = useMyPageStore();
 
